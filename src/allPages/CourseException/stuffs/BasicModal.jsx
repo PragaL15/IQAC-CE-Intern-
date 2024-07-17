@@ -1,13 +1,8 @@
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
-import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
-import '../styles/Facultymodal.css'
+import '../styles/Facultymodal.css';
 import { useEffect, useState } from 'react';
-
 
 const style = {
   position: 'absolute',
@@ -15,43 +10,50 @@ const style = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: '75%', // Adjusted width for larger screens
-  maxWidth: '390px', // Maximum width for smaller screens
+  maxWidth: '380px', // Maximum width for smaller screens
   bgcolor: 'background.paper',
   boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px;',
-  borderRadius:'10px',
+  borderRadius: '10px',
   p: 4,
 };
 
 const BasicModal = ({ rowData, open, handleClose, faculty }) => {
-  const [status,setStatus] = useState("")
-  const [appliedFor,setAppliedFor] = useState("")
-  const [remOpen,setremOpen] = useState(false)
-  const [certificatePath,setCertificatePath] = useState("");
+  const [status, setStatus] = useState("");
+  const [appliedFor, setAppliedFor] = useState("");
+  const [remOpen, setRemOpen] = useState("");
+  const [certificatePath, setCertificatePath] = useState("");
+  const [reportPath, setReportPath] = useState("");
 
   useEffect(() => {
-    if(rowData.approval_status === 1){
-      setStatus("Approved")
-    }
-    else if(rowData.approval_status === -1){
-      setStatus("Rejected")
-      setremOpen(true)
-    }
-    else{
-      setStatus("Initiated")
+    if (rowData.approval_status === 1) {
+      setStatus("Approved");
+    } else if (rowData.approval_status === -1) {
+      setStatus("Rejected");
+      setRemOpen(true);
+    } else {
+      setStatus("Initiated");
     }
 
-    if(rowData.type=="1"){
-      setAppliedFor("Excemption");
+    if (rowData.type === "1") {
+      setAppliedFor("Exemption");
+    } else {
+      setAppliedFor("Rewards");
     }
-    else{
-      setAppliedFor("Rewards")
-    }
-    setCertificatePath(rowData.certificate_path)
-  }, []);
+    setCertificatePath(rowData.certificateFilePath);
+    setReportPath(rowData.reportFilePath);
+  }, [rowData]);
 
-  const handleView = () => {
-    const pdfURL = `http://localhost:5001/api/ce/oc/onlineApply/pdfs/${certificatePath}`;
-    window.open(pdfURL, '_blank');
+  const handleView = (filePath) => {
+    const fileURL = `http://localhost:3000/images/${filePath}`;
+    window.open(fileURL, '_blank');
+  };
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
   };
 
   return (
@@ -62,79 +64,80 @@ const BasicModal = ({ rowData, open, handleClose, faculty }) => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
-          {/* <Typography id="modal-modal-title" variant="h6" component="h2">
-            Student Details
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Student: {rowData.student} <br />
-            Register Number: {rowData.register_number} <br />
-            Year: {rowData.year} <br />
-            Course Type: {rowData.course_type} <br />
-            Course Name: {rowData.name_of_course} <br />
-            Semester: {rowData.semester} <br />
-            Start Date: {rowData.start_date} <br />
-            End Date: {rowData.end_date} <br />
-            Certificate URL: {rowData.certificate_url} <br />
-            Status: {rowData.status === 0 ? 'Initiated' : rowData.status === 1 ? 'Approved' : 'Rejected'} <br />
-          </Typography> */}
+        <Box sx={style} className='BasicModal'>
           <div className='modal'>
-          {faculty && <>
+            <div className="CourseTit">Internship Details</div>
+            {faculty && <>
+              <div className='field'>
+                <div className='fldClm'>Student</div>
+                <div className='fldData'>{rowData.name}</div>
+              </div>
+              <div className='field'>
+                <div className='fldClm'>Register Number</div>
+                <div className='fldData'>{rowData.rollNo}</div>
+              </div>
+              <div className='field'>
+                <div className='fldClm'>Year</div>
+                <div className='fldData'>{rowData.year === 1 ? "1st Year" : rowData.year === 2 ? "2nd Year" : rowData.year === 3 ? "3rd Year" : "4th Year"}</div>
+              </div>
+            </>}
             <div className='field'>
-                <div style={{width:"150px"}}>Student</div>
-                <div>{rowData.student_name}</div>
+                <div className='fldClm'>Student</div>
+                <div className='fldData'>{rowData.name}</div>
+              </div>
+              <div className='field'>
+                <div className='fldClm'>Register Number</div>
+                <div className='fldData'>{rowData.rollNo}</div>
+              </div>
+              <div className='field'>
+                <div className='fldClm'>Year</div>
+                <div className='fldData'>{rowData.year === 1 ? "1st Year" : rowData.year === 2 ? "2nd Year" : rowData.year === 3 ? "3rd Year" : "4th Year"}</div>
+              </div>
+            <div className='field'>
+              <div className='fldClm'>Industry</div>
+              <div className='fldData'>{rowData.Industry}</div>
             </div>
             <div className='field'>
-                <div style={{width:"150px"}}>Register Number</div>
-                <div>{rowData.register_number}</div>
+              <div className='fldClm'>Start Date</div>
+              <div className='fldData'>{formatDate(rowData.StartDate)}</div>
             </div>
             <div className='field'>
-                <div style={{width:"150px"}}>Year</div>
-                <div>{rowData.year===1?"1st Year":rowData.year===2?"2nd year":rowData.year===3?"3rd Year":"4th Year "}</div>
-            </div>
-          </>}
-          <div className='field'>
-                <div style={{width:"150px"}}>Course Type</div>
-                <div>{rowData.platform_name}</div>
+              <div className='fldClm'>End Date</div>
+              <div className='fldData'>{formatDate(rowData.EndDate)}</div>
             </div>
             <div className='field'>
-                <div style={{width:"150px"}}>Course Name</div>
-                <div>{rowData.course_name}</div>
+              <div className='fldClm'>Duration</div>
+              <div className='fldData'>{rowData.duration}</div>
             </div>
             <div className='field'>
-                <div style={{width:"150px"}}>Semester</div>
-                <div>{rowData.semester}</div>
-          </div>
-          <div className='field'>
-                <div style={{width:"150px"}}>Start Date</div>
-                <div>{rowData.start_date}</div>
-          </div>
-          <div className='field'>
-                <div style={{width:"150px"}}>End Date</div>
-                <div>{rowData.end_date}</div>
-          </div>
-          <div className='field'>
-                <div style={{width:"150px"}}>Applied For</div>
-                <div>{appliedFor}</div>
-          </div>
-          <div className='field'>
-                <div style={{width:"150px"}}>Certificate Url</div>
-                <div>{rowData.certificate_url}</div>
-          </div>
-          <div className='field'>
-                <div style={{width:"150px"}}>Certificate</div>
-                <div className='pdficon' onClick={handleView} ><InsertDriveFileIcon/><div>View</div></div>
-          </div>
-          <div className='field'>
-              <div style={{width:"150px"}}>Status</div>
-              <div><button className={rowData.approval_status===1?"btnApprove":rowData.approval_status===-1?"btnRemove":"btnInitiated"}>{status}</button></div>
-          </div>
-          {remOpen &&
-            <div className='field'>
-              <div style={{width:"150px"}}>Remark</div>
-              <div className='remar'>{rowData.remarks}</div>
+              <div className='fldClm'>Mode</div>
+              <div className='fldData'>{rowData.mode}</div>
             </div>
-          }
+          
+            <div className='field'>
+              <div className='fldClm'>Applied For:</div>
+              <div className='fldData'>{appliedFor}</div>
+            </div>
+            <div className='field'>
+              <div className='fldClm'>Certificate</div>
+              <div className='pdficon' onClick={() => handleView(certificatePath)}><InsertDriveFileIcon /><div>View certificate</div></div>
+            </div>
+            <div className='field'>
+              <div className='fldClm'>Report</div>
+              <div className='pdficon' onClick={() => handleView(reportPath)}><InsertDriveFileIcon /><div>View report</div></div>
+            </div>
+            {rowData.approval_status === -1 && remOpen && (
+              <div className='field remOpen'>
+                <div className='fldClm'>Remark</div>
+                <div className='remar'>{rowData.remark}</div>
+              </div>
+            )}
+
+            <div className='field'>
+              <div className='fldClm'>Status</div>
+              <div className='fldData'><button className={rowData.approval_status === 1 ? "btnApprove" : rowData.approval_status === -1 ? "btnRemove" : "btnInitiated"}>{status}</button></div>
+            </div>
+
           </div>
         </Box>
       </Modal>

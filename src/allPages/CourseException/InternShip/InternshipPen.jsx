@@ -1,214 +1,189 @@
 import React, { useEffect, useState } from 'react';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
-import FacultyModal from '../stuffs/FacultyModal';
-import '../styles/courseApproval.css';
 import { DataGrid } from '@mui/x-data-grid';
 import { Box } from '@mui/material';
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
-import BasicModal from '../stuffs/BasicModal';
+import FacultyModal from '../stuffs/FacultyModal'; // Adjust the import path as needed
+import '../styles/courseApproval.css';
 
 const InternshipPen = () => {
+  const [selectedOption, setSelectedOption] = useState("0"); // Default to fetch all pending applications
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [data, setData] = useState([]);
+  const [selectedRowData, setSelectedRowData] = useState(null);
 
-    const [selectedOption, setSelectedOption] = useState("1");
-    const [showDropdown, setShowDropdown] = useState(false);
-    const [data, setData] = useState([]);
-    const [selectedRowData, setSelectedRowData] = useState(null);
-    const [mentorCode,setmentorCode] = useState("22IT137");
+  const handleFilterClick = () => {
+    setShowDropdown(!showDropdown);
+  };
 
-    const handleFilterClick = () => {   
-        setShowDropdown(!showDropdown); 
-      };
-    
-    const handleOptionSelect = (option) => {
-        setSelectedOption(option);
-        fetchData(option,mentorCode);
-        setShowDropdown(false);
-      };
-    
-    const columns = [
-      {
-        field: "student_name",
-        headerName: "Student",
-        headerClassName: "super-app-theme--header",
-      },
-      {
-        field: "register_number",
-        headerName: "Register Number",
-        headerClassName: "super-app-theme--header",
-      },
-      {
-        field: "year",
-        headerName: "Year Of Study",
-        headerClassName: "super-app-theme--header",
-        renderCell: (params) => (
-          <Box>
-            {params.value === 1
-              ? "1st Year"
-              : params.value === 2
-              ? "2nd Year"
-              : params.value === 3
-              ? "3rd Year"
-              : "4th year"}
-          </Box>
-        ),
-      },
-      {
-        field: "platform_name",
-        headerName: "Course Type",
-        headerClassName: "super-app-theme--header",
-        width: 100,
-      },
-      {
-        field: "course_name",
-        headerName: "Course Name",
-        headerClassName: "super-app-theme--header",
-        width: 100,
-      },
-      {
-        field: "semester",
-        headerName: "Semester",
-        headerClassName: "super-app-theme--header",
-        width: 100,
-      },
-      {
-        field: "start_date",
-        headerName: "Start Date",
-        headerClassName: "super-app-theme--header",
-        width: 100,
-      },
-      {
-        field: "end_date",
-        headerName: "End Date",
-        headerClassName: "super-app-theme--header",
-        width: 100,
-      },
-      {
-        field: "certificate_url",
-        headerName: "Certificate URL",
-        headerClassName: "super-app-theme--header",
-        width: 100,
-      },
-      {
-        field: "view",
-        headerName: "View",
-        headerClassName: "super-app-theme--header",
-        renderCell: (params) => (
-          <Box
-            style={{ cursor: "pointer" }}
-            onClick={() => setSelectedRowData(params.row)}
-          >
-            <RemoveRedEyeOutlinedIcon />
-          </Box>
-        ),
-      },
-    ];
+  const handleOptionSelect = (option) => {
+    setSelectedOption(option);
+    fetchData(option);
+    setShowDropdown(false);
+  };
 
-      const customLocaleText = {
-        noRowsLabel: `You have not Yet Approved any students for ${selectedOption == "1" ? "Course Exception" : "Rewards"} `, 
-      };
+  const columns = [
+    { field: "id", headerName: "ID", headerClassName: "super-app-theme--header", width: 100 },
+    { field: "name", headerName: "Student Name", headerClassName: "super-app-theme--header", width: 150 },
+    { field: "mode", headerName: "Mode", headerClassName: "super-app-theme--header", width: 100 },
+    { field: "duration", headerName: "Duration", headerClassName: "super-app-theme--header", width: 100 },
+    { field: "Industry", headerName: "Industry", headerClassName: "super-app-theme--header", width: 150 },
+    { 
+      field: "StartDate", 
+      headerName: "Start Date", 
+      headerClassName: "super-app-theme--header", 
+      width: 150,
+      valueGetter: (params) => formatDate(params.row.StartDate),
+    },
+    { 
+      field: "EndDate", 
+      headerName: "End Date", 
+      headerClassName: "super-app-theme--header", 
+      width: 150,
+      valueGetter: (params) => formatDate(params.row.EndDate),
+    },
+    { 
+      field: "certificateFilePath", 
+      headerName: "Certificate", 
+      headerClassName: "super-app-theme--header", 
+      width: 150,
+      renderCell: (params) => (
+        params.value ? 
+        <a href={`http://localhost:3000/images/${params.value}`} target="_blank" rel="noopener noreferrer">View Certificate</a> 
+        : 'No Certificate'
+      ),
+    },
+    {
+      field: "view",
+      headerName: "View",
+      headerClassName: "super-app-theme--header",
+      width: 100,
+      renderCell: (params) => (
+        <Box
+          style={{ cursor: "pointer" }}
+          onClick={() => setSelectedRowData(params.row)}
+        >
+          <RemoveRedEyeOutlinedIcon />
+        </Box>
+      ),
+    },
+  ];
 
-      const fetchData = async (selectedOption,mentorCode) => {
-        try {
-          const response = await fetch(`http://localhost:5001/api/ce/oc/facultyApprovals?type=${selectedOption}&approval_status=${1}&mentor_code=${mentorCode}`);
-          if (!response.ok) {
-            throw new Error('Failed to fetch data');
-          }
-          const jsonData = await response.json();
-          setData(jsonData);
-        } catch (error) {
-          console.error('Error fetching data:', error);
-        }
-      };
-    
-      useEffect(() => {
-        fetchData(selectedOption,mentorCode); 
-      }, []);
+  const customLocaleText = {
+    noRowsLabel: "No records to display.",
+  };
+
+  const fetchData = async (option) => {
+    try {
+      const response = await fetch(`http://localhost:3000/pendingApplications`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch data');
+      }
+      const jsonData = await response.json();
+      const filteredData = jsonData.data.filter(item => item.approval_status === 0);
+      setData(filteredData);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData(selectedOption);
+  }, [selectedOption]);
+
+  const formatDate = (dateString) => {
+    if (!dateString) return '';
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero indexed
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
 
   return (
     <>
-    <div>
-      <div className="titFac">
-        <div className="ti">
-          <h4>Approved Courses</h4>
-        </div>
-        <div
-          style={{ margin: "20px", marginRight: "30px", marginBottom: "5px" }}
-        >
-          < div style={{ display: "flex", flexDirection: "row" }}>
-            <h4 style={{ marginTop: "5px" }}>Filter</h4>
-            <div className="icon" onClick={handleFilterClick}>
-              <FilterAltIcon className="iconfilter" />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="drop">
-        {showDropdown && (
-          <div className="dropdown">
-            <div className="op1" onClick={() => handleOptionSelect("0")}>
-              <h5>Rewards</h5>
-            </div>
-            <div className="op2" onClick={() => handleOptionSelect("1")}>
-              <h5>Course Exemption</h5>
-            </div>
-          </div>
-        )}
-      </div>
       <div>
-        <div className="titl">
-          <div>{selectedOption == "1" ? "Course Exception" : "Rewards"}</div>
-        </div>
-      </div>
-      <div>
-        <div className='hometable'>
-        <div className="tableMain">
-          <div className="datagrid">
-            <DataGrid
-              autoHeight
-              rows={data}
-              columns={columns}
-              localeText={customLocaleText}
-              sx={{
-                maxWidth: "100%", // Set width to 80%
-                overflowX: "auto", // Enable horizontal scrolling
-                "& .super-app-theme--header": {
-                  color: "var(--heading-crsExp)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                },
-                "& .MuiDataGrid-columnsContainer": {
-                  overflow: "visible", // Allow column headers to overflow for scrolling
-                },
-                "& .MuiDataGrid-colCell, .MuiDataGrid-cell": {
-                  whiteSpace: "nowrap", // Prevent wrapping of cell content
-                },
-              }}
-              initialState={{
-                pagination: {
-                  paginationModel: {
-                    pageSize: 5,
-                  },
-                },
-              }}
-              pageSizeOptions={[5]}
-              disableRowSelectionOnClick
-            />
+        <div className="titFac">
+          <div className="ti">
+            <h4>Pending Internship</h4>
           </div>
-          {selectedRowData && (
-            <BasicModal
-            faculty={true}
-            open={true} // Always keep the modal open when there's selectedRowData
-            handleClose={() => setSelectedRowData(null)}
-            rowData={selectedRowData}
-          />
+          <div style={{ margin: "20px", marginRight: "30px", marginBottom: "5px" }}>
+            <div style={{ display: "flex", flexDirection: "row" }}>
+              <h4 style={{ marginTop: "5px" }}>Filter</h4>
+              <div className="icon" onClick={handleFilterClick}>
+                <FilterAltIcon className="iconfilter" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="drop">
+          {showDropdown && (
+            <div className="dropdown">
+              <div className="op1" onClick={() => handleOptionSelect("0")}>
+                <h5>Option 1</h5>
+              </div>
+              <div className="op2" onClick={() => handleOptionSelect("1")}>
+                <h5>Option 2</h5>
+              </div>
+            </div>
           )}
         </div>
+        <div>
+          <div className="titl">
+            <div>Pending Applications</div>
+          </div>
+        </div>
+        <div>
+          <div className='hometable'>
+            <div className="tableMain">
+              <div className="datagrid">
+                <DataGrid
+                  autoHeight
+                  rows={data}
+                  columns={columns}
+                  localeText={customLocaleText}
+                  sx={{
+                    maxWidth: "100%",
+                    overflowX: "auto",
+                    "& .super-app-theme--header": {
+                      color: "var(--heading-crsExp)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    },
+                    "& .MuiDataGrid-columnsContainer": {
+                      overflow: "visible",
+                    },
+                    "& .MuiDataGrid-colCell, .MuiDataGrid-cell": {
+                      whiteSpace: "nowrap",
+                    },
+                  }}
+                  initialState={{
+                    pagination: {
+                      paginationModel: {
+                        pageSize: 5,
+                      },
+                    },
+                  }}
+                  pageSizeOptions={[5]}
+                  disableRowSelectionOnClick
+                />
+              </div>
+              {selectedRowData && (
+                <FacultyModal
+                  faculty={true}
+                  open={true}
+                  handleClose={() => setSelectedRowData(null)}
+                  rowData={selectedRowData}
+                  fetchData={() => fetchData(selectedOption)} // Pass the fetchData function as a prop
+                />
+              )}
+            </div>
+          </div>
+        </div>
       </div>
-      </div>
-    </div>
     </>
-  )
-}
+  );
+};
 
-export default InternshipPen
+export default InternshipPen;

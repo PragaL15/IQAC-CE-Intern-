@@ -40,22 +40,23 @@ function VerticalNavbar({ onClose }) {
             <div className={`menu-item ${internshipOpen ? 'active' : ''}`} onClick={handleInternshipOpen}>
                 <Link className="link-style"><DashboardRoundedIcon className='nav-icons' />Internship{internshipOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />} </Link>
             </div>
-            <div className={`menu-item ${AddonOpen ? 'active' : ''}`} onClick={handleAddonOpen}>
-                <Link className="link-style"><DashboardRoundedIcon className='nav-icons' />Add-on{AddonOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />} </Link>
-            </div>
+            
             {internshipOpen && 
                 <div className='options'>
-                    <div className={`menu-items ${activeLink === '/courseApproval' ? 'active' : ''}`} onClick={() => handleLinkClick('/courseApproval')}>
-                        <Link to="/courseApproval" className="link-style"><DashboardRoundedIcon className='nav-icons' />Pending Intern</Link>
+                    <div className={`menu-items ${activeLink === '/InternshipPen' ? 'active' : ''}`} onClick={() => handleLinkClick('/InternshipPen')}>
+                        <Link to="/InternshipPen" className="link-style"><DashboardRoundedIcon className='nav-icons' />Pending Intern</Link>
                     </div>
-                    <div className={`menu-items ${activeLink === '/OnlineReports' ? 'active' : ''}`} onClick={() => handleLinkClick('/OnlineReports')}>
-                        <Link to="/OnlineReports" className="link-style"><DashboardRoundedIcon className='nav-icons' />Approved Intern</Link>
+                    <div className={`menu-items ${activeLink === '/InternshipApp' ? 'active' : ''}`} onClick={() => handleLinkClick('/InternshipApp')}>
+                        <Link to="/InternshipApp" className="link-style"><DashboardRoundedIcon className='nav-icons' />Approved Intern</Link>
                     </div>
-                    <div className={`menu-items ${activeLink === '/OnlineRejected' ? 'active' : ''}`} onClick={() => handleLinkClick('/OnlineRejected')}>
-                        <Link to="/OnlineRejected" className="link-style"><DashboardRoundedIcon className='nav-icons' />Rejected Intern</Link>
+                    <div className={`menu-items ${activeLink === '/InternshipRej' ? 'active' : ''}`} onClick={() => handleLinkClick('/InternshipRej')}>
+                        <Link to="/InternshipRej" className="link-style"><DashboardRoundedIcon className='nav-icons' />Rejected Intern</Link>
                     </div>
                 </div>
             }
+            <div className={`menu-item ${AddonOpen ? 'active' : ''}`} onClick={handleAddonOpen}>
+                <Link className="link-style"><DashboardRoundedIcon className='nav-icons' />Add-on{AddonOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />} </Link>
+            </div>
             {AddonOpen && 
                 <div className='options'>
                     <div className={`menu-items ${activeLink === '/AddonPending' ? 'active' : ''}`} onClick={() => handleLinkClick('/AddonPending')}>
@@ -67,14 +68,6 @@ function VerticalNavbar({ onClose }) {
                     <div className={`menu-items ${activeLink === '/AddonRejected' ? 'active' : ''}`} onClick={() => handleLinkClick('/AddonRejected')}>
                         <Link to="/AddonRejected" className="link-style"><DashboardRoundedIcon className='nav-icons' />Rejected Addon</Link>
                     </div>
-                </div>
-            }
-            <div className={`menu-item ${oneCreditOpen ? 'active' : ''}`} onClick={handleOneCreditOpen}>
-                <Link className="link-style"><DashboardRoundedIcon className='nav-icons' />One Credit{oneCreditOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />} </Link>
-            </div>
-            {oneCreditOpen && 
-                <div className='options'>
-                    {/* Add menu items for One Credit here */}
                 </div>
             }
         </div>

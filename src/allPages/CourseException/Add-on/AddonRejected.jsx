@@ -27,12 +27,12 @@ const AddonRejected = () => {
     
     const columns = [
       {
-        field: "student_name",
+        field: "name",
         headerName: "Student",
         headerClassName: "super-app-theme--header",
       },
       {
-        field: "register_number",
+        field: "rollNo",
         headerName: "Register Number",
         headerClassName: "super-app-theme--header",
       },
@@ -53,14 +53,14 @@ const AddonRejected = () => {
         ),
       },
       {
-        field: "platform_name",
-        headerName: "Course Type",
+        field: "addon/Honor/Minor",
+        headerName: "addon/Honor/Minor",
         headerClassName: "super-app-theme--header",
         width: 100,
       },
       {
-        field: "course_name",
-        headerName: "Course Name",
+        field: "name_of_elective",
+        headerName: "Elective Name",
         headerClassName: "super-app-theme--header",
         width: 100,
       },
@@ -119,11 +119,9 @@ const AddonRejected = () => {
           console.error('Error fetching data:', error);
         }
       };
-    
       useEffect(() => {
         fetchData(selectedOption,mentorCode); 
       }, []);
-
   return (
     <>
     <div>

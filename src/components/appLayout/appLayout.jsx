@@ -18,18 +18,21 @@ import AddonForm from "../../allPages/CourseException/Add-on/AddonForm";
 import AddonPending from "../../allPages/CourseException/Add-on/AddonPending";
 import AddonRejected from "../../allPages/CourseException/Add-on/AddonRejected";
 import AddonApproval from "../../allPages/CourseException/Add-on/AddonApproval";
+import InternshipPen from "../../allPages/CourseException/InternShip/InternshipPen";
+import FacultyModal from "../../allPages/CourseException/InternShip/FacultyModal";
+import InternshipRej from "../../allPages/CourseException/InternShip/InternshipRej";
+import InternshipApp from "../../allPages/CourseException/InternShip/InternshipApp";
+import InternshipHome from "../../allPages/CourseException/InternShip/Internship";
+import FacAddForm from "../../allPages/CourseException/Add-on/FacAddForm";
 
 function AppLayout() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   const toggleVerticalNavbar = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-
   const closeVerticalNavbar = () => {
     setIsMenuOpen(false); // Set isMenuOpen to false to close the vertical navbar
   };
-
   return (
     <div className="total-app-layout">
       <Router>
@@ -53,11 +56,17 @@ function AppLayout() {
                 <Route path="/onlineReports" element={<OnlineReports />} />
                 <Route path="/onlineRejected" element={<OnlineRejected />} />
                 <Route path="/internship" element={<Internship />} />
+                <Route path="/InternshipPen" element={<InternshipPen />} />
                 <Route path="/internshipForm" element={<InternshipForm />} />
                  <Route path="/addonApproval" element={<AddonApproval />} />
                 <Route path="/addonRejected" element={<AddonRejected />} /> 
                 <Route path="/addonPending" element={<AddonPending />} />
                 <Route path="/addonForm" element={<AddonForm />} />
+                <Route path="/FacultyModal" element={<FacultyModal />} />
+                <Route path="/InternshipRej" element={<InternshipRej />} />
+                <Route path="/InternshipApp" element={<InternshipApp />} />
+                <Route path="/InternshipHome" element={<InternshipHome />} />
+                <Route path="/FacAddForm" element={<FacAddForm />} />
               </Routes>
             </div>
           </div>

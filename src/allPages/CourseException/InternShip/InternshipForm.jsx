@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "../styles/Internship.css";
+import InputBox from "../../../components/InputBox/inputbox";
 import { DatePicker } from "antd";
 import Select from "react-select";
 import dayjs from "dayjs";
 import axios from 'axios';
+//import { format } from 'date-fns';
 
 const InternshipForm = () => {
-  const [student_id, setstudent_id] = useState(1);
+  const [name, setName] = useState("");
   const [rollNo, setRollNo] = useState("");
   const [year, setYear] = useState("");
   const [semester, setSemester] = useState("");
@@ -28,85 +30,7 @@ const InternshipForm = () => {
   const [courseExceptionError, setCourseExceptionError] = useState("");
 
   const [studentData, setStudentData] = useState([]);
-
-
-  
-  const sendDataToBackend = async () => {
-    try {
-      if (certificateFile && reportFile) {
-        const formData = new FormData();
-        
-        formData.append('certificateFile', certificateFile);
-        formData.append('reportFile', reportFile);
-  
-        formData.append('student_id', student_id);
-        formData.append('student', name);
-        formData.append('rollNo', rollNo);
-        formData.append('year', year);
-        formData.append('semester', semester);
-        formData.append('degree', degree);
-        formData.append('branch', branch);
-        formData.append('specialLab', specialLab);
-        formData.append('mode', mode);
-        formData.append('Industry', Industry);
-        formData.append('StartDate', dayjs(StartDate).format('YYYY-MM-DD')); // Adjust the format
-        formData.append('EndDate', dayjs(EndDate).format('YYYY-MM-DD')); // Adjust the format
-        formData.append('duration', duration);
-        formData.append('stipend', stipend);
-        formData.append('amount', amount);
-        formData.append('courseException', courseException);
-  
-        const response = await axios.post('http://localhost:3000/createIntern', formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          },
-        });
-  
-        console.log('Response:', response.data);
-        if (response.status === 200) {
-          console.log('Data successfully sent to the backend');
-        }
-      } else {
-        console.error('Certificate file or report file is missing');
-      }
-    } catch (error) {
-      console.error('Error sending data to the backend:', error);
-    }
-  };
-  const modifyPdf = async () => {
-    if (!reportPdf) {
-      alert('Failed to load PDF');
-      return;
-    }
-    const existingPdfBytes = await reportPdf.arrayBuffer();
-    const pdfDoc = await PDFDocument.load(existingPdfBytes);
-    const timesNewRomanFont = await pdfDoc.embedFont(StandardFonts.TimesRoman);
-    const pages = pdfDoc.getPages();
-    const firstPage = pages[0];
-
-    firstPage.drawText("B.E CSD", { x: 190, y: 440, size: 12, font: timesNewRomanFont });
-    firstPage.drawText(course, { x: 190, y: 414, size: 12, font: timesNewRomanFont });
-    firstPage.drawText("11/07/2024", { x: 720, y: 455, size: 12, font: timesNewRomanFont });
-    firstPage.drawText("7376221CD132", { x: 35, y: 280, size: 12, font: timesNewRomanFont });
-    firstPage.drawText("PRAGALYA K", { x: 125, y: 280, size: 12, font: timesNewRomanFont });
-    firstPage.drawText("Front-end Developer", { x: 300, y: 280, size: 12, font: timesNewRomanFont });
-
-    const modifiedPdfBytes = await pdfDoc.save();
-    const blob = new Blob([modifiedPdfBytes], { type: 'application/pdf' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'modified_pdf.pdf';
-    a.click();
-    URL.revokeObjectURL(url);
-  };
-  const InputBox = ({ value }) => {
-    return <input type="text" value={value} readOnly />;
-  };
-  
-  
   useEffect(() => {
-    // Simulated fetched data
     const fetchedData = [
       {
         id: 1,
@@ -116,6 +40,7 @@ const InternshipForm = () => {
         specialLab: "Blockchain",
         degree: "BE",
         branch: "CSD",
+        Industry: "J.P Morgan",
       },
     ];
     setStudentData(fetchedData);
@@ -142,22 +67,52 @@ const InternshipForm = () => {
     return diffDays;
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     let formValid = true;
-  
+
+    // List of mandatory fields
+    const mandatoryFields = [
+      { value: name, name: "Name" },
+      { value: rollNo, name: "Roll Number" },
+      { value: year, name: "Year" },
+      { value: semester, name: "Semester" },
+      { value: degree, name: "Degree" },
+      { value: branch, name: "Branch" },
+      { value: specialLab, name: "Special Lab" },
+      { value: mode, name: "Mode" },
+      //{ value: Industry, name: "Industry" },
+      { value: StartDate, name: "Start Date" },
+      { value: EndDate, name: "End Date" },
+      { value: duration, name: "Duration" },
+      { value: stipend, name: "Stipend" },
+      // { value: amount, name: "Amount" },
+      // { value: courseException, name: "Course Exception" },
+      { value: certificateFile, name: "Certificate File" },
+      { value: reportFile, name: "Report File" },
+    ];
+
+    // Check if all mandatory fields are filled
+    for (const field of mandatoryFields) {
+        if (!field.value) {
+            alert(`Please fill the mandatory field: ${field.name}`);
+            formValid = false;
+            break;
+        }
+    }
+
     if (mode === "Offline" && parseInt(duration) < 45) {
       setDurationError("Duration cannot be less than 45 days");
       formValid = false;
     } else {
       setDurationError("");
     }
-  
+
     if (
       semester >= 3 &&
       mode === "Offline" &&
-      parseInt(duration) < 45 &&
-      courseException !== "Yes" // Corrected condition here
+      duration < 45 &&
+      courseException !== "Yes"
     ) {
       setCourseExceptionError(
         "Course exception cannot be selected if duration is less than 45 days"
@@ -166,12 +121,63 @@ const InternshipForm = () => {
     } else {
       setCourseExceptionError("");
     }
-  
+
     if (formValid) {
-      sendDataToBackend(); // Call the function to send data to the backend
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("rollNo", rollNo);
+      formData.append("year", year);
+      formData.append("semester", semester);
+      formData.append("degree", degree);
+      formData.append("branch", branch);
+      formData.append("specialLab", specialLab);
+      formData.append("mode", mode);
+      formData.append("Industry", Industry);
+      formData.append("StartDate", StartDate);
+      formData.append("EndDate", EndDate);
+      formData.append("duration", duration);
+      formData.append("stipend", stipend);
+      formData.append("amount", amount);
+      formData.append("courseException", courseException);
+      formData.append("certificateFile", certificateFile);
+      formData.append("reportFile", reportFile);
+
+      try {
+        const response = await axios.post('http://localhost:3000/internshipapplications', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          },
+        });
+
+        console.log('Response:', response.data);
+        if (response.status === 200) {
+          console.log('Data successfully sent to the backend');
+        }
+      } catch (error) {
+        console.error('Error sending data to the backend:', error);
+      }
+
+      console.log("Form submitted:", {
+        name,
+        rollNo,
+        year,
+        semester,
+        degree,
+        branch,
+        specialLab,
+        mode,
+        Industry,
+        StartDate,
+        EndDate,
+        duration,
+        stipend,
+        amount,
+        courseException,
+        certificateFile,
+        reportFile,
+      });
     }
   };
-  
 
   const handleStartDateChange = (date) => {
     if (EndDate && date > EndDate) {
@@ -438,14 +444,18 @@ const InternshipForm = () => {
                       <div className="quesField">
                         <label className="inp">Industry:</label>
                         <Select
-                          value={{ value: Industry, label: Industry }}
-                          onChange={(selectedOption) =>
-                            setIndustry(selectedOption.value)
-                          }
-                          placeholder=""
-                          isSearchable
-                          className="textField"
-                        />
+                    value={{ value:Industry, label:Industry }}
+                    onChange={(selectedOption) =>
+                      setIndustry(selectedOption.value)
+                    }
+                    options={studentData.map((student) => ({
+                      value: student.Industry,
+                      label: student.Industry,
+                    }))}
+                    placeholder=""
+                    isSearchable
+                    className="textField"
+                  />
                       </div>
                       <div className="quesField">
                         <label className="inp">Stipend:</label>
@@ -652,17 +662,18 @@ const InternshipForm = () => {
                       <div className="quesField">
                         <label className="inp">Industry:</label>
                         <Select
-                          value={{
-                            value: Industry,
-                            label: Industry,
-                          }}
-                          onChange={(selectedOption) =>
-                            setIndustry(selectedOption.value)
-                          }
-                          placeholder=""
-                          isSearchable
-                          className="textField"
-                        />
+                    value={{ value:Industry, label:Industry }}
+                    onChange={(selectedOption) =>
+                      setIndustry(selectedOption.value)
+                    }
+                    options={studentData.map((student) => ({
+                      value: student.Industry,
+                      label: student.Industry,
+                    }))}
+                    placeholder=""
+                    isSearchable
+                    className="textField"
+                  />
                       </div>
 
                       <div className="quesField">
