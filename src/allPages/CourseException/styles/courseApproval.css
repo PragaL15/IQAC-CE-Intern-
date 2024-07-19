@@ -1,4 +1,4 @@
-.titFac{
+/* /* .titFac{
     display: flex;
     justify-content: space-between;
     margin-bottom: 0;
@@ -29,6 +29,9 @@
     margin: 30px;
     margin-bottom: 0;
 }
+.head{
+    margin-bottom: 20px;
+}
 .op1{
     cursor: pointer;
     margin-bottom: 8px;
@@ -47,4 +50,132 @@
     font-size: 16px;
     text-decoration: underline;
     padding-bottom: 2px;
+}
+
+
+/* courseApproval.css */
+/* 
+.status-button {
+    border: none;
+    border-radius: 4px;
+    padding: 6px 12px;
+    font-size: 14px;
+    cursor: default;
+  }
+  
+  .status-button.approved {
+    background-color: rgb(7, 18, 173);
+    color: white;
+  }
+  
+  .status-button.rejected {
+    background-color: red;
+    color: white;
+  }
+  
+  .status-button.pending {
+    background-color: gray;
+    color: white;
+  } */ 
+
+/* General Flexbox Adjustments */
+.titFac {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0;
+    flex-wrap: wrap; /* Allows wrapping if needed */
+}
+
+.icon {
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.iconfilter {
+    background-color: rgb(112, 112, 211);
+    color: #ecf5fa;
+    border-radius: 5px;
+    padding: 2px;
+}
+
+.dropdown {
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    padding: 10px;
+    padding-left: 15px;
+    overflow: hidden; /* Prevents overflow */
+    text-overflow: ellipsis; /* Adds ellipsis for overflowed text */
+}
+
+.drop {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    margin-right: 30px;
+    flex-wrap: wrap; /* Allows wrapping if needed */
+}
+
+.ti {
+    margin: 30px;
+    margin-bottom: 0;
+    word-break: break-word; /* Breaks long words to fit */
+}
+
+.head {
+    margin-bottom: 20px;
+}
+
+.op1 {
+    cursor: pointer;
+    margin-bottom: 8px;
+    word-break: break-word; /* Breaks long words to fit */
+}
+
+.op2 {
+    cursor: pointer;
+    word-break: break-word; /* Breaks long words to fit */
+}
+
+.op1:hover {
+    color: rgb(112, 112, 211);
+}
+
+.op2:hover {
+    color: rgb(112, 112, 211);
+}
+
+.titl {
+    margin: 30px;
+    font-size: 16px;
+    text-decoration: underline;
+    padding-bottom: 2px;
+}
+
+/* courseApproval.css */
+
+.status-button {
+    border: none;
+    border-radius: 4px;
+    padding: 6px 12px;
+    font-size: 14px;
+    cursor: default;
+    display: inline-block;
+    overflow: hidden; /* Prevents overflow */
+    text-overflow: ellipsis; /* Adds ellipsis for overflowed text */
+    white-space: nowrap; /* Keeps text on one line */
+}
+
+.status-button.approved {
+    background-color: rgb(7, 18, 173);
+    color: white;
+}
+
+.status-button.rejected {
+    background-color: red;
+    color: white;
+}
+
+.status-button.pending {
+    background-color: gray;
+    color: white;
 }

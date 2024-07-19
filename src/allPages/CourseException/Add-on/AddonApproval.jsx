@@ -1,165 +1,168 @@
 import React, { useEffect, useState } from 'react';
-import FilterAltIcon from '@mui/icons-material/FilterAlt';
-import FacultyModal from '../stuffs/FacultyModal';
 import '../styles/courseApproval.css';
 import { DataGrid } from '@mui/x-data-grid';
 import { Box } from '@mui/material';
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
-
-
+import AddonTable from '../stuffs/AddonTable';
 
 const AddonApproval = () => {
-  const [selectedOption, setSelectedOption] = useState("1");
-  const [showDropdown, setShowDropdown] = useState(false);
-  const [data, setData] = useState([]);
-  const [selectedRowData, setSelectedRowData] = useState(null);
-  const [mentorCode,setmentorCode] = useState("22IT137");
+    const [data, setData] = useState([]);
+    const [selectedRowData, setSelectedRowData] = useState(null);
+    const [approvalMessage, setApprovalMessage] = useState("");
+    const [rejectionMessage, setRejectionMessage] = useState("");
 
-  const handleFilterClick = () => {
-    setShowDropdown(!showDropdown); 
-  };
-
-  const handleOptionSelect = (option) => {
-    setSelectedOption(option);
-    fetchData(option,mentorCode);
-    setShowDropdown(false);
-  };
-
-  const columns = [
-    { field: 'student_name', headerName: 'Student', headerClassName: 'super-app-theme--header' },
-    { field: 'register_number', headerName: 'Register Number', headerClassName: 'super-app-theme--header' },
-    { field: 'year', headerName: 'Year Of Study', headerClassName: 'super-app-theme--header' ,
-    renderCell: (params) => (
-      <Box>
+    const columns = [
         {
-          params.value === 1 ? "1st Year" : params.value === 2 ? "2nd Year" : params.value === 3 ? "3rd Year" : "4th year"
+            field: "name",
+            headerName: "Name",
+            headerClassName: "super-app-theme--header",
+        },
+        {
+            field: "register_number",
+            headerName: "Register Number",
+            headerClassName: "super-app-theme--header",
+        },
+        {
+            field: "department",
+            headerName: "Department",
+            headerClassName: "super-app-theme--header",
+        },
+        {
+            field: "Mode_of_exce",
+            headerName: "Mode of Exemption",
+            headerClassName: "super-app-theme--header",
+            width: 150,
+        },
+        {
+            field: "course_code",
+            headerName: "Course Code",
+            headerClassName: "super-app-theme--header",
+            width: 150,
+        },
+        {
+            field: "course_name",
+            headerName: "Course Name",
+            headerClassName: "super-app-theme--header",
+            width: 150,
+        },
+        {
+            field: "elective_id",
+            headerName: "Elective",
+            headerClassName: "super-app-theme--header",
+            width: 150,
+        },
+        {
+            field: "view",
+            headerName: "View",
+            headerClassName: "super-app-theme--header",
+            renderCell: (params) => (
+                <Box
+                    style={{ cursor: "pointer" }}
+                    onClick={() => setSelectedRowData(params.row)}
+                >
+                    <RemoveRedEyeOutlinedIcon />
+                </Box>
+            ),
+        },
+    ];
+
+    const customLocaleText = {
+        noRowsLabel: "You have not yet approved any students.",
+    };
+
+    const fetchData = async () => {
+        try {
+            const response = await fetch(`http://localhost:3000/FacultyAddonApp`);
+            if (!response.ok) {
+                throw new Error('Failed to fetch data');
+            }
+            const jsonData = await response.json();
+            setData(jsonData);
+        } catch (error) {
+            console.error('Error fetching data:', error);
         }
-      </Box>
-    ),
-  },
-    { field: 'platform_name', headerName: 'Course Type', headerClassName: 'super-app-theme--header', width:100 },
-    { field: 'course_name', headerName: 'Course Name', headerClassName: 'super-app-theme--header', width:100 },
-    { field: 'semester', headerName: 'Semester', headerClassName: 'super-app-theme--header', width:100 },
-    { field: 'start_date', headerName: 'Start Date', headerClassName: 'super-app-theme--header', width:100 },
-    { field: 'end_date', headerName: 'End Date', headerClassName: 'super-app-theme--header', width:100 },
-    { field: 'certificate_url', headerName: 'Certificate URL', headerClassName: 'super-app-theme--header' , width:100},
-    {
-      field: 'view',
-      headerName: 'View',
-      headerClassName: 'super-app-theme--header',
-      renderCell: (params) => (
-        <Box style={{ cursor: 'pointer' }} onClick={() => setSelectedRowData(params.row)} >
-          <RemoveRedEyeOutlinedIcon />
-        </Box>
-      ),
-    },
-  ]
+    };
 
-  const customLocaleText = {
-    noRowsLabel: `No Students Have Applied Yet for ${selectedOption == 1 ? "Course Exception" : "Rewards"} `, 
-  };
+    useEffect(() => {
+        fetchData(); 
+    }, []);
 
-  const fetchData = async (selectedOption,mentorCode) => {
-    // const option = parseInt(selectedOption);
-    try {
-      const response = await fetch(`http://localhost:5001/api/ce/oc/facultyApprovals?type=${selectedOption}&approval_status=${0}&mentor_code=${mentorCode}`);
-      if (!response.ok) {
-        throw new Error('Failed to fetch data');
-      }
-      const jsonData = await response.json();
-      setData(jsonData);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
+    const handleApproval = () => {
+        setApprovalMessage("Exemption successfully approved.");
+        // Additional logic if needed
+    };
 
-  useEffect(() => {
-    fetchData(selectedOption,mentorCode); 
-  }, []);
-  return (
-    <>
-    <div className='pendingTable'>
-      <div className="titFac">
-        <div className="ti">
-          <h4>Add-on Approval</h4>
-        </div>
-        <div
-          style={{ margin: "20px", marginRight: "30px", marginBottom: "5px" }}
-        >
-          < div style={{ display: "flex", flexDirection: "row" }}>
-            <h4 style={{ marginTop: "5px" }}>Filter</h4>
-            <div className="icon" onClick={handleFilterClick}>
-              <FilterAltIcon className="iconfilter" />
+    const handleRejection = () => {
+        setRejectionMessage("Remark successfully added.");
+        // Additional logic if needed
+    };
+
+    return (
+        <>
+            <div>
+                <div className="titFac">
+                    <div className="ti">
+                        <h4 className='head'>Approved AddonApproval</h4>
+                    </div>
+                </div>
+                <div>
+                    <div className='hometable'>
+                        <div className="tableMain">
+                            <div className="datagrid">
+                                <DataGrid
+                                    autoHeight
+                                    rows={data}
+                                    columns={columns}
+                                    localeText={customLocaleText}
+                                    sx={{
+                                        maxWidth: "100%", 
+                                        overflowX: "auto", 
+                                        "& .super-app-theme--header": {
+                                            color: "var(--heading-crsExp)",
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                        },
+                                        "& .MuiDataGrid-columnsContainer": {
+                                            overflow: "visible", 
+                                        },
+                                        "& .MuiDataGrid-colCell, .MuiDataGrid-cell": {
+                                            whiteSpace: "nowrap",
+                                        },
+                                    }}
+                                    initialState={{
+                                        pagination: {
+                                            paginationModel: {
+                                                pageSize: 5,
+                                            },
+                                        },
+                                    }}
+                                    pageSizeOptions={[5]}
+                                    disableRowSelectionOnClick
+                                />
+                            </div>
+                            {selectedRowData && (
+                                <AddonTable
+                                    faculty={true}
+                                    open={true}
+                                    handleClose={() => setSelectedRowData(null)}
+                                    rowData={selectedRowData}
+                                    onApproval={handleApproval}
+                                    onRejection={handleRejection}
+                                />
+                            )}
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <div className="drop">
-        {showDropdown && (
-          <div className="dropdown">
-            <div className="op1" onClick={() => handleOptionSelect("0")}>
-              <h5>Rewards</h5>
-            </div>
-            <div className="op2" onClick={() => handleOptionSelect("1")}>
-              <h5>Course Exemption</h5>
-            </div>
-          </div>
-        )}
-      </div>
-      <div>
-        <div className="titl">
-          <div>{selectedOption == "1" ? "Course Exception" : "Rewards"}</div>
-        </div>
-      </div>
-      <div>
-        <div className="hometable">
-        <div className="tableMain">
-          <div className="datagrid">
-            <DataGrid
-              className='dat'
-              autoHeight
-              rows={data}
-              columns={columns}
-              localeText={customLocaleText}
-              sx={{
-                maxWidth: "100%", // Set width to 80%
-                overflowX: "auto", // Enable horizontal scrolling
-                "& .super-app-theme--header": {
-                  color: "var(--heading-crsExp)",
-                  justifyContent: "center",
-                },
-                "& .MuiDataGrid-columnsContainer": {
-                  overflow: "visible", // Allow column headers to overflow for scrolling
-                },
-                "& .MuiDataGrid-colCell, .MuiDataGrid-cell": {
-                  whiteSpace: "nowrap", // Prevent wrapping of cell content
-                },
-              }}
-              initialState={{
-                pagination: {
-                  paginationModel: {
-                    pageSize: 5,
-                  },
-                },
-              }}
-              pageSizeOptions={[5]}
-              disableRowSelectionOnClick
-            />
-          </div>
-          {selectedRowData && (
-            <FacultyModal
-              open={true} // Always keep the modal open when there's selectedRowData
-              handleClose={() => setSelectedRowData(null)}
-              rowData={selectedRowData}
-              fetchData={fetchData}
-            />
-          )}
-        </div>
-      </div>
-      </div>
-    </div>
-    </>
-  );
-};
+            {approvalMessage && (
+                <div className="message success">{approvalMessage}</div>
+            )}
+            {rejectionMessage && (
+                <div className="message error">{rejectionMessage}</div>
+            )}
+        </>
+    )
+}
 
 export default AddonApproval;

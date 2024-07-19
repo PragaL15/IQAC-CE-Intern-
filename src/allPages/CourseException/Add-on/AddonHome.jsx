@@ -5,14 +5,12 @@ import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import AddonTable from '../stuffs/AddonTable'; // Adjust the import path as needed
 import '../styles/courseApproval.css';
 
-const AddonRej = () => {
+const AddonHome = ({ register_number }) => {
   const [data, setData] = useState([]);
   const [selectedRowData, setSelectedRowData] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
 
   const columns = [
-    
-    { field: 'name', headerName: 'Name', headerClassName: 'super-app-theme--header' },
     { field: "register_number", headerName: "Register Number", headerClassName: "super-app-theme--header", width: 150 },
     { field: "department", headerName: "Department", headerClassName: "super-app-theme--header", width: 150 },
     { field: "semester", headerName: "Semester", headerClassName: "super-app-theme--header", width: 100 },
@@ -26,6 +24,21 @@ const AddonRej = () => {
       headerClassName: "super-app-theme--header", 
       width: 150,
       renderCell: (params) => params.row.approval_status === -1 ? params.value : '',
+    },
+    {
+      field: "status",
+      headerName: "Status",
+      headerClassName: "super-app-theme--header",
+      width: 100,
+      renderCell: (params) => (
+        params.row.approval_status === 1 ? (
+          <button className="status-button approved">Approved</button>
+        ) : params.row.approval_status === -1 ? (
+          <button className="status-button rejected">Rejected</button>
+        ) : (
+          <button className="status-button pending">Pending</button>
+        )
+      ),
     },
     {
       field: "view",
@@ -49,7 +62,8 @@ const AddonRej = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/FacultyAddonRej`);
+      const response = await fetch(`http://localhost:3000/allDetails?register_number=7376211CS108
+`);
       if (!response.ok) {
         throw new Error('Failed to fetch data');
       }
@@ -67,7 +81,7 @@ const AddonRej = () => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [register_number]);
 
   const handleView = (rowData) => {
     setSelectedRowData(rowData);
@@ -84,7 +98,7 @@ const AddonRej = () => {
       <div>
         <div className="titFac">
           <div className="ti">
-            <h4 className='head'>Rejected Add-on</h4>
+            <h4 className='head'>Status Add-on</h4>
           </div>
         </div>
         <div>
@@ -115,7 +129,7 @@ const AddonRej = () => {
                   initialState={{
                     pagination: {
                       paginationModel: {
-                        pageSize: 5,
+                        pageSize: 15,
                       },
                     },
                   }}
@@ -139,5 +153,4 @@ const AddonRej = () => {
   );
 };
 
-export default AddonRej;
-
+export default AddonHome;

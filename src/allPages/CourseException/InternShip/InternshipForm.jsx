@@ -81,13 +81,10 @@ const InternshipForm = () => {
       { value: branch, name: "Branch" },
       { value: specialLab, name: "Special Lab" },
       { value: mode, name: "Mode" },
-      //{ value: Industry, name: "Industry" },
       { value: StartDate, name: "Start Date" },
       { value: EndDate, name: "End Date" },
       { value: duration, name: "Duration" },
       { value: stipend, name: "Stipend" },
-      // { value: amount, name: "Amount" },
-      // { value: courseException, name: "Course Exception" },
       { value: certificateFile, name: "Certificate File" },
       { value: reportFile, name: "Report File" },
     ];
