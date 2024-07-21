@@ -75,7 +75,8 @@ const InternshipPen = () => {
 
   const fetchData = async (option) => {
     try {
-      const response = await fetch(`http://localhost:3000/pendingApplications`);
+      const response = await fetch('http://localhost:3000/pendingApplications');
+
       if (!response.ok) {
         throw new Error('Failed to fetch data');
       }

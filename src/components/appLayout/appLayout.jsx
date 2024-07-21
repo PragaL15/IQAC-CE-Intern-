@@ -25,7 +25,10 @@ import InternshipApp from "../../allPages/CourseException/InternShip/InternshipA
 import InternshipHome from "../../allPages/CourseException/InternShip/Internship";
 import FacAddForm from "../../allPages/CourseException/Add-on/FacAddForm";
 import UploadPage from "../../allPages/CourseException/InternShip/UploadPage";
-
+import CourseForm from "../../allPages/CourseException/Add-on/CourseForm";
+import CourseList from "../../allPages/CourseException/stuffs/CourseList";
+import App from "../../allPages/CourseException/Add-on/AddonMulti";
+import HMupload from "../../allPages/CourseException/Add-on/HMupload";
 function AppLayout() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const toggleVerticalNavbar = () => {
@@ -69,6 +72,10 @@ function AppLayout() {
                 <Route path="/InternshipHome" element={<InternshipHome />} />
                 <Route path="/FacAddForm" element={<FacAddForm />} />
                 <Route path="/UploadPage" element={<UploadPage />} />
+                <Route path="/CourseForm" element={<CourseForm />} />
+                <Route path="/CourseList" element={<CourseList />} />
+                <Route path="/App" element={<App />} />
+                <Route path="/HMupload" element={<HMupload />} />
               </Routes>
             </div>
           </div>
