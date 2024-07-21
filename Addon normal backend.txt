@@ -1,0 +1,239 @@
+const express = require('express');
+const cors = require('cors');
+const mysql = require('mysql');
+const bodyParser = require('body-parser');
+
+const app = express();
+const port = 3000;
+
+// Middleware
+app.use(cors());
+app.use(bodyParser.json());
+
+// MySQL Connection Pool
+const db = mysql.createPool({
+  host: 'localhost',
+  user: 'PragalyaK',
+  password: 'pragalya123',
+  database: 'iqac_ce',
+});
+
+// Utility function to handle MySQL queries
+const queryDatabase = (query, values = []) => {
+  return new Promise((resolve, reject) => {
+    db.query(query, values, (err, results) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(results);
+      }
+    });
+  });
+};
+
+// Endpoint to fetch register numbers
+app.get('/registerNumbers', async (req, res) => {
+  try {
+    const query = 'SELECT register_number FROM master_students';
+    const results = await queryDatabase(query);
+    const registerNumbers = results.map(row => ({
+      value: row.register_number,
+      label: row.register_number,
+    }));
+    res.json(registerNumbers);
+  } catch (err) {
+    console.error('Error fetching register numbers:', err);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// Endpoint to fetch Mode_of_excemption options
+app.get('/modeOptions', async (req, res) => {
+  try {
+    const query = 'SELECT id, mode_name FROM mode_ex';
+    const results = await queryDatabase(query);
+    const modeOptions = results.map(row => ({
+      value: row.id,
+      label: row.mode_name,
+    }));
+    res.json(modeOptions);
+  } catch (err) {
+    console.error('Error fetching mode options:', err);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// Endpoint to fetch elective names
+app.get('/electiveNames', async (req, res) => {
+  try {
+    const query = 'SELECT id, electiveName FROM elective_name';
+    const results = await queryDatabase(query);
+    const electiveNames = results.map(row => ({
+      value: row.id,
+      label: row.electiveName,
+    }));
+    res.json(electiveNames);
+  } catch (err) {
+    console.error('Error fetching elective names:', err);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// Endpoint to handle form submission
+app.post('/submitForm', async (req, res) => {
+  const { register_number, semester, department, addHm, courseID, courseName, electiveId, rejected_by } = req.body;
+
+  if (!register_number || !semester || !department || !addHm || !courseID || !courseName || !electiveId) {
+    return res.status(400).json({ error: 'Missing required fields' });
+  }
+
+  // Assuming rejected_by is optional or not needed in your table
+  const sql = `
+    INSERT INTO add_on (register_number, semester, department, Mode_of_exce, course_code, course_name, elective_id)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
+  `;
+  const values = [register_number, semester, department, addHm, courseID, courseName, electiveId];
+
+  try {
+    await queryDatabase(sql, values);
+    res.status(200).send('Form submitted successfully');
+  } catch (error) {
+    console.error('Error submitting form:', error);
+    res.status(500).send('Form submission failed');
+  }
+});
+
+
+// Endpoint to fetch pending approvals based on approval_status with joined data
+app.get('/facultyApprovals', async (req, res) => {
+  const sql = `SELECT add_on.id, add_on.register_number, master_students.name, add_on.department, add_on.semester, mode_ex.mode_name AS Mode_of_exce, add_on.course_code, add_on.course_name, elective_name.electiveName AS elective_id, add_on.approval_status, add_on.doa, add_on.status, add_on.remark
+               FROM add_on
+               JOIN master_students ON add_on.register_number = master_students.register_number
+               JOIN mode_ex ON add_on.Mode_of_exce = mode_ex.id
+               JOIN elective_name ON add_on.elective_id = elective_name.id
+               WHERE add_on.approval_status = 0`;
+
+  try {
+    const result = await queryDatabase(sql);
+    res.json(result);
+  } catch (err) {
+    console.error('Error fetching faculty approvals:', err);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+// Endpoint to fetch rejected approvals based on approval_status with joined data
+app.get('/facultyAddonRej', async (req, res) => {
+  const sql = `SELECT add_on.id, add_on.register_number, master_students.name, add_on.department, add_on.semester, mode_ex.mode_name AS Mode_of_exce, add_on.course_code, add_on.course_name, elective_name.electiveName AS elective_id, add_on.approval_status, add_on.doa, add_on.status, add_on.remark
+               FROM add_on
+               JOIN master_students ON add_on.register_number = master_students.register_number
+               JOIN mode_ex ON add_on.Mode_of_exce = mode_ex.id
+               JOIN elective_name ON add_on.elective_id = elective_name.id
+               WHERE add_on.approval_status = -1`;
+
+  try {
+    const result = await queryDatabase(sql);
+    res.json(result);
+  } catch (err) {
+    console.error('Error fetching rejected approvals:', err);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+// Endpoint to fetch successful approvals based on approval_status with joined data
+app.get('/facultyAddonApp', async (req, res) => {
+  const sql = `SELECT add_on.id, add_on.register_number, master_students.name, add_on.department, add_on.semester, mode_ex.mode_name AS Mode_of_exce, add_on.course_code, add_on.course_name, elective_name.electiveName AS elective_id, add_on.approval_status, add_on.doa, add_on.status, add_on.remark
+               FROM add_on
+               JOIN master_students ON add_on.register_number = master_students.register_number
+               JOIN mode_ex ON add_on.Mode_of_exce = mode_ex.id
+               JOIN elective_name ON add_on.elective_id = elective_name.id
+               WHERE add_on.approval_status = 1`;
+
+  try {
+    const result = await queryDatabase(sql);
+    res.json(result);
+  } catch (err) {
+    console.error('Error fetching successful approvals:', err);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+// Endpoint to update approval status to Approved
+app.post('/approveAddon', async (req, res) => {
+  const { id } = req.body;
+
+  if (!id) {
+    return res.status(400).json({ error: 'ID is required' });
+  }
+
+  const query = `UPDATE add_on SET approval_status = 1, status = 1, doa = NOW() WHERE id = ?`;
+
+  try {
+    await queryDatabase(query, [id]);
+    res.status(200).json({ message: 'Approval status updated to Approved' });
+  } catch (err) {
+    console.error('Error updating approval status to Approved:', err);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// Endpoint to update approval status to Rejected with remark
+app.post('/rejectAddon', async (req, res) => {
+  const { id, remark } = req.body;
+
+  if (!id) {
+    return res.status(400).json({ error: 'ID is required' });
+  }
+
+  if (!remark || remark.trim() === '') {
+    return res.status(400).json({ error: 'Remark is required when rejecting' });
+  }
+
+  const query = `UPDATE add_on SET approval_status = -1, status = 0, remark = ?, doa = NOW() WHERE id = ?`;
+
+  try {
+    await queryDatabase(query, [remark, id]);
+    res.status(200).json({ message: 'Approval status updated to Rejected' });
+  } catch (err) {
+    console.error('Error updating approval status to Rejected:', err);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// Endpoint to fetch all details from the add_on table
+app.get('/allDetails', async (req, res) => {
+  const { register_number } = req.query;
+
+  if (!register_number) {
+    return res.status(400).json({ error: 'register_number is required' });
+  }
+
+  const sql = `
+    SELECT add_on.id, add_on.register_number, master_students.name, add_on.department, add_on.semester, 
+           mode_ex.mode_name AS Mode_of_exce, add_on.course_code, add_on.course_name, 
+           elective_name.electiveName AS elective_id, add_on.approval_status, add_on.doa, 
+           add_on.status, add_on.remark
+    FROM add_on
+    JOIN master_students ON add_on.register_number = master_students.register_number
+    JOIN mode_ex ON add_on.Mode_of_exce = mode_ex.id
+    JOIN elective_name ON add_on.elective_id = elective_name.id
+    WHERE add_on.register_number = ?
+  `;
+
+  try {
+    const results = await queryDatabase(sql, [register_number]);
+    const data = results.map(row => ({
+      ...row,
+      button: row.approval_status === 1 ? 'Approved' : row.approval_status === -1 ? 'Rejected' : 'Pending'
+    }));
+    res.json(data);
+  } catch (err) {
+    console.error('Error fetching all details:', err);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});

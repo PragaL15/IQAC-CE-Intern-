@@ -1,0 +1,113 @@
+const express = require('express');
+const multer = require('multer');
+const cors = require('cors');
+const path = require('path');
+const XLSX = require('xlsx');
+const fs = require('fs');
+const mysql = require('mysql2/promise');
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Middleware
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Setup multer for file uploads
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './uploads');
+  },
+  filename: function (req, file, cb) {
+    cb(null, `${Date.now()}_${file.originalname}`);
+  },
+});
+
+const upload = multer({ storage });
+
+// Ensure the upload directory exists
+if (!fs.existsSync('./uploads')) {
+  fs.mkdirSync('./uploads');
+}
+
+// MySQL Database Connection
+const pool = mysql.createPool({
+  connectionLimit: 10,
+  host: 'localhost',
+  user: 'PragalyaK',
+  password: 'pragalya123',
+  database: 'iqac_ce',
+});
+
+// Helper function to process Excel files
+const processExcelFile = (filePath) => {
+  const workbook = XLSX.readFile(filePath);
+  const sheetName = workbook.SheetNames[0];
+  const worksheet = workbook.Sheets[sheetName];
+  const data = XLSX.utils.sheet_to_json(worksheet);
+
+  return data;
+};
+
+// Helper function to convert string to uppercase
+const toUpperCase = (str) => (str ? str.toUpperCase() : '');
+
+// Route for multiple file upload
+app.post('/upload/multiple', upload.single('file'), async (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ message: "No file uploaded" });
+  }
+
+  try {
+    const data = processExcelFile(req.file.path);
+
+    // Process and insert data from the file
+    let count = 0;
+    for (const row of data) {
+      const register_number = toUpperCase(row.register_number);
+      const course_code = toUpperCase(row.course_code);
+      const course_name = toUpperCase(row.course_name);
+      const Mode_of_exce = row.Mode_of_exce ? row.Mode_of_exce : '0'; // Default to '0' if not provided
+
+      if (register_number && course_code && course_name) {
+        // Check if the register_number already has the same course_code and course_name
+        const [existingCourses] = await pool.query(
+          "SELECT COUNT(*) AS count FROM add_on WHERE register_number = ? AND (course_code = ? OR course_name = ?)",
+          [register_number, course_code, course_name]
+        );
+
+        if (existingCourses[0].count === 0) {
+          // Check the number of entries for the register_number
+          const [entriesCount] = await pool.query(
+            "SELECT COUNT(*) AS count FROM add_on WHERE register_number = ?",
+            [register_number]
+          );
+
+          if (entriesCount[0].count < 4) {
+            await pool.query(
+              "INSERT INTO add_on (name, register_number, department, semester, Mode_of_exce, course_code, course_name) VALUES (?, ?, ?, ?, ?, ?, ?)",
+              [null, register_number, 'CSE', '7', Mode_of_exce, course_code, course_name]
+            );
+            count++;
+          }
+        }
+      }
+    }
+
+    // Clean up the uploaded file after processing
+    fs.unlinkSync(req.file.path);
+
+    res.status(200).json({
+      message: "File processed successfully",
+      count: count, // Number of new rows added
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error processing file" });
+  }
+});
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});

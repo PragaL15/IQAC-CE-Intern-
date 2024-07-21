@@ -1,0 +1,20 @@
+{
+  "name": "fake",
+  "version": "1.0.0",
+  "description": "",
+  "main": "empserver.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.6.8",
+    "cors": "^2.8.5",
+    "exceljs": "^4.4.0",
+    "express": "^4.19.2",
+    "multer": "^1.4.5-lts.1",
+    "mysql2": "^3.10.3",
+    "xlsx": "^0.18.5"
+  }
+}

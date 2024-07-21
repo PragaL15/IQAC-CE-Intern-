@@ -1,0 +1,199 @@
+const express = require('express');
+const mysql = require('mysql2/promise');
+const cors = require('cors');
+const multer = require('multer');
+const path = require('path');
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'));
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './public/images');
+  },
+  filename: function (req, file, cb) {
+    cb(null, `${Date.now()}_${file.originalname}`);
+  }
+});
+
+const upload = multer({ storage });
+
+const pool = mysql.createPool({
+  connectionLimit: 10,
+  host: 'localhost',
+  user: 'PragalyaK',
+  password: 'pragalya123',
+  database: 'iqac_ce'
+});
+
+// Endpoint to handle internship applications
+app.post('/internshipapplications', upload.fields([{ name: 'certificateFile', maxCount: 1 }, { name: 'reportFile', maxCount: 1 }]), async (req, res) => {
+  try {
+    console.log('Received Body:', req.body);
+    console.log('Received Files:', req.files);
+
+    const certificateFile = req.files['certificateFile'] ? req.files['certificateFile'][0].filename : null;
+    const reportFile = req.files['reportFile'] ? req.files['reportFile'][0].filename : null;
+
+    const sql = `
+      INSERT INTO internshipapplications
+      (name, rollNo, year, semester, degree, branch, specialLab, mode, Industry, StartDate, EndDate, duration, stipend, amount, courseException, certificateFilePath, reportFilePath, approval_status)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `;
+
+    const values = [
+      req.body.name || null,
+      req.body.rollNo || null,
+      req.body.year || null,
+      req.body.semester || null,
+      req.body.degree || null,
+      req.body.branch || null,
+      req.body.specialLab || null,
+      req.body.mode || null,
+      req.body.Industry || null,
+      req.body.StartDate || null,
+      req.body.EndDate || null,
+      req.body.duration || null,
+      req.body.stipend || null,
+      req.body.amount || null,
+      req.body.courseException || null,
+      certificateFile,
+      reportFile,
+      req.body.approval_status || 0
+    ];
+
+    const connection = await pool.getConnection();
+    await connection.execute(sql, values);
+    connection.release();
+
+    res.status(200).json({ status: 'Success' });
+  } catch (error) {
+    console.error('Error in Insert query:', error);
+    res.status(500).json({ error: 'Error in Insert query' });
+  }
+});
+
+// Endpoint to approve an application
+app.post('/approve', async (req, res) => {
+  const { id } = req.body;
+  try {
+    const connection = await pool.getConnection();
+    await connection.execute(`UPDATE internshipapplications SET approval_status = 1 WHERE id = ?`, [id]);
+    connection.release();
+    res.status(200).json({ message: 'Application approved successfully' });
+  } catch (error) {
+    console.error('Error approving application:', error);
+    res.status(500).json({ error: 'Failed to approve application' });
+  }
+});
+
+// Endpoint to reject an application with a remark
+app.post('/reject', async (req, res) => {
+  const { id, remark } = req.body;
+  try {
+    const connection = await pool.getConnection();
+    await connection.execute('UPDATE internshipapplications SET approval_status = -1, remark = ? WHERE id = ?', [remark, id]);
+    connection.release();
+    res.status(200).json({ message: 'Application rejected successfully' });
+  } catch (error) {
+    console.error('Error rejecting application:', error);
+    res.status(500).json({ error: 'Failed to reject application' });
+  }
+});
+
+// Endpoint to fetch pending applications
+app.get('/pendingApplications', async (req, res) => {
+  try {
+    const connection = await pool.getConnection();
+    const [rows] = await connection.query('SELECT * FROM internshipapplications WHERE approval_status = 0');
+    connection.release();
+    res.status(200).json({ data: rows });
+  } catch (error) {
+    console.error('Error fetching pending applications:', error);
+    res.status(500).json({ error: 'Failed to fetch pending applications' });
+  }
+});
+
+// Endpoint to fetch approved applications
+app.get('/approvedApplications', async (req, res) => {
+  try {
+    const connection = await pool.getConnection();
+    const [rows] = await connection.query('SELECT * FROM internshipapplications WHERE approval_status = 1 AND remark IS NULL');
+    connection.release();
+    res.status(200).json({ data: rows });
+  } catch (error) {
+    console.error('Error fetching approved applications:', error);
+    res.status(500).json({ error: 'Failed to fetch approved applications' });
+  }
+});
+
+// Endpoint to fetch rejected applications
+app.get('/rejectedApplications', async (req, res) => {
+  try {
+    const connection = await pool.getConnection();
+    const [rows] = await connection.query('SELECT * FROM internshipapplications WHERE approval_status = -1 AND remark IS NOT NULL');
+    connection.release();
+    res.status(200).json({ data: rows });
+  } catch (error) {
+    console.error('Error fetching rejected applications:', error);
+    res.status(500).json({ error: 'Failed to fetch rejected applications' });
+  }
+});
+
+// Endpoint to fetch internship applications based on query parameter option
+app.get('/internshipapplications', async (req, res) => {
+  const { option } = req.query;
+  let query = '';
+  
+  // Adjust the query based on the option
+  if (option == 1) {
+    query = 'SELECT * FROM internshipapplications WHERE approval_status = 0'; // Pending applications
+  } else if (option == 2) {
+    query = 'SELECT * FROM internshipapplications WHERE approval_status = 1 AND remark IS NULL'; // Approved applications
+  } else if (option == 3) {
+    query = 'SELECT * FROM internshipapplications WHERE approval_status = -1 AND remark IS NOT NULL'; // Rejected applications
+  } else {
+    return res.status(400).json({ error: 'Invalid option' });
+  }
+  
+// Endpoint to fetch all internship applications
+app.get('/allInternshipApplications', async (req, res) => {
+  try {
+    const connection = await pool.getConnection();
+    const [rows] = await connection.query('SELECT * FROM internshipapplications');
+    connection.release();
+    res.status(200).json({ data: rows });
+  } catch (error) {
+    console.error('Error fetching internship applications:', error);
+    res.status(500).json({ error: 'Failed to fetch internship applications' });
+  }
+});
+  try {
+    const connection = await pool.getConnection();
+    const [rows] = await connection.query(query);
+    connection.release();
+    res.status(200).json({ data: rows });
+  } catch (error) {
+    console.error('Error fetching internship applications:', error);
+    res.status(500).json({ error: 'Failed to fetch internship applications' });
+  }
+});
+// Endpoint to serve uploaded images
+app.get('/images/:filename', (req, res) => {
+  const filename = req.params.filename;
+  const filePath = path.join(__dirname, 'public/images', filename);
+  res.sendFile(filePath, (err) => {
+    if (err) {
+      console.error('Error in Sending File:', err);
+      res.status(500).json({ error: 'Error in Sending File' });
+    }
+  });
+});
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});

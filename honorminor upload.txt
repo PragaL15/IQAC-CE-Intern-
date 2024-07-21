@@ -1,0 +1,108 @@
+const express = require("express");
+const mysql = require("mysql2/promise");
+const multer = require("multer");
+const xlsx = require("xlsx");
+const cors = require("cors");
+const fs = require("fs");
+
+const app = express();
+const upload = multer({ dest: "uploads/" });
+const dbConfig = {
+  host: "localhost",
+  user: "PragalyaK",
+  password: "pragalya123",
+  database: "iqac_ce",
+};
+
+app.use(cors({ origin: 'http://localhost:5173' }));
+
+app.post("/upload/multipleHM", upload.single("file"), async (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ message: "File is required" });
+  }
+
+  try {
+    const workbook = xlsx.readFile(req.file.path);
+    const sheet = workbook.Sheets[workbook.SheetNames[0]];
+    let rows = xlsx.utils.sheet_to_json(sheet);
+
+    // Skip the first row
+    rows = rows.slice(1);
+
+    const connection = await mysql.createConnection(dbConfig);
+
+    let successCount = 0;
+    const errorMessages = [];
+
+    for (const row of rows) {
+      try {
+        const regNo = row.register_number ? row.register_number.toUpperCase() : null;
+        const courseCode = row.course_code ? row.course_code.toUpperCase() : null;
+        const courseName = row.course_name ? row.course_name.toUpperCase() : null;
+        const modeOfExceName = row.mode_of_exce ? row.mode_of_exce.toUpperCase() : '0'; // Default to '0' if not provided
+
+        if (!regNo || !courseCode || !courseName || !modeOfExceName) {
+          errorMessages.push(`Missing required field in row: ${JSON.stringify(row)}`);
+          continue;
+        }
+
+        // Check if the mode_of_exce is valid
+        const [modeRows] = await connection.execute(
+          "SELECT id FROM mode_ex WHERE mode_name = ?",
+          [modeOfExceName]
+        );
+
+        if (modeRows.length === 0) {
+          errorMessages.push(`Invalid mode_of_exce: ${modeOfExceName}`);
+          continue;
+        }
+
+        const modeOfExce = modeRows[0].id;
+
+        // Check if the course already exists for the same register_number with the same course_code or course_name and mode_of_exce in (0, 1, 2)
+        const [existingRows] = await connection.execute(
+          `SELECT COUNT(*) as count 
+           FROM add_on 
+           WHERE register_number = ? 
+           AND (course_code = ? OR course_name = ?)
+           AND mode_of_exce IN (0, 1, 2)`,
+          [regNo, courseCode, courseName]
+        );
+
+        if (existingRows[0].count > 0) {
+          errorMessages.push(`Course already exists for ${regNo} with course code ${courseCode} or course name ${courseName} in mode_of_exce 0, 1, or 2`);
+          continue;
+        }
+
+        // Insert into add_on table
+        await connection.execute(
+          "INSERT INTO add_on (name, register_number, department, semester, mode_of_exce, course_code, course_name) VALUES (?, ?, ?, ?, ?, ?, ?)",
+          [null, regNo, 1, 1, modeOfExce, courseCode, courseName]
+        );
+
+        successCount++;
+      } catch (rowError) {
+        console.error(`Error processing row: ${JSON.stringify(row)}`, rowError);
+        errorMessages.push(`Error processing row for ${row.register_number || 'unknown'}: ${rowError.message}`);
+      }
+    }
+
+    await connection.end();
+
+    // Clean up the uploaded file
+    fs.unlinkSync(req.file.path);
+
+    res.status(200).json({
+      message: "Courses uploaded successfully",
+      count: successCount,
+      errors: errorMessages,
+    });
+  } catch (error) {
+    console.error("Error uploading file:", error);
+    res.status(500).json({ message: "Error uploading file", error: error.message });
+  }
+});
+
+app.listen(3000, () => {
+  console.log("Server running on port 3000");
+});
