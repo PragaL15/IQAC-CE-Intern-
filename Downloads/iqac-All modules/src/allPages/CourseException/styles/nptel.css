@@ -1,0 +1,196 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz@9..40&family=Manrope:wght@400;500&family=Poppins&display=swap');
+
+.frm{
+    margin-left: 10px;
+    margin-top: 10px;
+    width: calc(100% - 10px);
+    height: calc(100% - 10px);
+    overflow-y: scroll;
+    border-radius: 10px;
+}
+
+.nptelTitle{
+    font-weight: bolder;
+    font-size: 16px;
+    padding: 30px;
+}
+/* .nptelTextFields{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+} */
+.quesField{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    gap: 5%;
+}
+.titdefault{
+    margin: 15px;
+}
+.Default{
+    margin: 10px;
+    border: 1px solid white;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 10px;
+    padding: 20px;
+    width: 80%;
+    background-color: white;
+}
+.dfinside{
+    width: 93%;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+.quesDoc{
+    display: flex;
+    flex-direction: row;
+    /* gap: 48px; */
+    gap: 9%;
+    margin-bottom: 20px;
+}
+.quesDocRp{
+    display: flex;
+    flex-direction: row;
+    /* gap: 48px; */
+    gap: 9%;
+    margin-bottom: 20px;
+}
+.inp{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.textField{
+    width: 95vh;
+}
+.errorText{
+    color: rgb(236, 119, 119);
+    font-size: 12px;
+}
+
+.exception{
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+.Rewards{
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+.pdf-upload-button{
+    background-color:  #2B3674;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.EXPsubmits{
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 20px;
+}
+.RPsubmits{
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 20px;
+}
+.expCancelBtn{
+    background-color:  #7484DD;
+    color: white;
+    font-size: 17px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #7484DD;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.expCreateBtn{
+    background-color:  #2B3674;
+    color: white;
+    font-size: 17px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 1px solid #2B3674;
+    font-family: 'Poppins', sans-serif;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.ReasonBtn{
+    padding: 2px;
+    border: none;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    padding-left: 3px;
+    padding-right: 3px;
+    border-radius: 3px;
+}
+.reasonModal{
+    font-family: 'Poppins', sans-serif;
+    color: var(--heading-crsExp);
+}
+
+.restrictReason{
+    margin-bottom: 10px;
+    font-family: 'Poppins', sans-serif;
+    color:  rgb(250, 41, 41);
+    gap: 10px;
+}
+
+.Rp-btn-and-selected-file{
+    display: flex;
+    flex-direction: row;
+}  
+
+@media (max-width: 1300px){
+    .quesField{
+        display: flex;
+        flex-direction: column;
+    }
+    .inp{
+        display: flex;
+        justify-content: flex-start;
+    }
+}
+
+@media (max-width: 1040px) {
+    .quesField{
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+        gap: 5%;
+    }
+    .textField{
+        width: 30vh;
+    }
+    .inp{
+        display: flex;
+        justify-content: flex-start;
+    }
+    .quesDoc{
+        display: flex;
+        flex-direction: column;
+        /* gap: 48px; */
+        gap: 9%;
+        margin-bottom: 20px;
+    }
+    .quesDocRp{
+        display: flex;
+        flex-direction: column;
+        /* gap: 48px; */
+        gap: 8px;
+        margin-bottom: 20px;
+    }
+    .Rp-btn-and-selected-file{
+        display: flex;
+        flex-direction: row;
+        gap: 50px;
+    }   
+    .selectedFileName{
+        font-size: 10px;
+    }
+    
+}

@@ -1,0 +1,56 @@
+.divTit{
+    display: flex;
+    align-items: center;
+    padding: 4px;
+    padding-left: 7px;
+    padding-right: 7px;
+    border: 1px solid rgb(175, 175, 175);
+    border-radius: 5px;
+    margin-right: 10px;
+}
+.searchBarDivReport{
+    display: flex;
+    justify-content: space-between;
+    margin: 30px;
+}
+.filterDiv{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 10px;
+}
+
+.iconRep{
+    margin-left: 5px;
+    cursor: pointer;
+}
+.iconfilterRep{
+    background-color: rgb(112, 112, 211);
+    color: #ecf5fa;
+    border-radius: 5px;
+    padding: 5px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
+.modeOption{
+    margin-right: 10px;
+}
+.searchAndFilter{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.ReportsSerach{
+    width: 40vw;
+}
+  
+@media (max-width: 1040px) {
+    .modeOption{
+       width: 15vh;
+       margin-bottom: 10px;
+    }
+    .searchBarDivReport{
+        display: flex;
+        flex-direction: column;
+    }
+}
