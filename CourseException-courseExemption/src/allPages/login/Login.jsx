@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
@@ -30,12 +29,13 @@ function Login() {
       });
       // Process the response data as needed
       console.log(response.data);
-      
+
       // Store user_id and resources in local storage
       localStorage.setItem('user_id', response.data.user_id);
       localStorage.setItem('resources', JSON.stringify(response.data));
 
-      navigate('/dashboard'); // Redirect to dashboard after fetching roles and resources
+      // Redirect to dashboard after fetching roles and resources
+      navigate('/dashboard');
     } catch (error) {
       console.error("Error fetching roles and resources:", error);
     }
@@ -63,7 +63,9 @@ function Login() {
       }
     };
 
-    if (!token) {
+    if (token) {
+      fetchRoleAndResources();
+    } else {
       checkAuth();
     }
   }, [token, navigate]);
