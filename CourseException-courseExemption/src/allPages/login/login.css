@@ -1,0 +1,153 @@
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #fdfdfd; /* Light background color for contrast */
+}
+
+.login-container {
+  display: inline;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.welcome-section {
+  flex: 0 0 40%;
+  height: 100%;
+  color: rgb(10, 10, 10);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+}
+
+.welcome-section h1 {
+  font-size: 30px;
+  margin-bottom: 0.5em;
+}
+
+.welcome-section p {
+  font-size: 1.2em;
+}
+
+.login-section {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.login-card {
+  background: #313B780A;
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  padding: 30px;
+  text-align: center;
+  max-width: 320px;
+  width: 70%;
+  margin-top: 70px;
+}
+
+.login-card h2 {
+  margin-bottom: 20px;
+  font-size: 20px; /* Slightly larger font for the heading */
+  color: #333; /* Darker color for better readability */
+}
+
+.fixed-size-image {
+  width: 50px;
+  height: auto;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border-radius: 50%;
+}
+
+.google-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background-color: #f8f6f6;  */
+  color: #333;
+  box-shadow: rgba(194, 187, 187, 0.16) 0px 1px 4px;
+  border:none;
+  border-radius: 14px;
+  padding: 10px 20px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
+  width: 90%;
+  max-width: 350px;
+}
+
+.google-logo {
+  width: 20px;
+  height: 20px;
+  margin-left: 40px;
+}
+
+.text {
+  margin-right: 55px; 
+}
+
+.para {
+  font-size: 13px;
+  margin-top: 20px;
+  color: #a8a7a7; 
+  margin-left: 22px;
+}
+
+@media (max-width: 1040px) {
+  .login-container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .welcome-section {
+    display: none;
+  }
+
+  .google-logo {
+    width: 20px;
+    height: 18px;
+    margin-left: 10px;
+  }
+
+  .login-card {
+    width: 90%;
+    max-width: 400px;
+    padding: 20px;
+    margin: 20px 0;
+  }
+
+  .text {
+    margin-right: 16px; 
+    font-size: 16px;
+  }
+.para{
+font-size: 20px;
+}
+  .google-btn {
+    font-size: 14px;
+    width: 90%;
+    max-width: 280px;
+    margin-top: 30px; 
+    margin-bottom: 10px;
+    margin-left: 20px;
+    margin-right: 35px;
+  }
+
+  .fixed-size-image {
+    width: 40px;
+  }
+  .login-section{
+    margin-top: 170px;
+  }
+}

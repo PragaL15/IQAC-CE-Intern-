@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz@9..40&family=Manrope:wght@400;500&family=Poppins&display=swap');
+
+.total-v-navbar {
+    height: fit-content;
+    width: 210px;
+    padding: 15px;
+    padding-left: 8px;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    flex-direction: column; 
+    position: relative; 
+    z-index: 1000;
+    transition: all 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+}
+
+.menu-item {
+    color: var(--basicTextColor);
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 10px;
+    width: 90%;
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    transition: all 0.2s;
+    cursor: pointer;
+    margin: 2px;
+}
+
+.menu-item:hover .nav-icons {   
+    background-color: var(--icon-hover-backgrd);
+    color: white;
+    border-radius: 5px;
+}
+
+.menu-item:hover {
+    background-color: var(--card-2);
+    color: white;
+}
+
+.nav-icons {
+    margin: 0px 10px 0px 5px;
+    padding: 5px;
+    color: var(--basicTextColor);
+}
+
+.link-style {
+    text-decoration: none;
+    color: var(--basicTextColor);
+    display: flex;
+    width: 100%;
+    align-items: center;
+    padding: 8px;
+    
+}
+
+.menu-item:hover .link-style {
+    color: var(--button);
+}
+
+.link-style:hover {
+    color: var(--button);
+}
+
+    /* .menu-item.active {
+        border-radius: 10px;
+        width: 90%;
+    } */
+
+.menu-item.active .nav-icons {
+    background-color: var(--icon-hover-backgrd);
+    color: var(--background-2);
+    border-radius: 5px;
+}
+
+.options {
+    z-index: 10000; 
+    transition:all 2s ease;
+}
+
+.menu-items{
+    color: var(--basicTextColor);
+    font-size: 15px;
+    border-radius: 10px;
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* justify-content: center; */
+    transition: all 0.2s;
+    cursor: pointer;
+    margin: 2px;
+}
+
+.menu-items:hover {
+    background-color: var(--card-2);
+    color: var(--button);
+}
+.menu-items.active .link-style {
+    background-color: var(--card-2);
+    color: var(--button);
+    border-radius: 10px;
+}
+
+.groups{
+    color: var(--basicTextColor);
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+}
+.menu-items:hover .nav-icons {   
+    background-color: var(--icon-hover-backgrd);
+    color: var(--button);
+    border-radius: 5px;
+}
+
+.menu-items.active .nav-icons {
+    background-color: var(--icon-hover-backgrd);
+    color: var(--button);
+}

@@ -1,0 +1,205 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz@9..40&family=Manrope:wght@400;500&family=Poppins&display=swap');
+.updMain{
+    width: calc(100% - 20px);
+    height: calc(100% - 20px);
+    margin: 0;
+    overflow-y: scroll;
+}
+.searchMainDiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.SearchInp{
+    margin: 5px;
+    padding: 10px 10px 10px 10px;
+    border: 1px solid rgb(185, 184, 184);
+    border-radius: 5px;
+    width: 76vh;
+}
+.SearchInp:focus{
+    border-color: blue !important;
+}
+.subTit{
+    display: flex;
+    justify-content: space-between;
+}
+.multipleBtn{
+    padding: 7px;
+    border: none;
+    background-color:  var(--heading-crsExp);
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    border-radius: 5px;
+    font-size: 15px;
+    cursor: pointer;
+    margin-right: 60px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.singleTit{
+    font-size: 16px;
+    padding-left: 30px;
+    padding-top: 10px;
+}
+.frmUpload {
+    opacity: 1;
+    overflow: hidden;
+    margin-left: 20px;
+    margin-top: 8px;
+    transition: all 0.5s ease-in-out, opacity 0.5s ease-in-out;
+}
+.frmUploadOpen { /* Adjust based on content height */
+    max-height: 500px;
+    opacity: 1;
+    transition: all 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    margin-left: 20px;
+    margin-top: 10px;
+  }
+
+.singleMain{
+    height: 500px; 
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.DefaultUpload{
+    margin: 10px;
+    border: 1px solid white;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 10px;
+    padding: 20px;
+    width: 90%;
+    background-color: white;
+    margin-bottom: 130px;
+}
+.dfinsideUpload{
+    width: 93%;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+.textFieldUpload{
+    width: 110vh;
+}
+
+.uploadDiv{
+    margin: 30px;
+    border: 1px solid white;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 10px;
+    padding: 20px;
+    height: 40vh;
+    width: 70vh;
+    background-color: white;
+}
+.updBtnMain{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20vh;
+    border-radius: 5px;
+    border-style:dashed;
+    border-spacing: 10px;
+    border-width: 2px;
+    border-color: rgb(124, 123, 123);
+}
+.rules{
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+.excel-upload-button{
+    padding: 5px;
+    padding-left: 8px;
+    padding-right: 8px;
+    border: none;
+    background-color:  var(--heading-crsExp);
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    border-radius: 5px;
+    font-size: 12px;
+    cursor: pointer;
+    margin-top: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.text{
+    width: 110vh;
+}
+.btns{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.filename{
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+    font-size: 18px;
+}
+.number{
+    width: 107.5vh;
+    height: 25px;
+    padding: 5px;
+    padding-left: 10px;
+    outline: none;
+    border-radius: 3px;
+    border: 1px solid rgb(190, 189, 189);
+    transition: border-color 0.3s ease;
+}
+.number:focus{
+    border: 1.7px solid rgb(97, 139, 255);
+}
+@media (max-width: 1300px){
+    .updMain{
+        overflow-y: scroll;
+    }
+}
+@media (max-width: 1040px) {
+    .text{
+        width: 32vh;
+    }
+    .textFieldUpload{
+        width: 32vh;
+    }
+    .number{
+        width: 28vh;
+    }
+    .DefaultUpload{
+        width: 85%;
+    }
+    .multipleBtn{
+        margin-right: 5px;
+    }
+    .updMain{
+        overflow-y: scroll;
+    }
+    .rules{
+        font-size: small;
+    }
+    *{
+        font-size: small;
+    }
+}
+
+@media (min-width: 1500px){
+    .uploadDiv{
+        height: 34vh;
+    }
+    .multipleBtn{
+        margin-right: 60px;
+    }
+    .DefaultUpload{
+        width: 93%;
+    }
+    .textFieldUpload{
+        width: 117vh;
+    }
+    .text{
+        width: 117vh;
+    }
+    .number{
+        width: 115vh;
+    }
+}

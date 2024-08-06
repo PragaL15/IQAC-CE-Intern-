@@ -1,0 +1,27 @@
+import React from 'react'
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import { CardActionArea } from '@mui/material';
+import img from '../../allPages/CourseException/stuffs/img.png'
+import './homeCard.css'
+
+const HomeCard = (props) => {
+  return (
+    <div className='homeCardMain'>
+        <Card className='homeCard' sx={{backgroundColor:"var(--cardBackground)"}}>
+          <CardActionArea sx={{backgroundColor:"var(--cardBackground)"}}>
+            <CardMedia component="img" height="200" image={props.image}/>
+            <CardContent>
+              <div className='cardTit'>
+              {props.title}
+              </div>
+            </CardContent>
+          </CardActionArea>
+        </Card>
+    </div>
+  )
+}
+
+export default HomeCard
