@@ -52,7 +52,7 @@ const RejectedStudents = () => {
         setName(data.name);
         setDepartment(data.departmentId);
         setUserId(data.user_id);
-
+  
         if (data.user_id === 2) {
           setRevokingStatus(1);
         } else if (data.user_id === 3) {
@@ -60,23 +60,20 @@ const RejectedStudents = () => {
         } else if (data.user_id === 4) {
           setRevokingStatus(3);
         }
-
-        let approvalStatus;
-        let url;
+  
+        let approvalStatus = -1;
         let rejected_by;
+        let url;
         switch (data.user_id) {
           case 2:
-            approvalStatus = -1;
             rejected_by = 1;
             url = `${apiBaseUrl}/api/ce/oneCredit/RejectedOneCredit?&approval_status=${approvalStatus}&rejected_by=${rejected_by}`;
             break;
           case 3:
-            approvalStatus = -1;
             rejected_by = 2;
             url = `${apiBaseUrl}/api/ce/oneCredit/RejectedOneCredit?&approval_status=${approvalStatus}&rejected_by=${rejected_by}`;
             break;
           case 4:
-            approvalStatus = -1;
             rejected_by = 3;
             url = `${apiBaseUrl}/api/ce/oneCredit/RejectedOneCredit?&approval_status=${approvalStatus}&rejected_by=${rejected_by}`;
             break;
@@ -84,8 +81,11 @@ const RejectedStudents = () => {
             console.error("Unknown user id");
             return;
         }
+  
         // Fetch faculty approvals
-        const approvalResponse = await axios.get(url);
+        const approvalResponse = await axios.get(url, {
+          withCredentials: true,
+        });
         if (approvalResponse.status === 200) {
           const approvalData = approvalResponse.data;
           setData(approvalData);
@@ -100,11 +100,11 @@ const RejectedStudents = () => {
       console.error("Error fetching user data:", error);
     }
   };
-
+  
   useEffect(() => {
     fetchUserData();
   }, []);
-
+  
   const columns = [
     {
       field: "student_name",

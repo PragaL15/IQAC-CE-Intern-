@@ -1,7 +1,8 @@
+
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
-import apiHost from "./LoginApi"; // Adjust path as necessary
+import apiLoginHost from '../login/LoginApi';
 import "./login.css";
 
 function Login() {
@@ -10,7 +11,7 @@ function Login() {
 
   // Function to initiate Google OAuth
   const googleAuth = () => {
-    window.location.href = `${apiHost}/auth/google`;
+    window.location.href = `${apiLoginHost}/auth/google`;
   };
 
   // Function to fetch roles and resources
@@ -22,7 +23,7 @@ function Login() {
     }
 
     try {
-      const response = await axios.get(`${apiHost}/api/roles-resources`, {
+      const response = await axios.get(`${apiLoginHost}/api/roles-resources`, {
         headers: {
           Authorization: `Bearer ${token}`,
         }
@@ -44,7 +45,7 @@ function Login() {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await axios.get(`${apiHost}/auth/check`, { withCredentials: true });
+        const response = await axios.get(`${apiLoginHost}/auth/check`, { withCredentials: true });
         if (response.status === 200 && response.data.token) {
           const { token } = response.data;
           console.log("Token received from backend:", token); // Log the token received
@@ -70,7 +71,7 @@ function Login() {
   // Function to handle user logout
   const handleLogout = async () => {
     try {
-      await axios.post(`${apiHost}/auth/logout`, {}, { withCredentials: true });
+      await axios.post(`${apiLoginHost}/auth/logout`, {}, { withCredentials: true });
       setToken(null);
       localStorage.removeItem('token');
       localStorage.removeItem('user_id');
@@ -89,7 +90,7 @@ function Login() {
         return false;
       }
 
-      const response = await axios.get(`${apiHost}/api/verify-access`, {
+      const response = await axios.get(`${apiLoginHost}/api/verify-access`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -118,10 +119,6 @@ function Login() {
 
   return (
     <div className="login-container">
-      <div className="welcome-section">
-        {/* <h1>Welcome Back 👋</h1> */}
-        {/* <p>Today is a new day. Sign in to start.</p> */}
-      </div>
       <div className="login-section">
         <div className="login-card">
           <img src="/student_logo.png" alt="Student Logo" className="fixed-size-image" />
