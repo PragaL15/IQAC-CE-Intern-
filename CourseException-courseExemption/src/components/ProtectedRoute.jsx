@@ -1,25 +1,13 @@
-// src/components/ProtectedRoute.jsx
-import React from 'react';
-import { Route, Navigate } from 'react-router-dom';
-import { useAuth } from '../components/AuthContext';
+// ProtectedRoute.jsx
+import { Navigate, Outlet } from 'react-router-dom';
+import { useAuth } from '../../hooks/useAuth';
 
-const ProtectedRoute = ({ element: Component, path, ...rest }) => {
-  const { user, isLoading } = useAuth();
+const ProtectedRoute = ({ allowedRoles }) => {
+  const { auth } = useAuth();
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  const hasAccess = user?.resources.some(resource => resource.path === path);
-
-  return (
-    <Route
-      {...rest}
-      path={path}
-      element={hasAccess ? <Component /> : <Navigate to="/Error404" replace />}
-    />
-  );
+  return auth?.roles?.find(role => allowedRoles?.includes(role))
+    ? <Outlet />
+    : <Navigate to="/" />;
 };
 
 export default ProtectedRoute;
-

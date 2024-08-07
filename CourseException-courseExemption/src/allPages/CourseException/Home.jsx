@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "./styles/home.css";
 import { useNavigate } from "react-router-dom";
-import { apiBaseUrl } from "../../api/api";
+import axiosInstance from "../../allPages/CourseException/stuffs/axiosInstance";
 import HomeCard from "../../components/homecard/HomeCard";
-import axios from "axios";
 import { Chart, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 import { Gauge } from "@mui/x-charts/Gauge";
 import TreeStructure from "./stuffs/TreeStructure";
+import { apiBaseUrl } from "../../api/api"; // Ensure correct import
 
 Chart.register(ArcElement, Tooltip, Legend);
 
@@ -42,37 +42,48 @@ const Home = () => {
   const [approvedMinor, setApprovedMinor] = useState(null);
 
   useEffect(() => {
-    axios
-      .get(`${apiBaseUrl}/api/ce`, { withCredentials: true })
-      .then((response) => {
-        setCourseData(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching course data:", error);
-      });
+    fetchCourseData();
   }, []);
 
   useEffect(() => {
     fetchApprovedStatus();
   }, []);
 
+  const fetchCourseData = async () => {
+    try {
+      const response = await axiosInstance.get(`/api/ce`);
+      if (response.status === 200) {
+        setCourseData(response.data);
+      } else {
+        navigate('/');
+      }
+    } catch (error) {
+      console.error("Error fetching course data:", error);
+      navigate('/');
+    }
+  };
+
   const fetchApprovedStatus = async () => {
     try {
-      const response = await axios.get(
-        `${apiBaseUrl}/api/ce/oc/ApprovedStatusAll?student=${student}`,
-        { withCredentials: true }
+      const response = await axiosInstance.get(
+        `/api/ce/oc/ApprovedStatusAll?student=${student}`
       );
-      const jsonData = response.data;
-      setApprovedAddon(jsonData.approved_addon);
-      setApprovedIntern(jsonData.approved_internship);
-      setApprovedOneCredit(jsonData.approved_oneCredit);
-      setApprovedNptel(jsonData.approved_nptel);
-      setTotalApproved(jsonData.approved_total);
-      setApprovedHonor(jsonData.approved_honor);
-      setApprovedMinor(jsonData.approved_minor);
-      console.log(jsonData);
+      if (response.status === 200) {
+        const jsonData = response.data;
+        setApprovedAddon(jsonData.approved_addon);
+        setApprovedIntern(jsonData.approved_internship);
+        setApprovedOneCredit(jsonData.approved_oneCredit);
+        setApprovedNptel(jsonData.approved_nptel);
+        setTotalApproved(jsonData.approved_total);
+        setApprovedHonor(jsonData.approved_honor);
+        setApprovedMinor(jsonData.approved_minor);
+        console.log(jsonData);
+      } else {
+        navigate('/');
+      }
     } catch (error) {
-      console.log("Error while fetching approved Students", error);
+      console.error("Error while fetching approved Students", error);
+      navigate('/');
     }
   };
 
