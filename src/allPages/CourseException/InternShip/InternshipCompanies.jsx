@@ -7,69 +7,66 @@ import { Box } from "@mui/material";
 import Modal from "@mui/material/Modal";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import InputAdornment from '@mui/material/InputAdornment';
-import SearchIcon from '@mui/icons-material/Search';
+import InputAdornment from "@mui/material/InputAdornment";
+import SearchIcon from "@mui/icons-material/Search";
 import AnnouncementIcon from "@mui/icons-material/Announcement";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import axios from "axios";
-import { useMediaQuery } from '@mui/material';
+import { useMediaQuery } from "@mui/material";
 
 const getResponsiveStyle = (isLargeScreen) => ({
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width:"70%",
-  maxWidth: isLargeScreen ? "750px": "650px",
+  width: "70%",
+  maxWidth: isLargeScreen ? "750px" : "650px",
   bgcolor: "background.paper",
   borderRadius: "10px",
   boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
   p: 4,
 });
 
-  
-  const style1 = {
-    position: "absolute",
-    top: "5%",
-    left: "50%",
-    bottom: "90%",
-    transform: "translate(-50%, -50%)",
-    width: 280,
-    bgcolor: "background.paper",
-    boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px;",
-    borderRadius: "10px",
-    p: 4,
-  };
-  
-  const style2 = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 200,
-    bgcolor: "background.paper",
-    boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px;",
-    borderRadius: "10px",
-    p: 4,
-  };    
+const style1 = {
+  position: "absolute",
+  top: "5%",
+  left: "50%",
+  bottom: "90%",
+  transform: "translate(-50%, -50%)",
+  width: 280,
+  bgcolor: "background.paper",
+  boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px;",
+  borderRadius: "10px",
+  p: 4,
+};
+
+const style2 = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 200,
+  bgcolor: "background.paper",
+  boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px;",
+  borderRadius: "10px",
+  p: 4,
+};
 
 const InternshipCompanies = () => {
   const [selectedRow, setSelectedRow] = useState(null);
   const [data, setData] = useState([]);
-  const [companyDataWithoutId,setCompanyDatawithoutId] = useState([])
   const [name, setName] = useState("");
   const [companyName, setCompanyName] = useState(null);
   const [companyAddress, setCompanyAddress] = useState(null);
   const [companyPhoneNumber, setCompanyPhoneNumber] = useState(null);
-  const [selectedCompanyId,setSelectedCompanyId] = useState(null)
+  const [selectedCompanyId, setSelectedCompanyId] = useState(null);
   const [responseModalOpen, setResponseModalOpen] = useState(false);
   const [responseMessage, setResponseMessage] = useState("");
   const [issuccess, setIsSuccess] = useState(null);
   const [deletingRow, setDeletingRow] = useState(null);
-  const isLargeScreen = useMediaQuery('(min-width: 1500px)');
+  const isLargeScreen = useMediaQuery("(min-width: 1500px)");
   const style = getResponsiveStyle(isLargeScreen);
 
-  
   const handleEdit = (row) => {
     setSelectedRow(row);
     setCompanyName(row.company_name);
@@ -95,7 +92,7 @@ const InternshipCompanies = () => {
   const handleCompanyAddress = (event) => {
     setCompanyAddress(event.target.value);
   };
-  
+
   const handleCompanyPhone = (event) => {
     setCompanyPhoneNumber(event.target.value);
   };
@@ -110,7 +107,7 @@ const InternshipCompanies = () => {
           companyName,
           companyAddress,
           companyPhoneNumber,
-          selectedCompanyId
+          selectedCompanyId,
         }
       );
       console.log("Response:", response.data);
@@ -134,28 +131,32 @@ const InternshipCompanies = () => {
 
   // Function to handle the submission of the delete action
   const handleDeleteSubmit = async () => {
-    try{
-        const response = await axios.post(`${apiBaseUrl}/api/ce/in/InternCompanyDelete`,{selectedCompanyId})
-        console.log("Response :",response.data);
-        if(response.status===200){
-            console.log("Company Deleted Successfully");
-            setDeletingRow(false);
-            fetchData(name)
-            setResponseMessage("Company Deleted Successfully");
-            setResponseModalOpen(true);
-            setIsSuccess(true);
-        }
-    }
-    catch(error){
-        console.log("Error in Deleting the Company ", error);
-        const errorMsg = error.response ? error.response.data.msg : "Error in Deleting the Company";
-        setResponseMessage(errorMsg);
-        setDeletingRow(false)
+    try {
+      const response = await axios.post(
+        `${apiBaseUrl}/api/ce/in/InternCompanyDelete`,
+        { selectedCompanyId }
+      );
+      console.log("Response :", response.data);
+      if (response.status === 200) {
+        console.log("Company Deleted Successfully");
+        setDeletingRow(false);
         fetchData(name);
+        setResponseMessage("Company Deleted Successfully");
         setResponseModalOpen(true);
-        setIsSuccess(false);
+        setIsSuccess(true);
+      }
+    } catch (error) {
+      console.log("Error in Deleting the Company ", error);
+      const errorMsg = error.response
+        ? error.response.data.msg
+        : "Error in Deleting the Company";
+      setResponseMessage(errorMsg);
+      setDeletingRow(false);
+      fetchData(name);
+      setResponseModalOpen(true);
+      setIsSuccess(false);
     }
-  }
+  };
 
   // Function to fetch data from the API based on the search name
   const fetchData = async (name) => {
@@ -205,8 +206,13 @@ const InternshipCompanies = () => {
       headerClassName: "super-app-theme--header",
       renderCell: (params) => (
         <Box
-          sx={{backgroundColor:"rgb(62, 62, 230)",color:"white",padding:"5px",borderRadius:"5px"}}
-          style={{ cursor: "pointer", }}
+          sx={{
+            backgroundColor: "rgb(62, 62, 230)",
+            color: "white",
+            padding: "5px",
+            borderRadius: "5px",
+          }}
+          style={{ cursor: "pointer" }}
           onClick={() => handleEdit(params.row)}
         >
           <EditNoteIcon />
@@ -219,7 +225,12 @@ const InternshipCompanies = () => {
       headerClassName: "super-app-theme--header",
       renderCell: (params) => (
         <Box
-          sx={{backgroundColor:"rgb(250, 41, 41)",color:"white",padding:"5px",borderRadius:"5px"}}
+          sx={{
+            backgroundColor: "rgb(250, 41, 41)",
+            color: "white",
+            padding: "5px",
+            borderRadius: "5px",
+          }}
           style={{ cursor: "pointer" }}
           onClick={() => handleDelete(params.row)}
         >
@@ -275,17 +286,17 @@ const InternshipCompanies = () => {
                 }}
                 pageSizeOptions={[5]}
                 sx={{
-                  maxWidth: '100%', // Set width to 80%
-                  overflowX: 'auto', // Enable horizontal scrolling
-                  '& .super-app-theme--header': {
-                    color: 'var(--heading-crsExp)',
-                    justifyContent: 'center',
+                  maxWidth: "100%", // Set width to 80%
+                  overflowX: "auto", // Enable horizontal scrolling
+                  "& .super-app-theme--header": {
+                    color: "var(--heading-crsExp)",
+                    justifyContent: "center",
                   },
-                  '& .MuiDataGrid-columnsContainer': {
-                    overflow: 'visible', // Allow column headers to overflow for scrolling
+                  "& .MuiDataGrid-columnsContainer": {
+                    overflow: "visible", // Allow column headers to overflow for scrolling
                   },
-                  '& .MuiDataGrid-colCell, .MuiDataGrid-cell': {
-                    whiteSpace: 'nowrap', // Prevent wrapping of cell content
+                  "& .MuiDataGrid-colCell, .MuiDataGrid-cell": {
+                    whiteSpace: "nowrap", // Prevent wrapping of cell content
                   },
                 }}
               />
@@ -403,7 +414,7 @@ const InternshipCompanies = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default InternshipCompanies
+export default InternshipCompanies;

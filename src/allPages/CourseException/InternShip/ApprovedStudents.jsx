@@ -47,7 +47,6 @@ const style1 = {
 
 const ApprovedStudents = () => {
   const [selectedOption, setSelectedOption] = useState("1");
-  const [showDropdown, setShowDropdown] = useState(false);
   const [data, setData] = useState([]);
   const [name, setName] = useState("");
   const [responseModalOpen, setResponseModalOpen] = useState(false);
@@ -95,7 +94,7 @@ const ApprovedStudents = () => {
         setName(data.name);
         setDepartment(data.departmentId);
         setUserId(data.user_id);
-// Determine revoking status based on user ID
+        // Determine revoking status based on user ID
         if (data.user_id === 5) {
           setRevokingStatus(1);
         } else if (data.user_id === 7) {
@@ -147,7 +146,7 @@ const ApprovedStudents = () => {
     }
   };
 
- // Fetches user data and approval members when the component mounts
+  // Fetches user data and approval members when the component mounts
   useEffect(() => {
     fetchUserData(selectedOption);
     fetchApprovalMembers();

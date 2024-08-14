@@ -5,7 +5,6 @@ import { DatePicker } from "antd";
 import Select from "react-select";
 import { apiBaseUrl } from "../../../api/api";
 import apiLoginHost from "../../login/LoginApi";
-import dayjs from "dayjs";
 import axios from "axios";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
@@ -46,7 +45,6 @@ const InternshipForm = () => {
   const [semester, setSemester] = useState("");
   const [degree, setDegree] = useState("");
   const [branch, setBranch] = useState("");
-  const [specialLab, setSpecialLab] = useState("");
   const [studentName, setStudentName] = useState("");
   const [registerNumber, setRegisterNumber] = useState("");
   const [department, setDepartment] = useState("");
@@ -78,7 +76,6 @@ const InternshipForm = () => {
   const [totalExemption, setTotalExemption] = useState(null);
 
   const [durationError, setDurationError] = useState("");
-  const [courseExceptionError, setCourseExceptionError] = useState("");
 
   const [studentData, setStudentData] = useState([]);
   const navigate = useNavigate();
