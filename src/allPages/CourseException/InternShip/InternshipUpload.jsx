@@ -55,6 +55,8 @@ const InternshipUpload = () => {
     setCompanyPhoneNumber(event.target.value);
   };
 
+
+   // Function to handle company upload form submission
   const handleUpload = async () => {
     if (!companyName || !companyAddress || !companyPhoneNumber) {
       alert("Fill Out All The Fields.");
@@ -98,10 +100,12 @@ const InternshipUpload = () => {
     }
   };
 
+  // Function to handle file selection for upload
   const handleSheetUpload = (event) => {
     setSelectedFile(event.target.files[0]);
   };
 
+  // Function to handle file upload
   const uploadSheet = async () => {
     if (!selectedFile) {
       alert("Please select a file to upload");

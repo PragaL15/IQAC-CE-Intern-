@@ -103,9 +103,11 @@ const InternshipCompanies = () => {
     setCompanyPhoneNumber(event.target.value);
   };
 
+  // Function to handle the submission of the edit form
   const handleEditSubmit = async () => {
     try {
       const response = await axios.post(
+        // Send a POST request to update the company information
         `${apiBaseUrl}/api/ce/in/InternCompanyEdit`,
         {
           companyName,
@@ -133,6 +135,7 @@ const InternshipCompanies = () => {
     }
   };
 
+  // Function to handle the submission of the delete action
   const handleDeleteSubmit = async () => {
     try{
         const response = await axios.post(`${apiBaseUrl}/api/ce/in/InternCompanyDelete`,{selectedCompanyId})
@@ -157,6 +160,7 @@ const InternshipCompanies = () => {
     }
   }
 
+  // Function to fetch data from the API based on the search name
   const fetchData = async (name) => {
     try {
       const response = await fetch(

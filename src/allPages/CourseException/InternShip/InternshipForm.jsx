@@ -4,7 +4,7 @@ import InputBox from "../../../components/InputBox/inputbox";
 import { DatePicker } from "antd";
 import Select from "react-select";
 import { apiBaseUrl } from "../../../api/api";
-import apiLoginHost from "../../login/LoginApi"
+import apiLoginHost from "../../login/LoginApi";
 import dayjs from "dayjs";
 import axios from "axios";
 import Box from "@mui/material/Box";
@@ -82,6 +82,8 @@ const InternshipForm = () => {
 
   const [studentData, setStudentData] = useState([]);
   const navigate = useNavigate();
+
+  // useEffect to set initial student data
   useEffect(() => {
     const fetchedData = [
       {
@@ -101,6 +103,8 @@ const InternshipForm = () => {
     setYear(fetchedData[0].year);
     setDegree(fetchedData[0].degree);
     setBranch(fetchedData[0].branch);
+
+    // Function to fetch academic years
     const fetchAcademicYear = async () => {
       const yearPromise = await axios.get(
         `${apiBaseUrl}/api/ce/AvailableAcademicYears`
@@ -108,6 +112,7 @@ const InternshipForm = () => {
       setAcademicYearData(yearPromise.data);
     };
 
+    // Function to fetch all active applications
     const fetchAllActive = async () => {
       const Actives = await axios.get(
         `${apiBaseUrl}/api/ce/oc/AllActiveApplications?student=${student}`
@@ -117,6 +122,7 @@ const InternshipForm = () => {
       setTotalActive(total);
     };
 
+    // Function to fetch approved applications count
     const fetchApprovedCount = async () => {
       const approved = await axios.get(
         `${apiBaseUrl}/api/ce/oc/ApprovedStatusAll?student=${student}`
@@ -133,6 +139,7 @@ const InternshipForm = () => {
     fetchCompanies();
   }, []);
 
+  // Function to fetch electives
   const fetcElectives = async () => {
     try {
       const response = await axios.get(
@@ -144,18 +151,19 @@ const InternshipForm = () => {
     }
   };
 
+  // Function to fetch companies
   const fetchCompanies = async () => {
-    try{
+    try {
       const response1 = await axios.get(
         `${apiBaseUrl}/api/ce/in/AllIndustries?student=${student}`
       );
       setindustryData(response1.data);
-    }
-    catch(error){
+    } catch (error) {
       console.log("error in fetching Companies", error);
     }
-  }
+  };
 
+  // useEffect to fetch user data
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -179,6 +187,7 @@ const InternshipForm = () => {
     fetchUserData();
   }, []);
 
+  // useEffect to calculate duration based on StartDate and EndDate
   useEffect(() => {
     if (StartDate && EndDate) {
       const days = calculateDuration(StartDate, EndDate);
@@ -197,6 +206,7 @@ const InternshipForm = () => {
     label: year.academic_year,
   }));
 
+  // Function to calculate duration between two dates
   const calculateDuration = (start, end) => {
     const oneDay = 24 * 60 * 60 * 1000;
     const firstDate = new Date(start);
@@ -222,7 +232,7 @@ const InternshipForm = () => {
       { value: reportFile, name: "Report File" },
     ];
 
-    // Check if all mandatory fields are filled
+    // Loop through mandatory fields to check for validation
     for (const field of mandatoryFields) {
       if (!field.value) {
         alert(`Please fill the mandatory field: ${field.name}`);
@@ -241,11 +251,12 @@ const InternshipForm = () => {
       setAmount(0);
     }
 
+    // Check active applications
     const activeApplicationsResponse = await axios.get(
       `${apiBaseUrl}/api/ce/oc/AllActiveApplications?student=${student}`
     );
 
-    const { total,internship } = activeApplicationsResponse.data;
+    const { total, internship } = activeApplicationsResponse.data;
 
     // Check if total applications are less than 4
     if (total >= 4 || internship === 1) {
