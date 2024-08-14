@@ -4,17 +4,14 @@ import TextField from "@mui/material/TextField";
 import { apiBaseUrl } from "../../../api/api";
 import { DataGrid } from "@mui/x-data-grid";
 import { Box } from "@mui/material";
-import Slide from '@mui/material/Slide';
 import Modal from "@mui/material/Modal";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
-import AccountCircle from '@mui/icons-material/AccountCircle';
 import AnnouncementIcon from "@mui/icons-material/Announcement";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import axios from "axios";
-import Select from "react-select";
 import { useMediaQuery } from '@mui/material';
 
 const getResponsiveStyle = (isLargeScreen) => ({
