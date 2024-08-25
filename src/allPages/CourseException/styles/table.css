@@ -1,0 +1,23 @@
+/* Apply these styles to the container of your table */
+.datagrid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* width: 140vh; */
+    width: 100%; /* Allow horizontal scrolling if needed */
+}
+
+/* Default styles */
+.tableMain {
+    width: 100%;
+    z-index: 0;
+}
+
+/* DataGridStyles.css */
+/* .custom-cell {
+    color: var(--borderDataGrid) !important;
+  }
+
+  .custom-border {
+    border-color:var(--borderDataGrid) !important;
+  } */

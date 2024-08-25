@@ -1,0 +1,17 @@
+.inputbox {
+    padding: 8px;
+    border: 1px solid rgb(185, 184, 184);
+    border-radius: 5px;
+    width: 44.8vw;
+    outline: none;
+}
+.inputbox:focus{
+    border: 1.7px solid rgb(97, 139, 255);
+}
+
+
+/* @media (max-width: 1040px) {
+    .inputbox{
+        width:27vw;
+    }
+} */
