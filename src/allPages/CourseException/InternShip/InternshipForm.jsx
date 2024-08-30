@@ -4,7 +4,7 @@ import InputBox from "../../../components/InputBox/inputbox";
 import { DatePicker } from "antd";
 import Select from "react-select";
 import { apiBaseUrl } from "../../../api/api";
-import apiLoginHost from "../../login/LoginApi"
+import apiLoginHost from "../../login/LoginApi";
 import dayjs from "dayjs";
 import axios from "axios";
 import Box from "@mui/material/Box";
@@ -46,7 +46,7 @@ const InternshipForm = () => {
   const [semester, setSemester] = useState("");
   const [degree, setDegree] = useState("");
   const [branch, setBranch] = useState("");
-  const [specialLab, setSpecialLab] = useState("");
+  const [approvalStatus, setApprovalStatus] = useState(0);
   const [studentName, setStudentName] = useState("");
   const [registerNumber, setRegisterNumber] = useState("");
   const [department, setDepartment] = useState("");
@@ -60,6 +60,7 @@ const InternshipForm = () => {
   const [courseException, setCourseException] = useState("");
   const [certificateFile, setCertificateFile] = useState(null);
   const [reportFile, setReportFile] = useState(null);
+  const [AimFile, setAimFile] = useState(null);
   const [elective, setElective] = useState(null);
   const [elctiveData, setElectiveData] = useState([]);
   const [industryData, setindustryData] = useState([]);
@@ -87,14 +88,14 @@ const InternshipForm = () => {
     try {
       await axios.post(`${apiBaseUrl}/logout`, { withCredentials: true });
       // Clear local storage
-      localStorage.removeItem('token');
-      localStorage.removeItem('user_id');
-      localStorage.removeItem('resources');
-      
+      localStorage.removeItem("token");
+      localStorage.removeItem("user_id");
+      localStorage.removeItem("resources");
+
       // Redirect to login page
-      navigate('/');
+      navigate("/");
     } catch (error) {
-      console.error('Error during logout:', error);
+      console.error("Error during logout:", error);
     }
   };
 
@@ -119,14 +120,16 @@ const InternshipForm = () => {
     setBranch(fetchedData[0].branch);
     const fetchAcademicYear = async () => {
       const yearPromise = await axios.get(
-        `${apiBaseUrl}/api/ce/AvailableAcademicYears`, { withCredentials: true }
+        `${apiBaseUrl}/api/ce/AvailableAcademicYears`,
+        { withCredentials: true }
       );
       setAcademicYearData(yearPromise.data);
     };
 
     const fetchAllActive = async () => {
       const Actives = await axios.get(
-        `${apiBaseUrl}/api/ce/oc/AllActiveApplications?student=${student}`, { withCredentials: true }
+        `${apiBaseUrl}/api/ce/oc/AllActiveApplications?student=${student}`,
+        { withCredentials: true }
       );
       const { internship, total } = Actives.data;
       setInternActive(internship);
@@ -135,7 +138,8 @@ const InternshipForm = () => {
 
     const fetchApprovedCount = async () => {
       const approved = await axios.get(
-        `${apiBaseUrl}/api/ce/oc/ApprovedStatusAll?student=${student}`, { withCredentials: true }
+        `${apiBaseUrl}/api/ce/oc/ApprovedStatusAll?student=${student}`,
+        { withCredentials: true }
       );
       const { approved_internship, approved_total } = approved.data;
       setApprovedIntern(approved_internship);
@@ -152,37 +156,36 @@ const InternshipForm = () => {
   const fetcElectives = async () => {
     try {
       const response = await axios.get(
-        `${apiBaseUrl}/api/ce/AvailableElectives`, { withCredentials: true }
+        `${apiBaseUrl}/api/ce/AvailableElectives`,
+        { withCredentials: true }
       );
       setElectiveData(response.data);
     } catch (error) {
       if (error.response && error.response.status === 401) {
         console.error("Unauthorized, logging out:", error);
         handleLogout(); // Call logout function
-      }
-      else { 
-      console.log("error in fetching Elctives", error);
+      } else {
+        console.log("error in fetching Elctives", error);
       }
     }
   };
 
   const fetchCompanies = async () => {
-    try{
+    try {
       const response1 = await axios.get(
-        `${apiBaseUrl}/api/ce/in/AllIndustries?student=${student}`, { withCredentials: true }
+        `${apiBaseUrl}/api/ce/in/AllIndustries?student=${student}`,
+        { withCredentials: true }
       );
       setindustryData(response1.data);
-    }
-    catch(error){
+    } catch (error) {
       if (error.response && error.response.status === 401) {
         console.error("Unauthorized, logging out:", error);
         handleLogout(); // Call logout function
-      }
-      else { 
-      console.log("error in fetching Companies", error);
+      } else {
+        console.log("error in fetching Companies", error);
       }
     }
-  }
+  };
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -248,6 +251,8 @@ const InternshipForm = () => {
       { value: stipend, name: "Stipend" },
       { value: certificateFile, name: "Certificate File" },
       { value: reportFile, name: "Report File" },
+      { value: AimFile, name: "Aim File" },
+      { value: create_status, name: "create_status" },
     ];
 
     // Check if all mandatory fields are filled
@@ -270,18 +275,19 @@ const InternshipForm = () => {
     }
 
     const activeApplicationsResponse = await axios.get(
-      `${apiBaseUrl}/api/ce/oc/AllActiveApplications?student=${student}`, { withCredentials: true }
+      `${apiBaseUrl}/api/ce/oc/AllActiveApplications?student=${student}`,
+      { withCredentials: true }
     );
 
-    const { total,internship } = activeApplicationsResponse.data;
+    const { total, internship } = activeApplicationsResponse.data;
 
     // Check if total applications are less than 4
-    if(courseException === "1"){
-    if (total >= 4 || internship === 1) {
-      alert("You have reached the maximum number of applications allowed.");
-      return;
+    if (courseException === "1") {
+      if (total >= 4 || internship === 1) {
+        alert("You have reached the maximum number of applications allowed.");
+        return;
+      }
     }
-  }
 
     if (formValid) {
       const formData = new FormData();
@@ -299,6 +305,7 @@ const InternshipForm = () => {
       formData.append("reportFile", reportFile);
       formData.append("certificateFile", certificateFile);
       formData.append("elective", elective);
+      formData.append("Aim", AimFile);
       try {
         const response = await axios.post(
           `${apiBaseUrl}/api/ce/in/InternApply/internshipApply`,
@@ -307,7 +314,7 @@ const InternshipForm = () => {
             headers: {
               "Content-Type": "multipart/form-data",
             },
-            withCredentials:true
+            withCredentials: true,
           }
         );
 
@@ -322,12 +329,13 @@ const InternshipForm = () => {
         if (error.response && error.response.status === 401) {
           console.error("Unauthorized, logging out:", error);
           handleLogout(); // Call logout function
-        }
-        else { 
-        console.error("Error sending data to the backend:", error);
-        setDataRespModal(true);
-        setIsSuccess(false);
-        setResponseMessage("Error While Applying the online course..Retry it!");
+        } else {
+          console.error("Error sending data to the backend:", error);
+          setDataRespModal(true);
+          setIsSuccess(false);
+          setResponseMessage(
+            "Error While Applying the online course..Retry it!"
+          );
         }
       }
 
@@ -346,6 +354,7 @@ const InternshipForm = () => {
         certificateFile,
         reportFile,
         elective,
+        create_status,
       });
     }
   };
@@ -424,7 +433,8 @@ const InternshipForm = () => {
     setSemesterOptions([]);
     try {
       const response = await axios.get(
-        `${apiBaseUrl}/api/ce/AvailableSemester?id=${selectedOption.value}`, { withCredentials: true }
+        `${apiBaseUrl}/api/ce/AvailableSemester?id=${selectedOption.value}`,
+        { withCredentials: true }
       );
       const semesterData = response.data[0];
 
@@ -438,9 +448,8 @@ const InternshipForm = () => {
       if (error.response && error.response.status === 401) {
         console.error("Unauthorized, logging out:", error);
         handleLogout(); // Call logout function
-      }
-      else { 
-      console.error("Error fetching semester data:", error);
+      } else {
+        console.error("Error fetching semester data:", error);
       }
     }
   };
@@ -564,6 +573,60 @@ const InternshipForm = () => {
                     menuPlacement="top"
                   />
                 </div>
+
+                <div className="quesDoc">
+                  <div>Aim and obj:</div>
+                  <div style={{ display: "flex", flexDirection: "row" }}>
+                    <label
+                      htmlFor="pdf-upload-certificate"
+                      className="pdf-upload-button"
+                    >
+                      aim obj PDF
+                      <input
+                        id="pdf-upload-certificate"
+                        type="file"
+                        accept=".pdf"
+                        onChange={handleCertificateFileChange}
+                        style={{ display: "none" }}
+                      />
+                    </label>
+                    <div style={{ margin: "5px" }}>
+                      {certificateFile && (
+                        <p>Selected file: {certificateFile.name}</p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+                <div className="quesField">
+                  <label className="inp">Approval Status:</label>
+                  <Select
+                    className="textField"
+                    value={{ value: approvalStatus, label: "Initiated" }} // Display "Initiated" with value 0
+                    isDisabled={true}
+                    placeholder=""
+                  />
+                </div>
+           
+
+                {approvalStatus === 0 && (
+                  <div className="container">
+                    <div className="row">
+                      <div className="RPsubmits">
+                        <button
+                          type="button"
+                          onClick={() => navigate("/3")}
+                          className="expCancelBtn"
+                        >
+                          Cancel
+                        </button>
+                        <button type="submit" className="expCreateBtn">
+                          Create
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
                 {mode === "Online" && (
                   <div>
                     <div className="quesField">
@@ -586,6 +649,41 @@ const InternshipForm = () => {
                       <label className="inp">Duration in Days</label>
                       <InputBox value={duration} disabled />
                     </div>
+
+                    <div className="quesDoc">
+                  <div>Aim and obj:</div>
+                  <div style={{ display: "flex", flexDirection: "row" }}>
+                    <label
+                      htmlFor="pdf-upload-certificate"
+                      className="pdf-upload-button"
+                    >
+                      aim obj PDF
+                      <input
+                        id="pdf-upload-certificate"
+                        type="file"
+                        accept=".pdf"
+                        onChange={handleCertificateFileChange}
+                        style={{ display: "none" }}
+                      />
+                    </label>
+                    <div style={{ margin: "5px" }}>
+                      {certificateFile && (
+                        <p>Selected file: {certificateFile.name}</p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+                <div className="quesField">
+                  <label className="inp">Approval Status:</label>
+                  <Select
+                    className="textField"
+                    value={{ value: approvalStatus, label: "Initiated" }} // Display "Initiated" with value 0
+                    isDisabled={true}
+                    placeholder=""
+                  />
+                </div>
+
+
                   </div>
                 )}
                 {mode === "Offline" && (
@@ -610,6 +708,42 @@ const InternshipForm = () => {
                       <label className="inp">Duration in Days</label>
                       <InputBox value={duration} disabled={true} />
                     </div>
+
+
+                    <div className="quesDoc">
+                  <div>Aim and obj:</div>
+                  <div style={{ display: "flex", flexDirection: "row" }}>
+                    <label
+                      htmlFor="pdf-upload-certificate"
+                      className="pdf-upload-button"
+                    >
+                      aim obj PDF
+                      <input
+                        id="pdf-upload-certificate"
+                        type="file"
+                        accept=".pdf"
+                        onChange={handleCertificateFileChange}
+                        style={{ display: "none" }}
+                      />
+                    </label>
+                    <div style={{ margin: "5px" }}>
+                      {certificateFile && (
+                        <p>Selected file: {certificateFile.name}</p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+                <div className="quesField">
+                  <label className="inp">Approval Status:</label>
+                  <Select
+                    className="textField"
+                    value={{ value: approvalStatus, label: "Initiated" }} // Display "Initiated" with value 0
+                    isDisabled={true}
+                    placeholder=""
+                  />
+                </div>
+
+
                   </div>
                 )}
                 {semester >= 3 && mode === "Offline" && handleValidation() && (
@@ -749,18 +883,24 @@ const InternshipForm = () => {
                             </div>
                           </div>
                         </div>
-                        <div className="container">
-                          <div className="row">
-                            <div className="RPsubmits">
-                              <button type="button" onClick={()=>navigate("/3")} className="expCancelBtn">
-                                Cancel
-                              </button>
-                              <button type="submit" className="expCreateBtn">
-                                Create
-                              </button>
+                        {approvalStatus === 0 && (
+                          <div className="container">
+                            <div className="row">
+                              <div className="RPsubmits">
+                                <button
+                                  type="button"
+                                  onClick={() => navigate("/3")}
+                                  className="expCancelBtn"
+                                >
+                                  Cancel
+                                </button>
+                                <button type="submit" className="expCreateBtn">
+                                  Create
+                                </button>
+                              </div>
                             </div>
                           </div>
-                        </div>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -881,7 +1021,11 @@ const InternshipForm = () => {
                       <div className="container">
                         <div className="row">
                           <div className="RPsubmits">
-                            <button type="button" onClick={()=>navigate("/3")} className="expCancelBtn">
+                            <button
+                              type="button"
+                              onClick={() => navigate("/3")}
+                              className="expCancelBtn"
+                            >
                               Cancel
                             </button>
                             <button type="submit" className="expCreateBtn">
@@ -1019,10 +1163,18 @@ const InternshipForm = () => {
                       <div className="container">
                         <div className="row">
                           <div className="RPsubmits">
-                            <button type="button" onClick={()=>navigate("/1")} className="expCancelBtn">
+                            <button
+                              type="button"
+                              onClick={() => navigate("/1")}
+                              className="expCancelBtn"
+                            >
                               Cancel
                             </button>
-                            <button type="submit" className="expCreateBtn">
+                            <button
+                              type="submit"
+                              className="expCreateBtn"
+                              disabled={!createdStatus} // Disable the button if createdStatus is false
+                            >
                               Create
                             </button>
                           </div>

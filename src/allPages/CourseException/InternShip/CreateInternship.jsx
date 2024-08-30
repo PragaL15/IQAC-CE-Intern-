@@ -55,11 +55,8 @@ const InternshipForm = () => {
   const [EndDate, setEndDate] = useState(null);
   const [StartDate, setStartDate] = useState(null);
   const [duration, setDuration] = useState("");
-  const [stipend, setStipend] = useState("");
-  const [amount, setAmount] = useState(null);
   const [courseException, setCourseException] = useState("");
   const [certificateFile, setCertificateFile] = useState(null);
-  const [reportFile, setReportFile] = useState(null);
   const [elective, setElective] = useState(null);
   const [elctiveData, setElectiveData] = useState([]);
   const [industryData, setindustryData] = useState([]);
@@ -69,17 +66,14 @@ const InternshipForm = () => {
   const [isSuccess, setIsSuccess] = useState(null);
   const [responseMessage, setResponseMessage] = useState("");
   const [academicYearData, setAcademicYearData] = useState([]);
-  const [selectedAcademicYear, SetSelectedAcademicYear] = useState(null);
+  const [academic_year, SetAcademic_year] = useState(null);
   const [semesterOptions, setSemesterOptions] = useState([]);
   const [reasonOpen, setReasonOpen] = useState(false);
   const [totalActive, setTotalActive] = useState(null);
   const [approvedIntern, setApprovedIntern] = useState(null);
   const [internActive, setInternActive] = useState(null);
   const [totalExemption, setTotalExemption] = useState(null);
-
   const [durationError, setDurationError] = useState("");
-  const [courseExceptionError, setCourseExceptionError] = useState("");
-
   const [studentData, setStudentData] = useState([]);
   const navigate = useNavigate();
 
@@ -241,111 +235,84 @@ const InternshipForm = () => {
 
     // List of mandatory fields
     const mandatoryFields = [
-      { value: selectedAcademicYear, name: "Academic Year" },
-      { value: semester, name: "Semester" },
-      { value: mode, name: "Mode" },
-      { value: StartDate, name: "Start Date" },
-      { value: EndDate, name: "End Date" },
-      { value: duration, name: "Duration" },
-    
-      { value: certificateFile, name: "Certificate File" },
-      
+        { value: academic_year, name: "Academic Year" },
+        { value: semester, name: "Semester" },
+        { value: mode, name: "Mode" },
+        { value: StartDate, name: "Start Date" },
+        { value: EndDate, name: "End Date" },
+        { value: duration, name: "Duration" },
+        { value: certificateFile, name: "Certificate File" },
     ];
 
     // Check if all mandatory fields are filled
     for (const field of mandatoryFields) {
-      if (!field.value) {
-        alert(`Please fill the mandatory field: ${field.name}`);
-        formValid = false;
-        break;
-      }
-    }
-
-    if (courseException === "1") {
-      if (!elective) {
-        alert("Please select prefered Elective");
-      }
-    }
-
-    if (stipend === "No") {
-      setAmount(0);
-    }
-
-    const activeApplicationsResponse = await axios.get(
-      `${apiBaseUrl}/api/ce/oc/AllActiveApplications?student=${student}`,
-      { withCredentials: true }
-    );
-
-    const { total, internship } = activeApplicationsResponse.data;
-
-    // Check if total applications are less than 4
-    if (courseException === "1") {
-      if (total >= 4 || internship === 1) {
-        alert("You have reached the maximum number of applications allowed.");
-        return;
-      }
+        if (!field.value) {
+            alert(`Please fill the mandatory field: ${field.name}`);
+            formValid = false;
+            break;
+        }
     }
 
     if (formValid) {
-      const formData = new FormData();
-      formData.append("rollNo", rollNo);
-      formData.append("academic_year", selectedAcademicYear);
-      formData.append("mode", mode);
-      formData.append("Industry", Industry);
-      formData.append("StartDate", fmtStartDate);
-      formData.append("EndDate", fmtEndDate);
-      formData.append("duration", duration);
-      formData.append("courseException", courseException);
-      formData.append("reportFile", reportFile);
-      formData.append("elective", elective);
-      try {
-        const response = await axios.post(
-          `${apiBaseUrl}/api/ce/in/InternCreate`,
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-            withCredentials: true,
-          }
-        );
-
-        console.log("Response:", response.data);
-        if (response.status === 200) {
-          console.log("Data successfully sent to the backend");
-          setDataRespModal(true);
-          setIsSuccess(true);
-          setResponseMessage("Online Course Applied Successfully");
+        const formData = new FormData();
+        formData.append("rollNo", rollNo);
+        formData.append("academic_year", academic_year);
+        formData.append("mode", mode);
+        formData.append("semester", semester);
+        formData.append("Industry", Industry);
+        formData.append("StartDate", fmtStartDate); // Use formatted dates
+        formData.append("EndDate", fmtEndDate); // Use formatted dates
+        formData.append("duration", duration);
+        if (certificateFile) {
+            formData.append('certificateFile', certificateFile);
         }
-      } catch (error) {
-        if (error.response && error.response.status === 401) {
-          console.error("Unauthorized, logging out:", error);
-          handleLogout(); // Call logout function
-        } else {
-          console.error("Error sending data to the backend:", error);
-          setDataRespModal(true);
-          setIsSuccess(false);
-          setResponseMessage(
-            "Error While Applying the online course..Retry it!"
-          );
-        }
-      }
 
-      console.log("Form submitted:", {
-        rollNo,
-        selectedAcademicYear,
-        semester,
-        mode,
-        Industry,
-        StartDate,
-        EndDate,
-        duration,
-        certificateFile,
-        reportFile,
-        elective,
-      });
+        // Debugging FormData
+        for (let pair of formData.entries()) {
+            console.log(`${pair[0]}: ${pair[1]}`);
+        }
+
+        try {
+            const response = await axios.post(
+                `${apiBaseUrl}/api/ce/in/InternCreate`,
+                formData,
+                {
+                    withCredentials: true,
+                    headers: { 'Content-Type': 'multipart/form-data' }
+                }
+            );
+
+            if (response.status === 200) {
+                setDataRespModal(true);
+                setIsSuccess(true);
+                setResponseMessage("Internship tracker Applied Successfully");
+            } else {
+                setDataRespModal(true);
+                setIsSuccess(false);
+                setResponseMessage("Error While Applying the online course..Retry it!");
+            }
+        } catch (error) {
+            if (error.response) {
+                if (error.response.status === 401) {
+                    handleLogout(); // Unauthorized
+                } else {
+                    setDataRespModal(true);
+                    setIsSuccess(false);
+                    setResponseMessage(`Error: ${error.response.data.message || "Error While Applying the online course..Retry it!"}`);
+                }
+            } else if (error.request) {
+                setDataRespModal(true);
+                setIsSuccess(false);
+                setResponseMessage("No response received from the backend. Please check your connection and try again.");
+            } else {
+                setDataRespModal(true);
+                setIsSuccess(false);
+                setResponseMessage("Error setting up the request. Please try again.");
+            }
+        }
     }
-  };
+};
+
 
   const handleStartDateChange = (date) => {
     if (EndDate && date && date > EndDate) {
@@ -397,17 +364,6 @@ const InternshipForm = () => {
     setCertificateFile(event.target.files[0]);
   };
 
-  const handleReportFileChange = (event) => {
-    setReportFile(event.target.files[0]);
-  };
-
-  const handleAmountChange = (e) => {
-    const input = e.target.value;
-    if (!input || /^\d+$/.test(input)) {
-      setAmount(input);
-    }
-  };
-
   const handleRespModalClose = () => {
     setDataRespModal(false);
     {
@@ -416,7 +372,7 @@ const InternshipForm = () => {
   };
 
   const handleAcademicYear = async (selectedOption) => {
-    SetSelectedAcademicYear(selectedOption.value);
+    SetAcademic_year(selectedOption.value);
     setSemester(null);
     setSemesterOptions([]);
     try {
@@ -594,7 +550,7 @@ const InternshipForm = () => {
                       htmlFor="pdf-upload-certificate"
                       className="pdf-upload-button"
                     >
-                      Certificate PDF
+                      aim obj PDF
                       <input
                         id="pdf-upload-certificate"
                         type="file"
@@ -609,6 +565,15 @@ const InternshipForm = () => {
                       )}
                     </div>
                   </div>
+                </div>
+                <div className="quesField">
+                  <label className="inp">Approval Status:</label>
+                  <Select
+                    className="textField"
+                    value={[{ value: 0, label: "Initiated" }]} // Setting value as 0 and label as Initiated
+                    isDisabled={true}
+                    placeholder=""
+                  />
                 </div>
               </div>
             </div>
