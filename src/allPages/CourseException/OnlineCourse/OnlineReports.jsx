@@ -8,7 +8,10 @@ import { Box } from '@mui/material';
 import Button from '@mui/material/Button';
 import Modal from "@mui/material/Modal";
 import  apiLoginHost  from "../../login/LoginApi"
+<<<<<<< HEAD
 import { useNavigate } from "react-router-dom";
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import CircleNotificationsIcon from '@mui/icons-material/CircleNotifications';
@@ -48,7 +51,11 @@ const style1 = {
 };
 
 const OnlineReports = () => {
+<<<<<<< HEAD
   const navigate = useNavigate();
+=======
+
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     const [selectedOption, setSelectedOption] = useState("1");
     const [showDropdown, setShowDropdown] = useState(false);
     const [data, setData] = useState([]);
@@ -85,6 +92,7 @@ const OnlineReports = () => {
     setSelectedOption(option);
     fetchUserData(option);
   };
+<<<<<<< HEAD
 
   const handleLogout = async () => {
     try {
@@ -100,6 +108,8 @@ const OnlineReports = () => {
       console.error('Error during logout:', error);
     }
   };
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
   
       const fetchUserData = async (selectedOption) => {
         try {
@@ -140,7 +150,11 @@ const OnlineReports = () => {
                 return;
             }
             // Fetch faculty approvals
+<<<<<<< HEAD
             const approvalResponse = await axios.get(url, { withCredentials: true });
+=======
+            const approvalResponse = await axios.get(url);
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
             if (approvalResponse.status === 200) {
               const approvalData = approvalResponse.data;
               setData(approvalData)
@@ -152,6 +166,7 @@ const OnlineReports = () => {
             console.error('Failed to fetch user data');
           }
         } catch (error) {
+<<<<<<< HEAD
           if (error.response && error.response.status === 401) {
             console.error("Unauthorized, logging out:", error);
             handleLogout(); // Call logout function
@@ -159,6 +174,9 @@ const OnlineReports = () => {
           else { 
           console.error('Error fetching user data:', error);
           }
+=======
+          console.error('Error fetching user data:', error);
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
         }
       };
       
@@ -169,12 +187,21 @@ const OnlineReports = () => {
 
         const fetchApprovalMembers = async () => {
           try {
+<<<<<<< HEAD
             const response1 = await axios.get(`${apiBaseUrl}/api/ce/oc/OnlineCourseApprovalMembers`, { withCredentials: true });
             const jsonData1 = response1.data;
+=======
+            const response1 = await fetch(`${apiBaseUrl}/api/ce/oc/OnlineCourseApprovalMembers`);
+            if(!response1.ok){
+              throw new Error('Failed to fetch approval Members');
+            }
+            const jsonData1 = await response1.json();
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
             const members = jsonData1.map(item => item.members);
             members.push("Approved");
             setApprovalMembers(members)
           } catch (error) {
+<<<<<<< HEAD
             if (error.response && error.response.status === 401) {
               console.error("Unauthorized, logging out:", error);
               handleLogout(); // Call logout function
@@ -182,12 +209,19 @@ const OnlineReports = () => {
             else { 
             setError(error.message);
             }
+=======
+            setError(error.message);
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
           }
         };
 
         const handleRevoke = async (userId,id,student) => {
           try{
+<<<<<<< HEAD
             const response = await axios.post(`${apiBaseUrl}/api/ce/oc/RevokeOnlineCourse`,{userId,id,student}, { withCredentials: true })
+=======
+            const response = await axios.post(`${apiBaseUrl}/api/ce/oc/RevokeOnlineCourse`,{userId,id,student})
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
             console.log("Response :",response.data);
               if(response.status===200){
                   console.log("Approval Status Revoked");
@@ -197,11 +231,14 @@ const OnlineReports = () => {
               }
           }
           catch(error){
+<<<<<<< HEAD
             if (error.response && error.response.status === 401) {
               console.error("Unauthorized, logging out:", error);
               handleLogout(); // Call logout function
             }
             else { 
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
             console.log("Error in Revoking the status ", error);
       const errorMsg = error.response && error.response.data.error
       ? error.response.data.error
@@ -209,7 +246,10 @@ const OnlineReports = () => {
               setResponseMessage(errorMsg);
               setResponseModalOpen(true);
               setIsSuccess(false);
+<<<<<<< HEAD
             }
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
           }
         }
 
@@ -302,7 +342,11 @@ const OnlineReports = () => {
 
   return (
     <>
+<<<<<<< HEAD
     <div className='tableDefault'>
+=======
+    <div>
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
       <div className="titFac">
         <div className="ti">
           <h4>Approved Courses</h4>

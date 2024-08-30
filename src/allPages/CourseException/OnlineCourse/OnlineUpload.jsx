@@ -9,7 +9,10 @@ import Select from "react-select";
 import axios from "axios";
 import { Box } from "@mui/material";
 import Modal from "@mui/material/Modal";
+<<<<<<< HEAD
 import { useNavigate } from "react-router-dom";
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import AnnouncementIcon from "@mui/icons-material/Announcement";
 import DescriptionIcon from "@mui/icons-material/Description";
@@ -31,7 +34,10 @@ const style1 = {
 };
 
 const OnlineUpload = () => {
+<<<<<<< HEAD
   const navigate = useNavigate();
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
   const [multipleOpen, setMultipleOpen] = useState(false);
   const [platformData, setPlatformData] = useState([]);
   const [courseCode, setCourseCode] = useState(null);
@@ -50,6 +56,7 @@ const OnlineUpload = () => {
     setMultipleOpen(!multipleOpen);
   };
 
+<<<<<<< HEAD
   const handleLogout = async () => {
     try {
       await axios.post(`${apiBaseUrl}/logout`, { withCredentials: true });
@@ -65,10 +72,13 @@ const OnlineUpload = () => {
     }
   };
 
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
   useEffect(() => {
     const fetchPlatform = async () => {
       try {
         const type = await axios.get(
+<<<<<<< HEAD
           `${apiBaseUrl}/api/ce/oc/platform`, { withCredentials: true }
         );
         setPlatformData(type.data);
@@ -80,6 +90,13 @@ const OnlineUpload = () => {
         else { 
         console.error("Error fetching users:", error);
         }
+=======
+          `${apiBaseUrl}/api/ce/oc/platform`
+        );
+        setPlatformData(type.data);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
       }
     };
     fetchPlatform();
@@ -139,7 +156,11 @@ const OnlineUpload = () => {
             courseDuration,
             courseCredits,
             courseExepmtion,
+<<<<<<< HEAD
           }, { withCredentials: true }
+=======
+          }
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
         );
         console.log("Response:", response.data);
         if (response.status === 200) {
@@ -154,11 +175,14 @@ const OnlineUpload = () => {
         }
       }
     } catch (error) {
+<<<<<<< HEAD
       if (error.response && error.response.status === 401) {
         console.error("Unauthorized, logging out:", error);
         handleLogout(); // Call logout function
       }
       else { 
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
       console.log("Error in Adding the Course ", error);
       const errorMsg = error.response ? error.response.data.msg : "Error in Adding the Course";
       setResponseMessage(errorMsg);
@@ -168,7 +192,10 @@ const OnlineUpload = () => {
       setCourseName("");
       setCourseDuration(0);
       setCourseCredits(0);
+<<<<<<< HEAD
       }
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     }
   };
 
@@ -196,7 +223,11 @@ const OnlineUpload = () => {
           headers: {
             "Content-Type": "multipart/form-data",
           },
+<<<<<<< HEAD
         }, { withCredentials: true }
+=======
+        }
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
       );
 
       setIsLoading(false);
@@ -213,6 +244,7 @@ const OnlineUpload = () => {
         setSelectedFile(null);
       }
     } catch (error) {
+<<<<<<< HEAD
       if (error.response && error.response.status === 401) {
         console.error("Unauthorized, logging out:", error);
         handleLogout(); // Call logout function
@@ -222,6 +254,11 @@ const OnlineUpload = () => {
       setResponseMessage("Error Uploading File");
       setIsSuccess(false);
       }
+=======
+      console.error("Error uploading file", error);
+      setResponseMessage("Error Uploading File");
+      setIsSuccess(false);
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     }
   };
 

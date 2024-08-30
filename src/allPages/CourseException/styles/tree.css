@@ -19,12 +19,20 @@
 .tree li::before, .tree li::after{
     content: '';
     position: absolute; top: 0; right: 50%;
+<<<<<<< HEAD
     border-top: 1px solid var(--primaryBlue);
+=======
+    border-top: 1px solid #ccc;
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     width: 50%; height: 10px;
 }
 .tree li::after{
     right: auto; left: 50%;
+<<<<<<< HEAD
     border-left: 1px solid var(--primaryBlue);
+=======
+    border-left: 1px solid #ccc;
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
 }
 
 .tree li:only-child::after, .tree li:only-child::before {
@@ -37,7 +45,11 @@
     border: 0 none;
 }
 .tree li:last-child::before{
+<<<<<<< HEAD
     border-right: 1px solid var(--primaryBlue);
+=======
+    border-right: 1px solid #ccc;
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     border-radius: 0 5px 0 0;
     -webkit-border-radius: 0 5px 0 0;
     -moz-border-radius: 0 5px 0 0;
@@ -50,7 +62,11 @@
 .tree ul ul::before{
     content: '';
     position: absolute; top: 0; left: 50%;
+<<<<<<< HEAD
     border-left: 1px solid var(--primaryBlue);
+=======
+    border-left: 1px solid #ccc;
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     width: 0; height: 16px;
 }
 .tree li div{
@@ -60,13 +76,21 @@
     text-decoration: none;
     font-family: 'Poppins', sans-serif;
     font-size: 11px;
+<<<<<<< HEAD
     transition: all ease-in 0.3s;
+=======
+    font-weight: bold;
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     display: inline-block;
     border-radius: 5px;
     overflow-x: scroll;
 }
 .tree li div:hover, .tree li div:hover+ul li div {
+<<<<<<< HEAD
     background-color: var(--primaryBlue);
+=======
+    background-color: black;
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     color: white;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;  
     cursor: pointer;

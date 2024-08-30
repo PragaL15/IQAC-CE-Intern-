@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz@9..40&family=Manrope:wght@400;500&family=Poppins&display=swap');
 .overall{
+<<<<<<< HEAD
     height: 90%;
     overflow-y: scroll;
     margin: 20px;
@@ -7,6 +8,11 @@
     padding-bottom: 20px;
     border-radius: 10px;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+=======
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
 }
 .divTit{
     display: flex;
@@ -51,10 +57,17 @@
     cursor: pointer;
 }
 .iconfilterRep{
+<<<<<<< HEAD
     background-color: var(--secondaryBlue);
     color: #ecf5fa;
     border-radius: 5px;
     padding: 2px;
+=======
+    background-color: rgb(112, 112, 211);
+    color: #ecf5fa;
+    border-radius: 5px;
+    padding: 3px;
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
 }
 .modeOption{
     margin-right: 10px;
@@ -70,7 +83,11 @@
 .Active{
     padding: 7px;
     margin-top: 5px;
+<<<<<<< HEAD
     background-color:var(--ReportChoiceBtn);
+=======
+    background-color: rgb(112, 112, 211);
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     color: white;
     width: 101px;
     border: none;
@@ -82,7 +99,11 @@
 .NonActive{
     padding: 7px;
     margin-top: 5px;
+<<<<<<< HEAD
     border: 1px solid var(--ReportChoiceBtn);
+=======
+    border: 1px solid  rgb(112, 112, 211);
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     background-color: white;
     width: 101px;
     cursor: pointer;
@@ -103,15 +124,25 @@
     justify-content: space-between;
 }
 .reportBtn{
+<<<<<<< HEAD
     padding: 5px 10px 5px 10px;
     border: none;
     background-color:  var(--primaryBlue);
+=======
+    padding: 7px;
+    border: none;
+    background-color:  var(--heading-crsExp);
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     font-family: 'Poppins', sans-serif;
     color: white;
     border-radius: 5px;
     font-size: 13px;
     cursor: pointer;
     margin-right: 30px;
+<<<<<<< HEAD
+=======
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
 }
 .FilterSection{
     display: flex;
@@ -121,7 +152,11 @@
 .ActiveAcademic{
     padding: 7px;
     margin-top: 5px;
+<<<<<<< HEAD
     background-color:var(--ReportChoiceBtn);
+=======
+    background-color: rgb(112, 112, 211);
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     color: white;
     border: none;
     border-radius: 5px;
@@ -132,7 +167,11 @@
 .NonActiveAcademic{
     padding: 7px;
     margin-top: 5px;
+<<<<<<< HEAD
     border: 1px solid var(--ReportChoiceBtn);
+=======
+    border: 1px solid  rgb(112, 112, 211);
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     background-color: white;
     cursor: pointer;
     transition: all 0.3s ease-out;
@@ -151,7 +190,11 @@
 .filtApply{
     padding: 7px;
     margin-top: 5px;
+<<<<<<< HEAD
     background-color: var(--primaryBlue);
+=======
+    background-color: var(--heading-crsExp);
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     color: white;
     border: none;
     border-radius: 5px;
@@ -172,9 +215,12 @@
 }
   
 @media (max-width: 1040px) {
+<<<<<<< HEAD
     .overall{
         width: 90%;
     }
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     .modeOption{
        width: 15vh;
        margin-bottom: 10px;
@@ -191,11 +237,19 @@
     }
     .Active{
         font-size: smaller;
+<<<<<<< HEAD
         width: 100px;
     }
     .NonActive{
         font-size: smaller;
         width: 100px;
+=======
+        width: 90px;
+    }
+    .NonActive{
+        font-size: smaller;
+        width: 90px;
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     }
     .ActiveAcademic{
         font-size: smaller;

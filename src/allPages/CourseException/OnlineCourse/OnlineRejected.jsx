@@ -5,7 +5,10 @@ import "../styles/courseApproval.css";
 import { DataGrid } from "@mui/x-data-grid";
 import { Box } from "@mui/material";
 import { apiBaseUrl } from "../../../api/api";
+<<<<<<< HEAD
 import { useNavigate } from "react-router-dom";
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
 import  apiLoginHost  from "../../login/LoginApi"
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
@@ -15,7 +18,10 @@ import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import BasicModal from "../stuffs/BasicModal";
 
 const OnlineRejected = () => {
+<<<<<<< HEAD
   const navigate = useNavigate();
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
   const [selectedOption, setSelectedOption] = useState("1");
   const [data, setData] = useState([]);
   const [name,setName] = useState("")
@@ -27,6 +33,7 @@ const OnlineRejected = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
+<<<<<<< HEAD
   const handleLogout = async () => {
     try {
       await axios.post(`${apiBaseUrl}/logout`, { withCredentials: true });
@@ -42,6 +49,8 @@ const OnlineRejected = () => {
     }
   };
 
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -99,7 +108,11 @@ const OnlineRejected = () => {
             return;
         }
         // Fetch faculty approvals
+<<<<<<< HEAD
         const approvalResponse = await axios.get(url, { withCredentials: true });
+=======
+        const approvalResponse = await axios.get(url);
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
         if (approvalResponse.status === 200) {
           const approvalData = approvalResponse.data;
           setData(approvalData)
@@ -111,6 +124,7 @@ const OnlineRejected = () => {
         console.error('Failed to fetch user data');
       }
     } catch (error) {
+<<<<<<< HEAD
       if (error.response && error.response.status === 401) {
         console.error("Unauthorized, logging out:", error);
         handleLogout(); // Call logout function
@@ -118,6 +132,9 @@ const OnlineRejected = () => {
       else { 
       console.error('Error fetching user data:', error);
       }
+=======
+      console.error('Error fetching user data:', error);
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     }
   };
 
@@ -128,7 +145,11 @@ const OnlineRejected = () => {
 
     const fetchApprovalMembers = async () => {
       try {
+<<<<<<< HEAD
         const response1 = await fetch(`${apiBaseUrl}/api/ce/oc/OnlineCourseApprovalMembers`, { withCredentials: true });
+=======
+        const response1 = await fetch(`${apiBaseUrl}/api/ce/oc/OnlineCourseApprovalMembers`);
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
         if(!response1.ok){
           throw new Error('Failed to fetch approval Members');
         }
@@ -137,6 +158,7 @@ const OnlineRejected = () => {
         members.push("Approved");
         setApprovalMembers(members)
       } catch (error) {
+<<<<<<< HEAD
         if (error.response && error.response.status === 401) {
           console.error("Unauthorized, logging out:", error);
           handleLogout(); // Call logout function
@@ -144,6 +166,9 @@ const OnlineRejected = () => {
         else { 
         setError(error.message);
         }
+=======
+        setError(error.message);
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
       }
     };
 
@@ -211,12 +236,20 @@ const OnlineRejected = () => {
   ]
 
   const customLocaleText = {
+<<<<<<< HEAD
     noRowsLabel: `No Applications for ${selectedOption == "1" ? "Course Exemption" : "Rewards"} `, 
+=======
+    noRowsLabel: `You have not Yet Approved any students for ${selectedOption == "1" ? "Course Exemption" : "Rewards"} `, 
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
   };
 
   return (
     <>
+<<<<<<< HEAD
       <div className="tableDefault">
+=======
+      <div>
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
         <div className="titFac">
           <div className="ti">
             <h4>Rejected Courses</h4>

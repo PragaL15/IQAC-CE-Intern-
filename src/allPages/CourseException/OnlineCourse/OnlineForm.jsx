@@ -104,6 +104,7 @@ const OnlineForm = () => {
   const [electiveData, setElectiveData] = useState([]);
   const [electiveId, setElectiveId] = useState(null);
 
+<<<<<<< HEAD
   const handleLogout = async () => {
     try {
       await axios.post(`${apiBaseUrl}/logout`, { withCredentials: true });
@@ -119,10 +120,13 @@ const OnlineForm = () => {
     }
   };
 
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
   // Function to fetch users from the API
   // Function to fetch users from the API
   const fetchUsers = async () => {
     try {
+<<<<<<< HEAD
       const typePromise = axios.get(`${apiBaseUrl}/api/ce/oc/platform`, { withCredentials: true });
       const validPromise = axios.get(
         `${apiBaseUrl}/api/ce/oc/courseExpValidation`, { withCredentials: true }
@@ -138,6 +142,23 @@ const OnlineForm = () => {
       );
       const electivePromise = await axios.get(
         `${apiBaseUrl}/api/ce/AvailableElectives`, { withCredentials: true }
+=======
+      const typePromise = axios.get(`${apiBaseUrl}/api/ce/oc/platform`);
+      const validPromise = axios.get(
+        `${apiBaseUrl}/api/ce/oc/courseExpValidation`
+      );
+      const decisionStatusPromise = axios.get(
+        `${apiBaseUrl}/api/ce/oc/AllActiveApplications?student=${student}`
+      );
+      const respPromise = axios.get(
+        `${apiBaseUrl}/api/ce/oc/ApprovedStatusAll?student=${student}`
+      );
+      const yearPromise = axios.get(
+        `${apiBaseUrl}/api/ce/AvailableAcademicYears`
+      );
+      const electivePromise = await axios.get(
+        `${apiBaseUrl}/api/ce/AvailableElectives`
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
       );
 
       const results = await Promise.allSettled([
@@ -206,6 +227,7 @@ const OnlineForm = () => {
         console.error("Error fetching academic years:", electiveResult.reason);
       }
     } catch (error) {
+<<<<<<< HEAD
       if (error.response && error.response.status === 401) {
         console.error("Unauthorized, logging out:", error);
         handleLogout(); // Call logout function
@@ -213,6 +235,10 @@ const OnlineForm = () => {
       else { 
       console.error("Error fetching users:", error);
       }
+=======
+      // If an error occurs, log the error
+      console.error("Error fetching users:", error);
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     }
   };
 
@@ -325,10 +351,17 @@ const OnlineForm = () => {
       console.log(approvalStatusFromDb);
       try {
         const response = await axios.get(
+<<<<<<< HEAD
           `${apiBaseUrl}/api/ce/oc/platform/excemption?id=${selectedCourse}`, { withCredentials: true }
         );
         const resp = await axios.get(
           `${apiBaseUrl}/api/ce/oc/courselist?platform=${selectedCourse}&student=${student}`, { withCredentials: true }
+=======
+          `${apiBaseUrl}/api/ce/oc/platform/excemption?id=${selectedCourse}`
+        );
+        const resp = await axios.get(
+          `${apiBaseUrl}/api/ce/oc/courselist?platform=${selectedCourse}&student=${student}`
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
         );
         const res = response.data[0].excemption;
         setExcemption(res);
@@ -343,6 +376,7 @@ const OnlineForm = () => {
           setCourseStatus(course.value);
         }
       } catch (error) {
+<<<<<<< HEAD
         if (error.response && error.response.status === 401) {
           console.error("Unauthorized, logging out:", error);
           handleLogout(); // Call logout function
@@ -350,6 +384,9 @@ const OnlineForm = () => {
         else { 
         console.error("Error fetching course names:", error);
         }
+=======
+        console.error("Error fetching course names:", error);
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
       }
     } else {
       // Handle case where selectedOption is null (e.g., clearing selection)
@@ -637,8 +674,12 @@ const OnlineForm = () => {
             headers: {
               "Content-Type": "multipart/form-data",
             },
+<<<<<<< HEAD
             withCredentials: true
           }, 
+=======
+          }
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
         );
 
         console.log("Response:", response.data);
@@ -650,16 +691,22 @@ const OnlineForm = () => {
         }
       }
     } catch (error) {
+<<<<<<< HEAD
       if (error.response && error.response.status === 401) {
         console.error("Unauthorized, logging out:", error);
         handleLogout(); // Call logout function
       }
       else { 
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
       console.error("Error sending data to the backend:", error);
       setDataRespModal(true);
       setIsSuccess(false);
       setResponseMessage("Error While Applying the online course..Retry it!");
+<<<<<<< HEAD
       }
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     }
   };
 
@@ -684,7 +731,11 @@ const OnlineForm = () => {
 
       // Fetch active applications
       const activeApplicationsResponse = await axios.get(
+<<<<<<< HEAD
         `${apiBaseUrl}/api/ce/oc/AllActiveApplications?student=${student}`, { withCredentials: true }
+=======
+        `${apiBaseUrl}/api/ce/oc/AllActiveApplications?student=${student}`
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
       );
 
       const { total } = activeApplicationsResponse.data;
@@ -697,7 +748,11 @@ const OnlineForm = () => {
 
       // Check if the student-course mapping exists in active status
       const checkMappingResponse = await axios.get(
+<<<<<<< HEAD
         `${apiBaseUrl}/api/ce/oc/ActiveApplicationOnlineForValidation?student=${student}&course_code=${crname}`, { withCredentials: true }
+=======
+        `${apiBaseUrl}/api/ce/oc/ActiveApplicationOnlineForValidation?student=${student}&course_code=${crname}`
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
       );
       const { exists } = checkMappingResponse.data;
 
@@ -734,7 +789,11 @@ const OnlineForm = () => {
           headers: {
             "Content-Type": "multipart/form-data",
           },
+<<<<<<< HEAD
         }, { withCredentials: true }
+=======
+        }
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
       );
 
       console.log("Response:", response.data);
@@ -746,16 +805,22 @@ const OnlineForm = () => {
         modifyPdf();
       }
     } catch (error) {
+<<<<<<< HEAD
       if (error.response && error.response.status === 401) {
         console.error("Unauthorized, logging out:", error);
         handleLogout(); // Call logout function
       }
       else { 
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
       console.error("Error sending data to the backend:", error);
       setDataRespModal(true);
       setIsSuccess(false);
       setResponseMessage("Error While Applying the online course..Retry it!");
+<<<<<<< HEAD
       }
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     }
   };
 
@@ -866,7 +931,11 @@ const OnlineForm = () => {
     setSemesterOptions([]);
     try {
       const response = await axios.get(
+<<<<<<< HEAD
         `${apiBaseUrl}/api/ce/AvailableSemester?id=${selectedOption.value}`, { withCredentials: true }
+=======
+        `${apiBaseUrl}/api/ce/AvailableSemester?id=${selectedOption.value}`
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
       );
       const semesterData = response.data[0];
 
@@ -877,6 +946,7 @@ const OnlineForm = () => {
       ];
       setSemesterOptions(newSemesterOptions);
     } catch (error) {
+<<<<<<< HEAD
       if (error.response && error.response.status === 401) {
         console.error("Unauthorized, logging out:", error);
         handleLogout(); // Call logout function
@@ -884,6 +954,9 @@ const OnlineForm = () => {
       else  {
       console.error("Error fetching semester data:", error);
       }
+=======
+      console.error("Error fetching semester data:", error);
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     }
   };
 
@@ -1212,7 +1285,11 @@ const OnlineForm = () => {
                       <div className="EXPsubmits">
                         <button
                           className="expCancelBtn"
+<<<<<<< HEAD
                           onClick={() => navigate("/1")}
+=======
+                          onClick={() => navigate("/Online Course")}
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
                         >
                           Cancel
                         </button>
@@ -1296,7 +1373,11 @@ const OnlineForm = () => {
                         </div>
                       </div>
                       <div className="RPsubmits">
+<<<<<<< HEAD
                         <button className="expCancelBtn" onClick={()=>navigate("/1")} >Cancel</button>
+=======
+                        <button className="expCancelBtn">Cancel</button>
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
                         <button
                           className="expCreateBtn"
                           onClick={sendDataToBackendRp}
@@ -1398,10 +1479,16 @@ const OnlineForm = () => {
                 Dashboard
               </div>
             ) : (
+<<<<<<< HEAD
               <div style={{display:'flex',justifyContent:"center",flexDirection:"column",alignItems:"center"}}>
                 <div><AnnouncementIcon sx={{color:"red"}}/></div>
                 <div style={{textAlign:"center"}}>You have Sufficient course applied in all other streams..untill
                 completion of those approval status you can't apply more</div>
+=======
+              <div>
+                You have Sufficient course applied in all other streams..untill
+                completion of those approval status you can't apply more
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
               </div>
             )}
           </div>

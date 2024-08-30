@@ -5,7 +5,10 @@ import '../styles/courseApproval.css';
 import { DataGrid } from '@mui/x-data-grid';
 import { Box } from '@mui/material';
 import Button from '@mui/material/Button';
+<<<<<<< HEAD
 import { useNavigate } from "react-router-dom";
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
 import { apiBaseUrl } from "../../../api/api";
 import  apiLoginHost  from "../../login/LoginApi"
 import Menu from '@mui/material/Menu';
@@ -16,7 +19,10 @@ import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 
 
 const CourseApproval = () => {
+<<<<<<< HEAD
   const navigate = useNavigate();
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
   const [selectedOption, setSelectedOption] = useState("1");
   const [name,setName] = useState("")
   const [department,setDepartment] = useState(null)
@@ -27,6 +33,7 @@ const CourseApproval = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
+<<<<<<< HEAD
   const handleLogout = async () => {
     try {
       await axios.post(`${apiBaseUrl}/logout`, { withCredentials: true });
@@ -43,6 +50,8 @@ const CourseApproval = () => {
   };
 
 
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -96,7 +105,11 @@ const CourseApproval = () => {
             return;
         }
         // Fetch faculty approvals
+<<<<<<< HEAD
         const approvalResponse = await axios.get(url, { withCredentials: true });
+=======
+        const approvalResponse = await axios.get(url);
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
         if (approvalResponse.status === 200) {
           const approvalData = approvalResponse.data;
           setData(approvalData)
@@ -108,6 +121,7 @@ const CourseApproval = () => {
         console.error('Failed to fetch user data');
       }
     } catch (error) {
+<<<<<<< HEAD
       if (error.response && error.response.status === 401) {
         console.error("Unauthorized, logging out:", error);
         handleLogout(); // Call logout function
@@ -115,6 +129,9 @@ const CourseApproval = () => {
       else { 
       console.error('Error fetching user data:', error);
       }
+=======
+      console.error('Error fetching user data:', error);
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     }
   };
   
@@ -186,13 +203,21 @@ const CourseApproval = () => {
   ]
 
   const customLocaleText = {
+<<<<<<< HEAD
     noRowsLabel: `No Applications for ${selectedOption == 1 ? "Course Exemption" : "Rewards"} `, 
+=======
+    noRowsLabel: `No Students Have Applied Yet for ${selectedOption == 1 ? "Course Exemption" : "Rewards"} `, 
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
   };
 
 
   return (
     <>
+<<<<<<< HEAD
     <div className='tableDefault'>
+=======
+    <div className='pendingTable'>
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
       <div className="titFac">
         <div className="ti">
           <h4 style={{marginRight:"5px"}}>Online Course </h4> <p>Pending Applications</p>

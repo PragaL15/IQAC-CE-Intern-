@@ -3,6 +3,7 @@
 .creditHomeMain{
     display: flex;
     flex-direction: column;
+<<<<<<< HEAD
     margin: 20px;
     background-color: var(--background);
     padding-bottom: 20px;
@@ -14,16 +15,27 @@
     border-radius: 5px;
     padding-left: 10px;
     padding-right: 10px;
+=======
+}
+.CourseBtn{
+    padding: 8px;
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     border: none;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 .CourseBtnActive{
     padding: 8px;
     border: none;
+<<<<<<< HEAD
     border-radius: 5px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     color: white;
     background-color: var(--secondaryBlue);
+=======
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    color: white;
+    background-color: #2B3674;
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     cursor: pointer;
 }
 .btnapply{
@@ -102,7 +114,11 @@
     margin-bottom: 20px;
 }
 .oncreditField{
+<<<<<<< HEAD
     width: 20vw;
+=======
+    width: 35vh;
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
 }
 .expBtnsReasons{
     display: flex;
@@ -178,6 +194,10 @@
         gap: 8px;
     }
     .oncreditField{
+<<<<<<< HEAD
         width: 90%;
+=======
+        width: 30vh;
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     }
 }

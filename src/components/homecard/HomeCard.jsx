@@ -10,6 +10,7 @@ import './homeCard.css'
 const HomeCard = (props) => {
   return (
     <div className='homeCardMain'>
+<<<<<<< HEAD
         <Card className='homeCard' sx={{
           backgroundColor: "var(--cardBackground)",
           border:"none",
@@ -22,6 +23,10 @@ const HomeCard = (props) => {
           },
         }}>
           <CardActionArea>
+=======
+        <Card className='homeCard' sx={{backgroundColor:"var(--cardBackground)"}}>
+          <CardActionArea sx={{backgroundColor:"var(--cardBackground)"}}>
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
             <CardMedia component="img" height="200" image={props.image}/>
             <CardContent>
               <div className='cardTit'>

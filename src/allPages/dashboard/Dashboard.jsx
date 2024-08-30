@@ -5,6 +5,7 @@ import InputBox from '../../components/InputBox/inputbox'
 import Button from '../../components/Button/Button'
 import Card from '../../components/card/Card'
 import apiLoginHost from '../login/LoginApi';
+<<<<<<< HEAD
 import { useNavigate } from "react-router-dom";
 
 function Dashboard() {
@@ -24,6 +25,11 @@ function Dashboard() {
       console.error('Error during logout:', error);
     }
   };
+=======
+
+
+function Dashboard() {
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
 
     useEffect(() => {
         // Fetch user data from backend
@@ -38,6 +44,7 @@ function Dashboard() {
                 console.log('User ID and resources stored in local storage');
             })
             .catch(error => {
+<<<<<<< HEAD
                 if (error.response && error.response.status === 401) {
                     console.error("Unauthorized, logging out:", error);
                     handleLogout(); // Call logout function
@@ -45,6 +52,9 @@ function Dashboard() {
                 else { 
                 console.error('Error fetching user data:', error);
                 }
+=======
+                console.error('Error fetching user data:', error);
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
                 // Handle error (e.g., redirect to login page)
             });
     }, []);

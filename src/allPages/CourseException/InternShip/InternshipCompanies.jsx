@@ -4,6 +4,7 @@ import TextField from "@mui/material/TextField";
 import { apiBaseUrl } from "../../../api/api";
 import { DataGrid } from "@mui/x-data-grid";
 import { Box } from "@mui/material";
+<<<<<<< HEAD
 import Slide from '@mui/material/Slide';
 import Modal from "@mui/material/Modal";
 import { useNavigate } from "react-router-dom";
@@ -17,20 +18,37 @@ import EditNoteIcon from "@mui/icons-material/EditNote";
 import axios from "axios";
 import Select from "react-select";
 import { useMediaQuery } from '@mui/material';
+=======
+import Modal from "@mui/material/Modal";
+import DeleteIcon from "@mui/icons-material/Delete";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import InputAdornment from "@mui/material/InputAdornment";
+import SearchIcon from "@mui/icons-material/Search";
+import AnnouncementIcon from "@mui/icons-material/Announcement";
+import EditNoteIcon from "@mui/icons-material/EditNote";
+import axios from "axios";
+import { useMediaQuery } from "@mui/material";
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
 
 const getResponsiveStyle = (isLargeScreen) => ({
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
+<<<<<<< HEAD
   width:"70%",
   maxWidth: isLargeScreen ? "750px": "650px",
+=======
+  width: "70%",
+  maxWidth: isLargeScreen ? "750px" : "650px",
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
   bgcolor: "background.paper",
   borderRadius: "10px",
   boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
   p: 4,
 });
 
+<<<<<<< HEAD
   
   const style1 = {
     position: "absolute",
@@ -62,19 +80,59 @@ const InternshipCompanies = () => {
   const [selectedRow, setSelectedRow] = useState(null);
   const [data, setData] = useState([]);
   const [companyDataWithoutId,setCompanyDatawithoutId] = useState([])
+=======
+const style1 = {
+  position: "absolute",
+  top: "5%",
+  left: "50%",
+  bottom: "90%",
+  transform: "translate(-50%, -50%)",
+  width: 280,
+  bgcolor: "background.paper",
+  boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px;",
+  borderRadius: "10px",
+  p: 4,
+};
+
+const style2 = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 200,
+  bgcolor: "background.paper",
+  boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px;",
+  borderRadius: "10px",
+  p: 4,
+};
+
+const InternshipCompanies = () => {
+  const [selectedRow, setSelectedRow] = useState(null);
+  const [data, setData] = useState([]);
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
   const [name, setName] = useState("");
   const [companyName, setCompanyName] = useState(null);
   const [companyAddress, setCompanyAddress] = useState(null);
   const [companyPhoneNumber, setCompanyPhoneNumber] = useState(null);
+<<<<<<< HEAD
   const [selectedCompanyId,setSelectedCompanyId] = useState(null)
+=======
+  const [selectedCompanyId, setSelectedCompanyId] = useState(null);
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
   const [responseModalOpen, setResponseModalOpen] = useState(false);
   const [responseMessage, setResponseMessage] = useState("");
   const [issuccess, setIsSuccess] = useState(null);
   const [deletingRow, setDeletingRow] = useState(null);
+<<<<<<< HEAD
   const isLargeScreen = useMediaQuery('(min-width: 1500px)');
   const style = getResponsiveStyle(isLargeScreen);
 
   
+=======
+  const isLargeScreen = useMediaQuery("(min-width: 1500px)");
+  const style = getResponsiveStyle(isLargeScreen);
+
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
   const handleEdit = (row) => {
     setSelectedRow(row);
     setCompanyName(row.company_name);
@@ -100,11 +158,16 @@ const InternshipCompanies = () => {
   const handleCompanyAddress = (event) => {
     setCompanyAddress(event.target.value);
   };
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
   const handleCompanyPhone = (event) => {
     setCompanyPhoneNumber(event.target.value);
   };
 
+<<<<<<< HEAD
   const handleLogout = async () => {
     try {
       await axios.post(`${apiBaseUrl}/logout`, { withCredentials: true });
@@ -123,14 +186,26 @@ const InternshipCompanies = () => {
   const handleEditSubmit = async () => {
     try {
       const response = await axios.post(
+=======
+  // Function to handle the submission of the edit form
+  const handleEditSubmit = async () => {
+    try {
+      const response = await axios.post(
+        // Send a POST request to update the company information
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
         `${apiBaseUrl}/api/ce/in/InternCompanyEdit`,
         {
           companyName,
           companyAddress,
           companyPhoneNumber,
+<<<<<<< HEAD
           selectedCompanyId
         }
         , { withCredentials: true }
+=======
+          selectedCompanyId,
+        }
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
       );
       console.log("Response:", response.data);
       if (response.status === 200) {
@@ -142,17 +217,21 @@ const InternshipCompanies = () => {
         setIsSuccess(true);
       }
     } catch (error) {
+<<<<<<< HEAD
       if (error.response && error.response.status === 401) {
         console.error("Unauthorized, logging out:", error);
         handleLogout(); // Call logout function
       }
       else { 
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
       console.log("Error in Updating the Course", error);
       setSelectedRow(false);
       fetchData(name);
       setResponseMessage("Error in Updating the Course");
       setResponseModalOpen(true);
       setIsSuccess(false);
+<<<<<<< HEAD
       }
     }
   };
@@ -191,6 +270,45 @@ const InternshipCompanies = () => {
     try {
       const response = await fetch(
         `${apiBaseUrl}/api/ce/in/InternCompanySearch?name=${name}`, { withCredentials: true }
+=======
+    }
+  };
+
+  // Function to handle the submission of the delete action
+  const handleDeleteSubmit = async () => {
+    try {
+      const response = await axios.post(
+        `${apiBaseUrl}/api/ce/in/InternCompanyDelete`,
+        { selectedCompanyId }
+      );
+      console.log("Response :", response.data);
+      if (response.status === 200) {
+        console.log("Company Deleted Successfully");
+        setDeletingRow(false);
+        fetchData(name);
+        setResponseMessage("Company Deleted Successfully");
+        setResponseModalOpen(true);
+        setIsSuccess(true);
+      }
+    } catch (error) {
+      console.log("Error in Deleting the Company ", error);
+      const errorMsg = error.response
+        ? error.response.data.msg
+        : "Error in Deleting the Company";
+      setResponseMessage(errorMsg);
+      setDeletingRow(false);
+      fetchData(name);
+      setResponseModalOpen(true);
+      setIsSuccess(false);
+    }
+  };
+
+  // Function to fetch data from the API based on the search name
+  const fetchData = async (name) => {
+    try {
+      const response = await fetch(
+        `${apiBaseUrl}/api/ce/in/InternCompanySearch?name=${name}`
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
       );
       if (!response.ok) {
         throw new Error("Failed to fetch data");
@@ -202,6 +320,7 @@ const InternshipCompanies = () => {
       }));
       setData(rowsWithSno);
     } catch (error) {
+<<<<<<< HEAD
       if (error.response && error.response.status === 401) {
         console.error("Unauthorized, logging out:", error);
         handleLogout(); // Call logout function
@@ -209,6 +328,9 @@ const InternshipCompanies = () => {
       else { 
       console.error("Error fetching data:", error);
       }
+=======
+      console.error("Error fetching data:", error);
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     }
   };
 
@@ -240,8 +362,18 @@ const InternshipCompanies = () => {
       headerClassName: "super-app-theme--header",
       renderCell: (params) => (
         <Box
+<<<<<<< HEAD
           sx={{backgroundColor:"rgb(62, 62, 230)",color:"white",padding:"5px",borderRadius:"5px"}}
           style={{ cursor: "pointer", }}
+=======
+          sx={{
+            backgroundColor: "rgb(62, 62, 230)",
+            color: "white",
+            padding: "5px",
+            borderRadius: "5px",
+          }}
+          style={{ cursor: "pointer" }}
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
           onClick={() => handleEdit(params.row)}
         >
           <EditNoteIcon />
@@ -254,7 +386,16 @@ const InternshipCompanies = () => {
       headerClassName: "super-app-theme--header",
       renderCell: (params) => (
         <Box
+<<<<<<< HEAD
           sx={{backgroundColor:"rgb(250, 41, 41)",color:"white",padding:"5px",borderRadius:"5px"}}
+=======
+          sx={{
+            backgroundColor: "rgb(250, 41, 41)",
+            color: "white",
+            padding: "5px",
+            borderRadius: "5px",
+          }}
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
           style={{ cursor: "pointer" }}
           onClick={() => handleDelete(params.row)}
         >
@@ -269,7 +410,11 @@ const InternshipCompanies = () => {
   };
 
   return (
+<<<<<<< HEAD
     <div className="tableDefault">
+=======
+    <div>
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
       <div className="titleBtn">
         <div className="titlehm">
           <h4>InternShip Companies List</h4>
@@ -310,6 +455,7 @@ const InternshipCompanies = () => {
                 }}
                 pageSizeOptions={[5]}
                 sx={{
+<<<<<<< HEAD
                   maxWidth: '100%', // Set width to 80%
                   overflowX: 'auto', // Enable horizontal scrolling
                   '& .super-app-theme--header': {
@@ -321,6 +467,19 @@ const InternshipCompanies = () => {
                   },
                   '& .MuiDataGrid-colCell, .MuiDataGrid-cell': {
                     whiteSpace: 'nowrap', // Prevent wrapping of cell content
+=======
+                  maxWidth: "100%", // Set width to 80%
+                  overflowX: "auto", // Enable horizontal scrolling
+                  "& .super-app-theme--header": {
+                    color: "var(--heading-crsExp)",
+                    justifyContent: "center",
+                  },
+                  "& .MuiDataGrid-columnsContainer": {
+                    overflow: "visible", // Allow column headers to overflow for scrolling
+                  },
+                  "& .MuiDataGrid-colCell, .MuiDataGrid-cell": {
+                    whiteSpace: "nowrap", // Prevent wrapping of cell content
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
                   },
                 }}
               />
@@ -438,7 +597,14 @@ const InternshipCompanies = () => {
         </div>
       </div>
     </div>
+<<<<<<< HEAD
   )
 }
 
 export default InternshipCompanies
+=======
+  );
+};
+
+export default InternshipCompanies;
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98

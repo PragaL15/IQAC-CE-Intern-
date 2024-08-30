@@ -3,6 +3,7 @@
     width: 18.3vw;
     min-width: 150px;
     border: none;
+<<<<<<< HEAD
     border-radius: 5px;
     background-color: white;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
@@ -14,6 +15,15 @@
 .cardTit{
     font-family: 'Poppins', sans-serif;
     background-color: white;    
+=======
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+.cardAction{
+    background-color: var(--cardBackground);
+}
+.cardTit{
+    font-family: 'Poppins', sans-serif;
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     font-size: 15px;
     display: flex;
     white-space: nowrap; /* Prevent text from wrapping */

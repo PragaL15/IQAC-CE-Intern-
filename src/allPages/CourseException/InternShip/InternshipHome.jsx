@@ -11,7 +11,11 @@ const InternshipHome = () => {
   const [firstData,setFirstData] = useState(true)
 
   return (
+<<<<<<< HEAD
     <div className='tableDefault'>
+=======
+    <div>
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
         <div className='titleBtn' >
         <div className="titlehm">
             <h4>Internship Home</h4>

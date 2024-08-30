@@ -6,7 +6,10 @@ import { apiBaseUrl } from "../../../api/api";
 import { DataGrid } from '@mui/x-data-grid';
 import { Box } from '@mui/material';
 import Button from '@mui/material/Button';
+<<<<<<< HEAD
 import { useNavigate } from "react-router-dom";
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import Modal from "@mui/material/Modal";
 import  apiLoginHost  from "../../login/LoginApi"
@@ -50,7 +53,10 @@ const style1 = {
 
 
 const RejectedStudents = () => {
+<<<<<<< HEAD
   const navigate = useNavigate();
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
   const [selectedOption, setSelectedOption] = useState("1");
     const [data, setData] = useState([]);
     const [name,setName] = useState("")
@@ -86,6 +92,7 @@ const RejectedStudents = () => {
     setSelectedOption(option);
     fetchUserData(option);
   };
+<<<<<<< HEAD
 
   const handleLogout = async () => {
     try {
@@ -102,6 +109,8 @@ const RejectedStudents = () => {
     }
   };
 
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
   
   const fetchUserData = async (selectedOption) => {
     try {
@@ -143,7 +152,11 @@ const RejectedStudents = () => {
             return;
         }
         // Fetch faculty approvals
+<<<<<<< HEAD
         const approvalResponse = await axios.get(url, { withCredentials: true });
+=======
+        const approvalResponse = await axios.get(url);
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
         if (approvalResponse.status === 200) {
           const approvalData = approvalResponse.data;
           setData(approvalData)
@@ -155,6 +168,7 @@ const RejectedStudents = () => {
         console.error('Failed to fetch user data');
       }
     } catch (error) {
+<<<<<<< HEAD
       if (error.response && error.response.status === 401) {
         console.error("Unauthorized, logging out:", error);
         handleLogout(); // Call logout function
@@ -162,6 +176,9 @@ const RejectedStudents = () => {
       else { 
       console.error('Error fetching user data:', error);
       }
+=======
+      console.error('Error fetching user data:', error);
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     }
   };
       
@@ -172,7 +189,11 @@ const RejectedStudents = () => {
 
         const fetchApprovalMembers = async () => {
           try {
+<<<<<<< HEAD
             const response1 = await fetch(`${apiBaseUrl}/api/ce/in/InternApprovalMembers`, { withCredentials: true });
+=======
+            const response1 = await fetch(`${apiBaseUrl}/api/ce/in/InternApprovalMembers`);
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
             if(!response1.ok){
               throw new Error('Failed to fetch approval Members');
             }
@@ -181,6 +202,7 @@ const RejectedStudents = () => {
             members.push("Approved");
             setApprovalMembers(members)
           } catch (error) {
+<<<<<<< HEAD
             if (error.response && error.response.status === 401) {
               console.error("Unauthorized, logging out:", error);
               handleLogout(); // Call logout function
@@ -188,6 +210,9 @@ const RejectedStudents = () => {
             else { 
             setError(error.message);
             }
+=======
+            setError(error.message);
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
           }
         };
 
@@ -284,7 +309,11 @@ const RejectedStudents = () => {
         
   return (
     <>
+<<<<<<< HEAD
     <div className='tableDefault'>
+=======
+    <div>
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
       <div className="titFac">
         <div className="ti">
           <h4>Rejected Courses - Internship</h4>

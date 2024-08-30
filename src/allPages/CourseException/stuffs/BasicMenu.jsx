@@ -1,17 +1,25 @@
+<<<<<<< HEAD
 import React, { useEffect, useState } from 'react';
+=======
+import React, { useState } from 'react';
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
 import axios from 'axios';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import apiLoginHost from "../../login/LoginApi";
 import MenuItem from '@mui/material/MenuItem';
+<<<<<<< HEAD
 import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import { useNavigate } from 'react-router-dom'; // For redirecting after logout
 
 export default function BasicMenu() {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+<<<<<<< HEAD
   const navigate = useNavigate(); 
   const [studentName,setStudentName] = useState(null);
   useEffect(() => {
@@ -35,6 +43,9 @@ export default function BasicMenu() {
 
     fetchUserData();
   }, []);
+=======
+  const navigate = useNavigate(); // Use React Router's useNavigate for redirection
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -64,6 +75,7 @@ export default function BasicMenu() {
         onClick={handleClick}
         sx={{ minWidth: 'auto' }} // Ensure the button size is appropriate for the icon
       >
+<<<<<<< HEAD
         <Tooltip title={studentName}>
         {/* <AccountCircleRoundedIcon
           className="h-nav-icons"
@@ -71,6 +83,12 @@ export default function BasicMenu() {
         /> */}
         <Avatar sx={{margin:"5px",width:30,height:30,marginRight:"10px",backgroundColor:"var(--primaryBlue)",fontFamily:"sans-serif"}} alt={studentName} src="/static/images/avatar/1.jpg" />
         </Tooltip>
+=======
+        <AccountCircleRoundedIcon
+          className="h-nav-icons"
+          sx={{ fontSize: 32 }}
+        />
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
       </Button>
       <Menu
         id="basic-menu"

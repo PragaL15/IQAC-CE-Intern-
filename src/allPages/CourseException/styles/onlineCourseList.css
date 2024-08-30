@@ -5,6 +5,7 @@
     justify-content: center;
     margin: 30px;
 }
+<<<<<<< HEAD
 .ListMain{
     margin: 20px;
     background-color: var(--background);
@@ -12,6 +13,8 @@
     border-radius: 10px;
     box-shadow: 18px -128px 21px rgba(173, 145, 202, 0.01), 10px -12px 21.1px rgba(173, 145, 202, 0.05), 4px 12px 13px rgba(173, 145, 202, 0.09), 1px 3px 7px rgba(173, 145, 202, 0.1);    border-radius: 10px;
 }
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
 .editInpDiv{
     display: flex;
     flex-direction: row;
@@ -58,18 +61,27 @@
 .editTit{
     font-family: 'Poppins', sans-serif;
     margin-left: 15px;
+<<<<<<< HEAD
     margin-bottom: 10px;
     font-size: 19px;
     font-weight: bold;
     color: var(--secondaryBlue);
+=======
+    margin-bottom: 25px;
+    font-size: 19px;
+    font-weight: bold;
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
 }
 .DelTit{
     font-size: 16px;
     font-weight: bold;
     margin-bottom: 10px;
+<<<<<<< HEAD
     display: flex;
     gap: 10px;
     color: var(--secondaryBlue);
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
 }
 .edModal{
     font-family: 'Poppins', sans-serif;
@@ -88,6 +100,7 @@
     margin-right: 10px;
 }
 
+<<<<<<< HEAD
 .conformBtnDelete{
     font-family: 'Poppins', sans-serif;
     padding: 5px;
@@ -119,6 +132,8 @@
     color: white;
 }
 
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
 @media (max-width: 1040px) {
     .editInpDiv{
         display: flex;

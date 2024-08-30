@@ -4,7 +4,10 @@ import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
 import { DataGrid } from "@mui/x-data-grid";
 import { Box } from "@mui/material";
+<<<<<<< HEAD
 import { useNavigate } from "react-router-dom";
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
 import Modal from "@mui/material/Modal";
 import Badge from '@mui/material/Badge';
 import { apiBaseUrl } from "../../../api/api";
@@ -31,7 +34,10 @@ const style = {
 
 
 const OneCreditReportTable = () => {
+<<<<<<< HEAD
   const navigate = useNavigate();
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
   const [modalOpen, setModalOpen] = useState(false);
   const [data, setData] = useState([]);
   const [academicYearData, setAcademicYearData] = useState([]);
@@ -43,6 +49,7 @@ const OneCreditReportTable = () => {
   const [selectedElectives,setSelectedElectives] = useState([])
   const [filterApplied,setFilterApplied] = useState(false)
 
+<<<<<<< HEAD
   const handleLogout = async () => {
     try {
       await axios.post(`${apiBaseUrl}/logout`, { withCredentials: true });
@@ -58,18 +65,25 @@ const OneCreditReportTable = () => {
     }
   };
 
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
   const fetchAllDataOnline = async () => {
     try {
       const response = await axios.post(`${apiBaseUrl}/api/ce/FilterOneCreditReport`, {
         headers: {
           'Content-Type': 'application/json',
         },
+<<<<<<< HEAD
       }, { withCredentials: true });
+=======
+      });
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
   
       const data = response.data;
       console.log('All Data:', data);
       setData(data);
     } catch (error) {
+<<<<<<< HEAD
       if (error.response && error.response.status === 401) {
         console.error("Unauthorized, logging out:", error);
         handleLogout(); // Call logout function
@@ -77,23 +91,38 @@ const OneCreditReportTable = () => {
       else { 
       console.error('Error fetching all data:', error);
       }
+=======
+      console.error('Error fetching all data:', error);
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     }
   }
   
   const fetchAcademicYear = async () => {
     const yearPromise = await axios.get(
+<<<<<<< HEAD
       `${apiBaseUrl}/api/ce/AvailableAcademicYears`, { withCredentials: true }
+=======
+      `${apiBaseUrl}/api/ce/AvailableAcademicYears`
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     );
     setAcademicYearData(yearPromise.data);
   };
 
   const fetchBranches = async () => {
+<<<<<<< HEAD
     const branchs = await axios.get(`${apiBaseUrl}/api/ce/AvailableBranches`, { withCredentials: true })
+=======
+    const branchs = await axios.get(`${apiBaseUrl}/api/ce/AvailableBranches`)
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     setBranchData(branchs.data)
   }
 
   const fetchElectives = async () => {
+<<<<<<< HEAD
     const electives = await axios.get(`${apiBaseUrl}/api/ce/TotalElectives`, { withCredentials: true })
+=======
+    const electives = await axios.get(`${apiBaseUrl}/api/ce/TotalElectives`)
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     setElectiveData(electives.data)
   }
 
@@ -183,11 +212,16 @@ const OneCreditReportTable = () => {
       headers: {
         'Content-Type': 'application/json',
       },
+<<<<<<< HEAD
     }, { withCredentials: true });
+=======
+    });
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     const data = response.data;
     console.log('Filtered Data:', data);
     setData(data)
   } catch (error) {
+<<<<<<< HEAD
     if (error.response && error.response.status === 401) {
       console.error("Unauthorized, logging out:", error);
       handleLogout(); // Call logout function
@@ -195,6 +229,9 @@ const OneCreditReportTable = () => {
     else { 
     console.error('Error applying filters:', error);
     }
+=======
+    console.error('Error applying filters:', error);
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
   }
   if((selectedDepartments.length!=0 )||(selectedElectives.length!=0)||(selectedSemester!=0)||(selectedYears!=0)){
     setFilterApplied(true)

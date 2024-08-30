@@ -79,6 +79,7 @@ const FacultyModal = ({rowData, open, handleClose, fetchUserData}) => {
     const [mentorCode,setmentorCode] = useState("22IT137");
     const [selectedOption, setSelectedOption] = useState("");
 
+<<<<<<< HEAD
     const handleLogout = async () => {
       try {
         await axios.post(`${apiBaseUrl}/logout`, { withCredentials: true });
@@ -94,6 +95,8 @@ const FacultyModal = ({rowData, open, handleClose, fetchUserData}) => {
       }
     };
 
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     useEffect(() => {
       const fetchUserData = async () => {
         try {
@@ -116,7 +119,11 @@ const FacultyModal = ({rowData, open, handleClose, fetchUserData}) => {
     }, []);
 
     const handleApprove = () => {
+<<<<<<< HEAD
       axios.post(`${apiBaseUrl}/api/ce/oc/toApprove`, { id: rowData.id, student: rowData.register_number , user_id: userId }, { withCredentials: true })
+=======
+      axios.post(`${apiBaseUrl}/api/ce/oc/toApprove`, { id: rowData.id, student: rowData.register_number , user_id: userId })
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
         .then(response => {
           console.log('Student approved successfully');
           setResponseMessage('Student approved successfully');
@@ -124,16 +131,22 @@ const FacultyModal = ({rowData, open, handleClose, fetchUserData}) => {
           setResponseModalOpen(true);
         })
         .catch(error => {
+<<<<<<< HEAD
           if (error.response && error.response.status === 401) {
             console.error("Unauthorized, logging out:", error);
             handleLogout(); // Call logout function
           }
           else { 
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
           console.error('Error approving student:', error.message);
           setResponseMessage('Error approving student: ' + error.message);
           setIsSuccess(false);
           setResponseModalOpen(true);
+<<<<<<< HEAD
           }
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
         });
     };
 
@@ -168,7 +181,11 @@ const FacultyModal = ({rowData, open, handleClose, fetchUserData}) => {
       };
 
       const handleRemarkSubmit = () => {
+<<<<<<< HEAD
         axios.post(`${apiBaseUrl}/api/ce/oc/toReject`, {remark, id: rowData.id ,user_id: userId}, { withCredentials: true })
+=======
+        axios.post(`${apiBaseUrl}/api/ce/oc/toReject`, {remark, id: rowData.id ,user_id: userId})
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
           .then(response => {
             console.log('Remark submitted successfully');
             setRemarkResponseMsg("Remark Submitted SuccessFully")
@@ -176,16 +193,22 @@ const FacultyModal = ({rowData, open, handleClose, fetchUserData}) => {
             setRemarkResponse(true)
           })
           .catch(error => {
+<<<<<<< HEAD
             if (error.response && error.response.status === 401) {
               console.error("Unauthorized, logging out:", error);
               handleLogout(); // Call logout function
             }
             else { 
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
             console.error('Error submitting remark:', error.message);
             setRemarkResponseMsg("Failed to Update Remarks")
             setIsSuccess(false);
             setRemarkResponse(true)
+<<<<<<< HEAD
             }
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
           });
       };
 
@@ -205,7 +228,10 @@ const FacultyModal = ({rowData, open, handleClose, fetchUserData}) => {
           <div>
           <div className='modal' >
           <div className="CourseTit">Course Details</div>
+<<<<<<< HEAD
          
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
             <div className='field' >
                 <div className='fldClm' >Student</div>
                 <div className='fldData'>{rowData.student_name}</div>

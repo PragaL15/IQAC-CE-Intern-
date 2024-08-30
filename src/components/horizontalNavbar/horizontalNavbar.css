@@ -56,7 +56,10 @@
     display: none;
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
 @media (max-width: 1040px) {
     .menu-open-icon {
         display: block;

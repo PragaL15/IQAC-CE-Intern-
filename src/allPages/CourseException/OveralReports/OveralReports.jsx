@@ -6,14 +6,20 @@ import SearchIcon from "@mui/icons-material/Search";
 import { apiBaseUrl } from "../../../api/api";
 import OnlineReportTable from "./OnlineReportTable";
 import OneCreditReportTable from "./OneCreditReportTable";
+<<<<<<< HEAD
 import { useNavigate } from "react-router-dom";
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
 import InternshipReportTable from "./InternshipReportTable";
 import AddonReportTable from "./AddonReportTable";
 import HonorReportTable from "./HonorReportTable";
 import MinorReportTable from "./MinorReportTable";
 
 const OveralReports = () => {
+<<<<<<< HEAD
   const navigate = useNavigate();
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
   const [name, setName] = useState("");
   const [nptelSelect, setNptelSelect] = useState(true);
   const [oneCreditSelect, setOneCreditSelect] = useState(false);
@@ -22,6 +28,7 @@ const OveralReports = () => {
   const [honorSelect, setHonorSelect] = useState(false);
   const [minorSelect, setMinorSelect] = useState(false);
 
+<<<<<<< HEAD
   const handleLogout = async () => {
     try {
       await axios.post(`${apiBaseUrl}/logout`, { withCredentials: true });
@@ -41,6 +48,12 @@ const OveralReports = () => {
     try {
       const response = await fetch(
         `${apiBaseUrl}/api/ce/oc/SearchCourseList?name=${name}`, { withCredentials: true }
+=======
+  const fetchData = async (name) => {
+    try {
+      const response = await fetch(
+        `${apiBaseUrl}/api/ce/oc/SearchCourseList?name=${name}`
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
       );
       if (!response.ok) {
         throw new Error("Failed to fetch data");
@@ -48,6 +61,7 @@ const OveralReports = () => {
       const jsonData = await response.json();
       setData(jsonData);
     } catch (error) {
+<<<<<<< HEAD
       if (error.response && error.response.status === 401) {
         console.error("Unauthorized, logging out:", error);
         handleLogout(); // Call logout function
@@ -55,6 +69,9 @@ const OveralReports = () => {
       else { 
       console.error("Error fetching data:", error);
       }
+=======
+      console.error("Error fetching data:", error);
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     }
   };
 

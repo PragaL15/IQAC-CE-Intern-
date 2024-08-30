@@ -52,6 +52,7 @@ function HorizontalNavbar({ toggleVerticalNavbar }) {
               <CustomizedSwitches 
               />
             </li>
+<<<<<<< HEAD
             <li>
               <BasicMenu
                 className="h-nav-icons"
@@ -63,6 +64,20 @@ function HorizontalNavbar({ toggleVerticalNavbar }) {
             <Avatar sx={{margin:"5px",width:30,height:30,marginRight:"10px",backgroundColor:"var(--primaryBlue)",fontFamily:"sans-serif"}} alt={studentName} src="/static/images/avatar/1.jpg" />
             </Tooltip>
             </li> */}
+=======
+            {/* <li>
+              <BasicMenu
+                className="h-nav-icons"
+                sx={{ fontSize: 32 }}
+                
+              ></BasicMenu>
+            </li> */}
+            <li>
+            <Tooltip title={studentName}>
+            <Avatar sx={{margin:"5px",width:34,height:34,marginRight:"10px",backgroundColor:"var(--basicTextColor)"}} alt={studentName} src="/static/images/avatar/1.jpg" />
+            </Tooltip>
+            </li>
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
             {/* <li>
               <SettingsRoundedIcon
                 className="h-nav-icons"

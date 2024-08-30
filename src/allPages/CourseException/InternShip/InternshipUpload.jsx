@@ -3,7 +3,10 @@ import InputBox from "../../../components/InputBox/inputbox";
 import TextField from "@mui/material/TextField";
 import excel from "/excelsheetInternship/excelIntern.xlsx";
 import { apiBaseUrl } from "../../../api/api";
+<<<<<<< HEAD
 import { useNavigate } from "react-router-dom";
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
 import "../styles/onlineUpload.css";
 import { DatePicker } from "antd";
 import Select from "react-select";
@@ -30,7 +33,10 @@ const style1 = {
 };
 
 const InternshipUpload = () => {
+<<<<<<< HEAD
   const navigate = useNavigate();
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
   const [multipleOpen, setMultipleOpen] = useState(false);
   const [companyName, setCompanyName] = useState(null);
   const [companyAddress, setCompanyAddress] = useState(null);
@@ -57,6 +63,7 @@ const InternshipUpload = () => {
     setCompanyPhoneNumber(event.target.value);
   };
 
+<<<<<<< HEAD
   const handleLogout = async () => {
     try {
       await axios.post(`${apiBaseUrl}/logout`, { withCredentials: true });
@@ -72,6 +79,10 @@ const InternshipUpload = () => {
     }
   };
 
+=======
+
+   // Function to handle company upload form submission
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
   const handleUpload = async () => {
     if (!companyName || !companyAddress || !companyPhoneNumber) {
       alert("Fill Out All The Fields.");
@@ -89,7 +100,11 @@ const InternshipUpload = () => {
           companyName,
           companyAddress,
           companyPhoneNumber,
+<<<<<<< HEAD
         }, { withCredentials: true }
+=======
+        }
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
       );
       console.log("Response:", response.data);
       if (response.status === 200) {
@@ -102,11 +117,14 @@ const InternshipUpload = () => {
         setCompanyPhoneNumber(null);
       }
     } catch (error) {
+<<<<<<< HEAD
       if (error.response && error.response.status === 401) {
         console.error("Unauthorized, logging out:", error);
         handleLogout(); // Call logout function
       }
       else { 
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
       console.log("Error in Adding the Company ", error);
       const errorMsg = error.response
         ? error.response.data.msg
@@ -117,14 +135,25 @@ const InternshipUpload = () => {
       setCompanyName("");
       setCompanyAddress("");
       setCompanyPhoneNumber(null);
+<<<<<<< HEAD
       }
     }
   };
 
+=======
+    }
+  };
+
+  // Function to handle file selection for upload
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
   const handleSheetUpload = (event) => {
     setSelectedFile(event.target.files[0]);
   };
 
+<<<<<<< HEAD
+=======
+  // Function to handle file upload
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
   const uploadSheet = async () => {
     if (!selectedFile) {
       alert("Please select a file to upload");
@@ -145,7 +174,11 @@ const InternshipUpload = () => {
           headers: {
             "Content-Type": "multipart/form-data",
           },
+<<<<<<< HEAD
         }, { withCredentials: true }
+=======
+        }
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
       );
 
       setIsLoading(false);
@@ -164,6 +197,7 @@ const InternshipUpload = () => {
         setSelectedFile(null);
       }
     } catch (error) {
+<<<<<<< HEAD
       if (error.response && error.response.status === 401) {
         console.error("Unauthorized, logging out:", error);
         handleLogout(); // Call logout function
@@ -173,6 +207,11 @@ const InternshipUpload = () => {
       setResponseMessage("Error Uploading File");
       setIsSuccess(false);
       }
+=======
+      console.error("Error uploading file", error);
+      setResponseMessage("Error Uploading File");
+      setIsSuccess(false);
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     }
   };
 

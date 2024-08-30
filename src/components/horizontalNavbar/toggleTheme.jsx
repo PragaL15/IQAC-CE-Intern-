@@ -3,8 +3,11 @@ import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
+<<<<<<< HEAD
 import "./horizontalNavbar.css";
 
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
 
 // Define the theme
 const theme = createTheme({
@@ -45,7 +48,11 @@ const darkModeProperties = {
 };
 const lightModeProperties = {
     '--thumb-color': '#61398F',
+<<<<<<< HEAD
     '--background': '#FFFFFF',
+=======
+    '--background': '#F4F7FE',
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     '--hover': '#8B5FBF',
     '--button': '#FBFBFB',
     '--card': '#D6C6E1',
@@ -54,7 +61,11 @@ const lightModeProperties = {
     '--text-black': '#4A4A4A',
     '--text-grey': '#878787',
     '--background-1': '#ebf2fa',
+<<<<<<< HEAD
     '--background-2': '#F4F7FE',
+=======
+    '--background-2': '#FFFFFF',
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     '--text-box': '#FFFFFF',
     '--button-text-color': '#FFFFFF',
     '--menu-text-hover': '#61398F',
@@ -66,6 +77,7 @@ const lightModeProperties = {
     '--backgroundNavSide':'#FBFBFB',
     '--contentbackground':'#e6ffff',
 
+<<<<<<< HEAD
     '--basicTextColor':'black',
     '--cardBackground':'#FFFFFF',
     '--buttonText':'#',
@@ -76,6 +88,13 @@ const lightModeProperties = {
     '--navIconDefault':'#8A97AB',
     '--lightBlue':'#D7E8F8',
     '--ReportChoiceBtn':'#3362CC'
+=======
+    '--basicTextColor':'#2B3674',
+    '--cardBackground':'#FFFFFF',
+    '--buttonText':'#',
+    '--borderDataGrid':'#014f86',
+    '--formBackground':'#Ffffff'
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
 };
 // Set custom properties based on theme mode
 const setCustomProperties = (mode) => {
@@ -108,9 +127,15 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
         },
     },
     '& .MuiSwitch-thumb': {
+<<<<<<< HEAD
         backgroundColor: 'var(--primaryBlue)', // Use the custom property
         width: 29,
         height: 29,
+=======
+        backgroundColor: 'var(--basicTextColor)', // Use the custom property
+        width: 30,
+        height: 30,
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
         '&::before': {
             content: "''",
             position: 'absolute',
@@ -127,8 +152,12 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
     },
     '& .MuiSwitch-track': {
         opacity: 1,
+<<<<<<< HEAD
         height:15,
         backgroundColor: theme.palette.mode === 'dark' ? '#8796A5' : 'var(--navIconDefault)',
+=======
+        backgroundColor: theme.palette.mode === 'dark' ? '#8796A5' : '#aab4be',
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
         borderRadius: 20 / 2,
     },
 }));

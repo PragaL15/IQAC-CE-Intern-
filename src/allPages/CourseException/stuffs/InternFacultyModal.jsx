@@ -82,6 +82,7 @@ const InternFacultyModal = ({rowData, open, handleClose, fetchUserData}) => {
     const [mentorCode,setmentorCode] = useState("22IT137");
     const [selectedOption, setSelectedOption] = useState("");
 
+<<<<<<< HEAD
     const handleLogout = async () => {
       try {
         await axios.post(`${apiBaseUrl}/logout`, { withCredentials: true });
@@ -97,6 +98,8 @@ const InternFacultyModal = ({rowData, open, handleClose, fetchUserData}) => {
       }
     };
 
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     useEffect(() => {
       const fetchUserData = async () => {
         try {
@@ -120,7 +123,11 @@ const InternFacultyModal = ({rowData, open, handleClose, fetchUserData}) => {
     }, []);
 
       const handleApprove = () => {
+<<<<<<< HEAD
         axios.post(`${apiBaseUrl}/api/ce/in/ToApproveInternship`, { id: rowData.id, student: rowData.register_number , user_id: userId }, { withCredentials: true })
+=======
+        axios.post(`${apiBaseUrl}/api/ce/in/ToApproveInternship`, { id: rowData.id, student: rowData.register_number , user_id: userId })
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
           .then(response => {
             console.log('Student approved successfully');
             setResponseMessage('Student approved successfully');
@@ -128,16 +135,22 @@ const InternFacultyModal = ({rowData, open, handleClose, fetchUserData}) => {
             setResponseModalOpen(true);
           })
           .catch(error => {
+<<<<<<< HEAD
             if (error.response && error.response.status === 401) {
               console.error("Unauthorized, logging out:", error);
               handleLogout(); // Call logout function
             }
             else { 
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
             console.error('Error approving student:', error.message);
             setResponseMessage('Error approving student: ' + error.message);
             setIsSuccess(false);
             setResponseModalOpen(true);
+<<<<<<< HEAD
             }
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
           });
       };
 
@@ -172,7 +185,11 @@ const InternFacultyModal = ({rowData, open, handleClose, fetchUserData}) => {
       };
 
       const handleRemarkSubmit = () => {
+<<<<<<< HEAD
         axios.post(`${apiBaseUrl}/api/ce/in/ToRejectInternship`, {remark, id: rowData.id ,user_id:userId}, { withCredentials: true })
+=======
+        axios.post(`${apiBaseUrl}/api/ce/in/ToRejectInternship`, {remark, id: rowData.id ,user_id:userId})
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
           .then(response => {
             console.log('Remark submitted successfully');
             setRemarkResponseMsg("Remark Submitted SuccessFully")
@@ -180,16 +197,22 @@ const InternFacultyModal = ({rowData, open, handleClose, fetchUserData}) => {
             setRemarkResponse(true)
           })
           .catch(error => {
+<<<<<<< HEAD
             if (error.response && error.response.status === 401) {
               console.error("Unauthorized, logging out:", error);
               handleLogout(); // Call logout function
             }
             else { 
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
             console.error('Error submitting remark:', error.message);
             setRemarkResponseMsg("Failed to Update Remarks")
             setIsSuccess(false);
             setRemarkResponse(true)
+<<<<<<< HEAD
             }
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
           });
       };
 

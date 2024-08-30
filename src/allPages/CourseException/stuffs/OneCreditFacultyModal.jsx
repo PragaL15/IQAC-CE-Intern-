@@ -90,6 +90,7 @@ const OneCreditFacultyModal = ({
   const [selectedOption, setSelectedOption] = useState("");
   const [clearApplicationstate,setClearApplicationState] = useState(false);
 
+<<<<<<< HEAD
   const handleLogout = async () => {
     try {
       await axios.post(`${apiBaseUrl}/logout`, { withCredentials: true });
@@ -105,6 +106,8 @@ const OneCreditFacultyModal = ({
     }
   };
 
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -132,12 +135,21 @@ const OneCreditFacultyModal = ({
     };
     const fetchApprovalMembers = async () => {
       try {
+<<<<<<< HEAD
         const response = await axios.get(`${apiBaseUrl}/api/ce/oc/OneCreditApprovalMembers`, { withCredentials: true });
         const jsonData = response.data;
+=======
+        const response = await fetch(`${apiBaseUrl}/api/ce/oc/OneCreditApprovalMembers`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
+        const jsonData = await response.json();
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
         const members = jsonData.map(item => item.members);
         members.push("Approved");
         setApprovalMembers(members);
       } catch (error) {
+<<<<<<< HEAD
         if (error.response && error.response.status === 401) {
           console.error("Unauthorized, logging out:", error);
           handleLogout(); // Call logout function
@@ -145,6 +157,9 @@ const OneCreditFacultyModal = ({
         else { 
         console.log("Error while fetching data", error);
         }
+=======
+        console.log("Error while fetching data", error);
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
       }
     }
     fetchUserData();
@@ -158,7 +173,11 @@ const OneCreditFacultyModal = ({
         id: rowData.id,
         student: rowData.register_number,
         user_id: userId,
+<<<<<<< HEAD
       }, { withCredentials: true })
+=======
+      })
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
       .then((response) => {
         console.log("Student approved successfully");
         setResponseMessage("Student approved successfully");
@@ -166,16 +185,22 @@ const OneCreditFacultyModal = ({
         setResponseModalOpen(true);
       })
       .catch((error) => {
+<<<<<<< HEAD
         if (error.response && error.response.status === 401) {
           console.error("Unauthorized, logging out:", error);
           handleLogout(); // Call logout function
         }
         else { 
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
         console.error("Error approving student:", error.message);
         setResponseMessage("Error approving student: " + error.message);
         setIsSuccess(false);
         setResponseModalOpen(true);
+<<<<<<< HEAD
         }
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
       });
   };
 
@@ -215,7 +240,11 @@ const OneCreditFacultyModal = ({
         remark,
         id: rowData.id,
         user_id:userId
+<<<<<<< HEAD
       }, { withCredentials: true })
+=======
+      })
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
       .then((response) => {
         console.log("Remark submitted successfully");
         setRemarkResponseMsg("Remark Submitted SuccessFully");
@@ -223,16 +252,22 @@ const OneCreditFacultyModal = ({
         setRemarkResponse(true);
       })
       .catch((error) => {
+<<<<<<< HEAD
         if (error.response && error.response.status === 401) {
           console.error("Unauthorized, logging out:", error);
           handleLogout(); // Call logout function
         }
         else { 
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
         console.error("Error submitting remark:", error.message);
         setRemarkResponseMsg("Failed to Update Remarks");
         setIsSuccess(false);
         setRemarkResponse(true);
+<<<<<<< HEAD
         }
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
       });
   };
 

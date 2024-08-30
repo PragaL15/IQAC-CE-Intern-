@@ -412,7 +412,10 @@ import AddOnHonorMinor from "../../allPages/CourseException/Add-onHonorsMinors/A
 import AddOnUpload from "../../allPages/CourseException/Add-onHonorsMinors/AddOnUpload";
 import HonorMinorUpload from "../../allPages/CourseException/Add-onHonorsMinors/HonorMinorUpload";
 import ListOfStudentsMappings from "../../allPages/CourseException/Add-onHonorsMinors/ListOfStudentsMappings";
+<<<<<<< HEAD
 import CreateInternship from "../../allPages/CourseException/InternShip/CreateInternship";
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
 import InternshipUpload from "../../allPages/CourseException/InternShip/InternshipUpload";
 import InternshipCompanies from "../../allPages/CourseException/InternShip/InternshipCompanies";
 import PendingApproval from "../../allPages/CourseException/OneCredit/PendingApproval";
@@ -425,7 +428,10 @@ import PendingApprovalsAddon from "../../allPages/CourseException/Add-onHonorsMi
 import ApprovedStudentsAddon from "../../allPages/CourseException/Add-onHonorsMinors/ApprovedStudents";
 import RejectedStudentsAddon from "../../allPages/CourseException/Add-onHonorsMinors/RejectedStudents";
 import ProtectedRoute from "../RoutesValidation/ProtectedRoute";
+<<<<<<< HEAD
 import Error404 from "../../allPages/CourseException/Error404";
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
 
 function AppLayout() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -442,7 +448,11 @@ function AppLayout() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LoginWrapper />} />
+<<<<<<< HEAD
         <Route path="/404" element={<Error404/>} />
+=======
+        <Route path="/404" element={<div>404 Not Found</div>} />
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
         <Route path="/*" element={<MainLayout toggleVerticalNavbar={toggleVerticalNavbar} closeVerticalNavbar={closeVerticalNavbar} isMenuOpen={isMenuOpen} />} />
       </Routes>
     </BrowserRouter>
@@ -472,12 +482,17 @@ function MainLayout({ toggleVerticalNavbar, closeVerticalNavbar, isMenuOpen }) {
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/onlineCourseForm" element={<OnlineForm />} />
                 <Route path="/courseExcp" element={<Home />} />
+<<<<<<< HEAD
                 <Route path="/1" element={<OnlineHome />} />
+=======
+                <Route path="/OnlineCourse" element={<OnlineHome />} />
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
                 <Route path="/courseApproval" element={<CourseApproval />} />
                 <Route path="/OnlineReports" element={<OnlineReports />} />
                 <Route path="/OnlineRejected" element={<OnlineRejected />} />
                 <Route path="/OnlineUpload" element={<OnlineUpload />} />
                 <Route path="/OnlineCourseList" element={<ListOfCourses />} />
+<<<<<<< HEAD
                 <Route path="/2" element={<CreditHome />} />
                 <Route path="/OneCreditUpload" element={<OneCreditUpload />} />
                 <Route path="/OneCreditMappings" element={<OneCreditStudentMappings />} />
@@ -488,12 +503,27 @@ function MainLayout({ toggleVerticalNavbar, closeVerticalNavbar, isMenuOpen }) {
                 <Route path="/3" element={<InternshipHome />} />
                 <Route path="/InternshipForm" element={<InternshipForm />} />
                 <Route path="/CreateInternship" element={<CreateInternship />} />
+=======
+                <Route path="/One Credit" element={<CreditHome />} />
+                <Route path="/OneCreditUpload" element={<OneCreditUpload />} />
+                <Route path="/OneCreditMappings" element={<OneCreditStudentMappings />} />
+                <Route path="/OneCreditPending" element={<PendingApprovals />} />
+                <Route path="/OneCreditApproved" element={<ApprovedStudents />} />
+                <Route path="/OneCreditRejected" element={<RejectedStudents />} />
+                <Route path="/OveralReports" element={<OveralReports />} />
+                <Route path="/Internship" element={<InternshipHome />} />
+                <Route path="/InternshipForm" element={<InternshipForm />} />
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
                 <Route path="/InternUpload" element={<InternshipUpload />} />
                 <Route path="/InternCompanyList" element={<InternshipCompanies />} />
                 <Route path="/InternPending" element={<PendingApprovals />} />
                 <Route path="/InternApproved" element={<ApprovedStudent />} />
                 <Route path="/InternRejected" element={<RejectedStudent />} />
+<<<<<<< HEAD
                 <Route path="/4" element={<AddOnHonorMinor />} />
+=======
+                <Route path="/Add-On" element={<AddOnHonorMinor />} />
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
                 <Route path="/AddOnUpload" element={<AddOnUpload />} />
                 <Route path="/HonorMinorUpload" element={<HonorMinorUpload />} />
                 <Route path="/ListOfStudentsMappings" element={<ListOfStudentsMappings />} />

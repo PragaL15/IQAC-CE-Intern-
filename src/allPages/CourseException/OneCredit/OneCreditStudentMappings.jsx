@@ -3,7 +3,10 @@ import "../styles/onlineCourseList.css";
 import TextField from "@mui/material/TextField";
 import { DataGrid } from "@mui/x-data-grid";
 import { Box } from "@mui/material";
+<<<<<<< HEAD
 import { useNavigate } from "react-router-dom";
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
 import { apiBaseUrl } from "../../../api/api";
 import Modal from "@mui/material/Modal";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -73,7 +76,10 @@ const style2 = {
 };
 
 const OneCreditStudentMappings = () => {
+<<<<<<< HEAD
   const navigate = useNavigate();
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     const [selectedRow, setSelectedRow] = useState(null);
     const [data, setData] = useState([]);
     const [name, setName] = useState("");
@@ -88,6 +94,7 @@ const OneCreditStudentMappings = () => {
     const [issuccess, setIsSuccess] = useState(null);
     const [deletingRow, setDeletingRow] = useState(null);
 
+<<<<<<< HEAD
     const isLargeScreen = useMediaQuery('(min-width: 1600px)');
     const style = getResponsiveStyle(isLargeScreen);
 
@@ -105,11 +112,16 @@ const OneCreditStudentMappings = () => {
         console.error('Error during logout:', error);
       }
     };
+=======
+    const isLargeScreen = useMediaQuery('(min-width: 1500px)');
+    const style = getResponsiveStyle(isLargeScreen);
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
   
     useEffect(() => {
         const fetchPlatform = async () => {
           try {
             const type = await axios.get(
+<<<<<<< HEAD
               `${apiBaseUrl}/api/ce/availableRollNumbers`, { withCredentials: true }
             );
             setStudentData(type.data);
@@ -121,6 +133,13 @@ const OneCreditStudentMappings = () => {
             else { 
             console.error("Error fetching users:", error);
             }
+=======
+              `${apiBaseUrl}/api/ce/availableRollNumbers`
+            );
+            setStudentData(type.data);
+          } catch (error) {
+            console.error("Error fetching users:", error);
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
           }
         };
         fetchPlatform();
@@ -179,7 +198,11 @@ const OneCreditStudentMappings = () => {
             student,
             semester,
             selectedCourseId,
+<<<<<<< HEAD
           }, { withCredentials: true }
+=======
+          }
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
         );
         console.log("Response:", response.data);
         if (response.status === 200) {
@@ -191,24 +214,34 @@ const OneCreditStudentMappings = () => {
           setIsSuccess(true);
         }
       } catch (error) {
+<<<<<<< HEAD
         if (error.response && error.response.status === 401) {
           console.error("Unauthorized, logging out:", error);
           handleLogout(); // Call logout function
         }
         else { 
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
         console.log("Error in Updating the Course", error);
         setSelectedRow(false);
         fetchData(name);
         setResponseMessage("Error in Updating the Course");
         setResponseModalOpen(true);
         setIsSuccess(false);
+<<<<<<< HEAD
         }
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
       }
     };
   
     const handleDeleteSubmit = async () => {
       try{
+<<<<<<< HEAD
           const response = await axios.post(`${apiBaseUrl}/api/ce/oc/DeletingOnecreditCompletion`,{courseCode,student}, { withCredentials: true })
+=======
+          const response = await axios.post(`${apiBaseUrl}/api/ce/oc/DeletingOnecreditCompletion`,{courseCode,student})
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
           console.log("Response :",response.data);
           if(response.status===200){
               console.log("Course Deleted Successfully");
@@ -220,11 +253,14 @@ const OneCreditStudentMappings = () => {
           }
       }
       catch(error){
+<<<<<<< HEAD
         if (error.response && error.response.status === 401) {
           console.error("Unauthorized, logging out:", error);
           handleLogout(); // Call logout function
         }
         else { 
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
           console.log("Error in Adding the Course ", error);
           const errorMsg = error.response ? error.response.data.msg : "Error in Adding the Course";
           setResponseMessage(errorMsg);
@@ -232,12 +268,16 @@ const OneCreditStudentMappings = () => {
           fetchData(name);
           setResponseModalOpen(true);
           setIsSuccess(false);
+<<<<<<< HEAD
         }
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
       }
     }
   
     const fetchData = async (name) => {
       try {
+<<<<<<< HEAD
         const response = await axios.get(
           `${apiBaseUrl}/api/ce/oc/SearchingOneCreditCourse?name=${name}`, { withCredentials: true }
         );
@@ -251,6 +291,18 @@ const OneCreditStudentMappings = () => {
         else { 
         console.error("Error fetching data:", error);
         }
+=======
+        const response = await fetch(
+          `${apiBaseUrl}/api/ce/oc/SearchingOneCreditCourse?name=${name}`
+        );
+        if (!response.ok) {
+          throw new Error("Failed to fetch data");
+        }
+        const jsonData = await response.json();
+        setData(jsonData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
       }
     };
   
@@ -302,7 +354,11 @@ const OneCreditStudentMappings = () => {
         headerClassName: "super-app-theme--header",
         renderCell: (params) => (
           <Box
+<<<<<<< HEAD
           sx={{padding:"5px"}}
+=======
+          sx={{border:"1px solid",borderColor:"black",padding:"5px",borderRadius:"5px"}}
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
             style={{ cursor: "pointer", }}
             onClick={() => handleEdit(params.row)}
           >
@@ -331,7 +387,11 @@ const OneCreditStudentMappings = () => {
     };
   
     return (
+<<<<<<< HEAD
       <div className="tableDefault">
+=======
+      <div>
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
         <div className="titleBtn">
           <div className="titlehm">
             <h4>One Credit Student Completion</h4>

@@ -5,7 +5,10 @@ import { DatePicker } from "antd";
 import Select from "react-select";
 import { apiBaseUrl } from "../../../api/api";
 import apiLoginHost from "../../login/LoginApi";
+<<<<<<< HEAD
 import dayjs from "dayjs";
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
 import axios from "axios";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
@@ -46,7 +49,10 @@ const InternshipForm = () => {
   const [semester, setSemester] = useState("");
   const [degree, setDegree] = useState("");
   const [branch, setBranch] = useState("");
+<<<<<<< HEAD
   const [approvalStatus, setApprovalStatus] = useState(0);
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
   const [studentName, setStudentName] = useState("");
   const [registerNumber, setRegisterNumber] = useState("");
   const [department, setDepartment] = useState("");
@@ -60,7 +66,10 @@ const InternshipForm = () => {
   const [courseException, setCourseException] = useState("");
   const [certificateFile, setCertificateFile] = useState(null);
   const [reportFile, setReportFile] = useState(null);
+<<<<<<< HEAD
   const [AimFile, setAimFile] = useState(null);
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
   const [elective, setElective] = useState(null);
   const [elctiveData, setElectiveData] = useState([]);
   const [industryData, setindustryData] = useState([]);
@@ -79,11 +88,15 @@ const InternshipForm = () => {
   const [totalExemption, setTotalExemption] = useState(null);
 
   const [durationError, setDurationError] = useState("");
+<<<<<<< HEAD
   const [courseExceptionError, setCourseExceptionError] = useState("");
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
 
   const [studentData, setStudentData] = useState([]);
   const navigate = useNavigate();
 
+<<<<<<< HEAD
   const handleLogout = async () => {
     try {
       await axios.post(`${apiBaseUrl}/logout`, { withCredentials: true });
@@ -99,6 +112,9 @@ const InternshipForm = () => {
     }
   };
 
+=======
+  // useEffect to set initial student data
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
   useEffect(() => {
     const fetchedData = [
       {
@@ -118,28 +134,50 @@ const InternshipForm = () => {
     setYear(fetchedData[0].year);
     setDegree(fetchedData[0].degree);
     setBranch(fetchedData[0].branch);
+<<<<<<< HEAD
     const fetchAcademicYear = async () => {
       const yearPromise = await axios.get(
         `${apiBaseUrl}/api/ce/AvailableAcademicYears`,
         { withCredentials: true }
+=======
+
+    // Function to fetch academic years
+    const fetchAcademicYear = async () => {
+      const yearPromise = await axios.get(
+        `${apiBaseUrl}/api/ce/AvailableAcademicYears`
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
       );
       setAcademicYearData(yearPromise.data);
     };
 
+<<<<<<< HEAD
     const fetchAllActive = async () => {
       const Actives = await axios.get(
         `${apiBaseUrl}/api/ce/oc/AllActiveApplications?student=${student}`,
         { withCredentials: true }
+=======
+    // Function to fetch all active applications
+    const fetchAllActive = async () => {
+      const Actives = await axios.get(
+        `${apiBaseUrl}/api/ce/oc/AllActiveApplications?student=${student}`
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
       );
       const { internship, total } = Actives.data;
       setInternActive(internship);
       setTotalActive(total);
     };
 
+<<<<<<< HEAD
     const fetchApprovedCount = async () => {
       const approved = await axios.get(
         `${apiBaseUrl}/api/ce/oc/ApprovedStatusAll?student=${student}`,
         { withCredentials: true }
+=======
+    // Function to fetch approved applications count
+    const fetchApprovedCount = async () => {
+      const approved = await axios.get(
+        `${apiBaseUrl}/api/ce/oc/ApprovedStatusAll?student=${student}`
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
       );
       const { approved_internship, approved_total } = approved.data;
       setApprovedIntern(approved_internship);
@@ -153,6 +191,7 @@ const InternshipForm = () => {
     fetchCompanies();
   }, []);
 
+<<<<<<< HEAD
   const fetcElectives = async () => {
     try {
       const response = await axios.get(
@@ -187,6 +226,33 @@ const InternshipForm = () => {
     }
   };
 
+=======
+  // Function to fetch electives
+  const fetcElectives = async () => {
+    try {
+      const response = await axios.get(
+        `${apiBaseUrl}/api/ce/AvailableElectives`
+      );
+      setElectiveData(response.data);
+    } catch (error) {
+      console.log("error in fetching Elctives", error);
+    }
+  };
+
+  // Function to fetch companies
+  const fetchCompanies = async () => {
+    try {
+      const response1 = await axios.get(
+        `${apiBaseUrl}/api/ce/in/AllIndustries?student=${student}`
+      );
+      setindustryData(response1.data);
+    } catch (error) {
+      console.log("error in fetching Companies", error);
+    }
+  };
+
+  // useEffect to fetch user data
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -210,6 +276,10 @@ const InternshipForm = () => {
     fetchUserData();
   }, []);
 
+<<<<<<< HEAD
+=======
+  // useEffect to calculate duration based on StartDate and EndDate
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
   useEffect(() => {
     if (StartDate && EndDate) {
       const days = calculateDuration(StartDate, EndDate);
@@ -228,6 +298,10 @@ const InternshipForm = () => {
     label: year.academic_year,
   }));
 
+<<<<<<< HEAD
+=======
+  // Function to calculate duration between two dates
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
   const calculateDuration = (start, end) => {
     const oneDay = 24 * 60 * 60 * 1000;
     const firstDate = new Date(start);
@@ -251,11 +325,17 @@ const InternshipForm = () => {
       { value: stipend, name: "Stipend" },
       { value: certificateFile, name: "Certificate File" },
       { value: reportFile, name: "Report File" },
+<<<<<<< HEAD
       { value: AimFile, name: "Aim File" },
       { value: create_status, name: "create_status" },
     ];
 
     // Check if all mandatory fields are filled
+=======
+    ];
+
+    // Loop through mandatory fields to check for validation
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     for (const field of mandatoryFields) {
       if (!field.value) {
         alert(`Please fill the mandatory field: ${field.name}`);
@@ -274,19 +354,31 @@ const InternshipForm = () => {
       setAmount(0);
     }
 
+<<<<<<< HEAD
     const activeApplicationsResponse = await axios.get(
       `${apiBaseUrl}/api/ce/oc/AllActiveApplications?student=${student}`,
       { withCredentials: true }
+=======
+    // Check active applications
+    const activeApplicationsResponse = await axios.get(
+      `${apiBaseUrl}/api/ce/oc/AllActiveApplications?student=${student}`
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     );
 
     const { total, internship } = activeApplicationsResponse.data;
 
     // Check if total applications are less than 4
+<<<<<<< HEAD
     if (courseException === "1") {
       if (total >= 4 || internship === 1) {
         alert("You have reached the maximum number of applications allowed.");
         return;
       }
+=======
+    if (total >= 4 || internship === 1) {
+      alert("You have reached the maximum number of applications allowed.");
+      return;
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     }
 
     if (formValid) {
@@ -305,7 +397,10 @@ const InternshipForm = () => {
       formData.append("reportFile", reportFile);
       formData.append("certificateFile", certificateFile);
       formData.append("elective", elective);
+<<<<<<< HEAD
       formData.append("Aim", AimFile);
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
       try {
         const response = await axios.post(
           `${apiBaseUrl}/api/ce/in/InternApply/internshipApply`,
@@ -314,7 +409,10 @@ const InternshipForm = () => {
             headers: {
               "Content-Type": "multipart/form-data",
             },
+<<<<<<< HEAD
             withCredentials: true,
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
           }
         );
 
@@ -326,6 +424,7 @@ const InternshipForm = () => {
           setResponseMessage("Online Course Applied Successfully");
         }
       } catch (error) {
+<<<<<<< HEAD
         if (error.response && error.response.status === 401) {
           console.error("Unauthorized, logging out:", error);
           handleLogout(); // Call logout function
@@ -337,6 +436,12 @@ const InternshipForm = () => {
             "Error While Applying the online course..Retry it!"
           );
         }
+=======
+        console.error("Error sending data to the backend:", error);
+        setDataRespModal(true);
+        setIsSuccess(false);
+        setResponseMessage("Error While Applying the online course..Retry it!");
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
       }
 
       console.log("Form submitted:", {
@@ -354,7 +459,10 @@ const InternshipForm = () => {
         certificateFile,
         reportFile,
         elective,
+<<<<<<< HEAD
         create_status,
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
       });
     }
   };
@@ -433,8 +541,12 @@ const InternshipForm = () => {
     setSemesterOptions([]);
     try {
       const response = await axios.get(
+<<<<<<< HEAD
         `${apiBaseUrl}/api/ce/AvailableSemester?id=${selectedOption.value}`,
         { withCredentials: true }
+=======
+        `${apiBaseUrl}/api/ce/AvailableSemester?id=${selectedOption.value}`
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
       );
       const semesterData = response.data[0];
 
@@ -445,12 +557,16 @@ const InternshipForm = () => {
       ];
       setSemesterOptions(newSemesterOptions);
     } catch (error) {
+<<<<<<< HEAD
       if (error.response && error.response.status === 401) {
         console.error("Unauthorized, logging out:", error);
         handleLogout(); // Call logout function
       } else {
         console.error("Error fetching semester data:", error);
       }
+=======
+      console.error("Error fetching semester data:", error);
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     }
   };
 
@@ -573,6 +689,7 @@ const InternshipForm = () => {
                     menuPlacement="top"
                   />
                 </div>
+<<<<<<< HEAD
 
                 <div className="quesDoc">
                   <div>Aim and obj:</div>
@@ -627,6 +744,8 @@ const InternshipForm = () => {
                   </div>
                 )}
 
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
                 {mode === "Online" && (
                   <div>
                     <div className="quesField">
@@ -649,6 +768,7 @@ const InternshipForm = () => {
                       <label className="inp">Duration in Days</label>
                       <InputBox value={duration} disabled />
                     </div>
+<<<<<<< HEAD
 
                     <div className="quesDoc">
                   <div>Aim and obj:</div>
@@ -684,6 +804,8 @@ const InternshipForm = () => {
                 </div>
 
 
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
                   </div>
                 )}
                 {mode === "Offline" && (
@@ -708,6 +830,7 @@ const InternshipForm = () => {
                       <label className="inp">Duration in Days</label>
                       <InputBox value={duration} disabled={true} />
                     </div>
+<<<<<<< HEAD
 
 
                     <div className="quesDoc">
@@ -744,6 +867,8 @@ const InternshipForm = () => {
                 </div>
 
 
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
                   </div>
                 )}
                 {semester >= 3 && mode === "Offline" && handleValidation() && (
@@ -883,6 +1008,7 @@ const InternshipForm = () => {
                             </div>
                           </div>
                         </div>
+<<<<<<< HEAD
                         {approvalStatus === 0 && (
                           <div className="container">
                             <div className="row">
@@ -901,6 +1027,20 @@ const InternshipForm = () => {
                             </div>
                           </div>
                         )}
+=======
+                        <div className="container">
+                          <div className="row">
+                            <div className="RPsubmits">
+                              <button type="button" className="expCancelBtn">
+                                Cancel
+                              </button>
+                              <button type="submit" className="expCreateBtn">
+                                Create
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
                       </div>
                     </div>
                   </div>
@@ -1021,11 +1161,15 @@ const InternshipForm = () => {
                       <div className="container">
                         <div className="row">
                           <div className="RPsubmits">
+<<<<<<< HEAD
                             <button
                               type="button"
                               onClick={() => navigate("/3")}
                               className="expCancelBtn"
                             >
+=======
+                            <button type="button" className="expCancelBtn">
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
                               Cancel
                             </button>
                             <button type="submit" className="expCreateBtn">
@@ -1163,6 +1307,7 @@ const InternshipForm = () => {
                       <div className="container">
                         <div className="row">
                           <div className="RPsubmits">
+<<<<<<< HEAD
                             <button
                               type="button"
                               onClick={() => navigate("/1")}
@@ -1175,6 +1320,12 @@ const InternshipForm = () => {
                               className="expCreateBtn"
                               disabled={!createdStatus} // Disable the button if createdStatus is false
                             >
+=======
+                            <button type="button" className="expCancelBtn">
+                              Cancel
+                            </button>
+                            <button type="submit" className="expCreateBtn">
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
                               Create
                             </button>
                           </div>

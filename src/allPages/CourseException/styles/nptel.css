@@ -30,12 +30,21 @@
 }
 .titdefault{
     margin: 15px;
+<<<<<<< HEAD
     color: var(--primaryBlue);
+=======
+    color: var(--basicTextColor);
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
 }
 .Default{
     margin: 10px;
     border: 1px solid var(--formBackground);
+<<<<<<< HEAD
     box-shadow: 18px -128px 21px rgba(173, 145, 202, 0.01), 10px -12px 21.1px rgba(173, 145, 202, 0.05), 4px 12px 13px rgba(173, 145, 202, 0.09), 1px 3px 7px rgba(173, 145, 202, 0.1);    border-radius: 10px;
+=======
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 10px;
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     padding: 20px;
     width: 80%;
     background-color: var(--formBackground);
@@ -89,6 +98,7 @@
     font-weight: bold;
 }
 .pdf-upload-button{
+<<<<<<< HEAD
     padding: 5px 15px;
     font-size: 15px;
     border-radius: 5px;
@@ -102,6 +112,15 @@
     border: 1px solid var(--secondaryBlue);
     color: var(--secondaryBlue);
 }
+=======
+    background-color:  #2B3674;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 20px;
+}
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
 .EXPsubmits{
     display: flex;
     flex-direction: row-reverse;
@@ -113,6 +132,7 @@
     gap: 20px;
 }
 .expCancelBtn{
+<<<<<<< HEAD
     background-color: rgb(250, 41, 41);
     color: white;
     font-size: 15px;
@@ -131,10 +151,33 @@
     cursor: pointer;
     border: 1px solid var(--secondaryBlue);
     font-family: 'Poppins', sans-serif;
+=======
+    background-color:  #7484DD;
+    color: white;
+    font-size: 17px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #7484DD;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.expCreateBtn{
+    background-color:  #2B3674;
+    color: white;
+    font-size: 17px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 1px solid #2B3674;
+    font-family: 'Poppins', sans-serif;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
 }
 
 .ReasonBtn{
     padding: 2px;
+<<<<<<< HEAD
     background-color: rgb(236, 79, 79);
     color: white;
     border: none;
@@ -143,6 +186,13 @@
     font-family: 'Poppins', sans-serif;
     padding-left: 5px;
     padding-right: 5px;
+=======
+    border: none;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    padding-left: 3px;
+    padding-right: 3px;
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     border-radius: 3px;
 }
 .reasonModal{
@@ -212,8 +262,16 @@
     .Rp-btn-and-selected-file{
         display: flex;
         flex-direction: row;
+<<<<<<< HEAD
         gap: 40px;
     }   
+=======
+        gap: 50px;
+    }   
+    .selectedFileName{
+        font-size: 10px;
+    }
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     .expCreateBtn{
         font-size: small;
     }

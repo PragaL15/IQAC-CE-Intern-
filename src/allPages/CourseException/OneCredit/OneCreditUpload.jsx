@@ -5,7 +5,10 @@ import excel from "/excelSheetOneCredit/SampleFormatOneCredit.xlsx";
 import "../styles/onlineUpload.css";
 import { apiBaseUrl } from "../../../api/api";
 import { DatePicker } from "antd";
+<<<<<<< HEAD
 import { useNavigate } from "react-router-dom";
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
 import Select from "react-select";
 import axios from "axios";
 import { Box } from "@mui/material";
@@ -15,7 +18,10 @@ import AnnouncementIcon from "@mui/icons-material/Announcement";
 import DescriptionIcon from "@mui/icons-material/Description";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { InputNumber } from "primereact/inputnumber";
+<<<<<<< HEAD
 import DownloadIcon from '@mui/icons-material/Download';
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
 
 const style1 = {
   position: "absolute",
@@ -31,7 +37,10 @@ const style1 = {
 };
 
 const OneCreditUpload = () => {
+<<<<<<< HEAD
   const navigate = useNavigate();
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
   const [multipleOpen, setMultipleOpen] = useState(false);
   const [courseCode, setCourseCode] = useState(null);
   const [courseName, setCourseName] = useState(null);
@@ -47,6 +56,7 @@ const OneCreditUpload = () => {
   const [selectedAcademicYear, SetSelectedAcademicYear] = useState(null);
   const [semesterOptions, setSemesterOptions] = useState([]);
 
+<<<<<<< HEAD
   const handleLogout = async () => {
     try {
       await axios.post(`${apiBaseUrl}/logout`, { withCredentials: true });
@@ -75,11 +85,24 @@ const OneCreditUpload = () => {
         else { 
         console.error("Error fetching users:", error);
         }
+=======
+  useEffect(() => {
+    const fetchPlatform = async () => {
+      try {
+        const type = await axios.get(`${apiBaseUrl}/api/ce/availableRollNumbers`);
+        setRollNumberData(type.data);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
       }
     };
     const fetchAcademicYear = async () => {
       const yearPromise = await axios.get(
+<<<<<<< HEAD
         `${apiBaseUrl}/api/ce/AvailableAcademicYears`, { withCredentials: true }
+=======
+        `${apiBaseUrl}/api/ce/AvailableAcademicYears`
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
       );
       setAcademicYearData(yearPromise.data);
     };
@@ -130,7 +153,11 @@ const OneCreditUpload = () => {
             student,
             semester,
             selectedAcademicYear
+<<<<<<< HEAD
           }, { withCredentials: true }
+=======
+          }
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
         );
         console.log("Response:", response.data);
         if (response.status === 200) {
@@ -143,11 +170,14 @@ const OneCreditUpload = () => {
         }
       }
     } catch (error) {
+<<<<<<< HEAD
       if (error.response && error.response.status === 401) {
         console.error("Unauthorized, logging out:", error);
         handleLogout(); // Call logout function
       }
       else { 
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
       console.log("Error in Adding the Course ", error);
       const errorMsg = error.response
         ? error.response.data.msg
@@ -157,7 +187,10 @@ const OneCreditUpload = () => {
       setIsSuccess(false);
       setCourseCode("");
       setCourseName("");
+<<<<<<< HEAD
       }
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     }
   };
 
@@ -185,7 +218,11 @@ const OneCreditUpload = () => {
           headers: {
             "Content-Type": "multipart/form-data",
           },
+<<<<<<< HEAD
         }, { withCredentials: true }
+=======
+        }
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
       );
 
       setIsLoading(false);
@@ -204,6 +241,7 @@ const OneCreditUpload = () => {
         setSelectedFile(null);
       }
     } catch (error) {
+<<<<<<< HEAD
       if (error.response && error.response.status === 401) {
         console.error("Unauthorized, logging out:", error);
         handleLogout(); // Call logout function
@@ -213,6 +251,11 @@ const OneCreditUpload = () => {
       setResponseMessage("Error Uploading File");
       setIsSuccess(false);
       }
+=======
+      console.error("Error uploading file", error);
+      setResponseMessage("Error Uploading File");
+      setIsSuccess(false);
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     }
   };
 
@@ -221,7 +264,11 @@ const OneCreditUpload = () => {
     setSemester(null);
     setSemesterOptions([]);
     try {
+<<<<<<< HEAD
       const response = await axios.get(`${apiBaseUrl}/api/ce/AvailableSemester?id=${selectedOption.value}`, { withCredentials: true });
+=======
+      const response = await axios.get(`${apiBaseUrl}/api/ce/AvailableSemester?id=${selectedOption.value}`);
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
       const semesterData = response.data[0];
 
       const newSemesterOptions = [
@@ -231,6 +278,7 @@ const OneCreditUpload = () => {
       ];
       setSemesterOptions(newSemesterOptions)
     } catch (error) {
+<<<<<<< HEAD
       if (error.response && error.response.status === 401) {
         console.error("Unauthorized, logging out:", error);
         handleLogout(); // Call logout function
@@ -238,6 +286,9 @@ const OneCreditUpload = () => {
       else { 
       console.error("Error fetching semester data:", error);
       }
+=======
+      console.error("Error fetching semester data:", error);
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     }
   }
 
@@ -346,7 +397,11 @@ const OneCreditUpload = () => {
             <div className="updBtnMain">
               <div className="updBtn">
                 {!selectedFile && (
+<<<<<<< HEAD
                   <label htmlFor="excel-upload" className="single-upload-button">
+=======
+                  <label htmlFor="excel-upload" className="pdf-upload-button">
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
                     Choose File
                     <input
                       id="excel-upload"
@@ -379,9 +434,15 @@ const OneCreditUpload = () => {
               </div>
               <div className="btns">
                 <div>
+<<<<<<< HEAD
                   <a href={excel} download style={{textDecoration:"none"}}>
                     <button className="excel-upload-button">
                     <DownloadIcon/>Download Sample
+=======
+                  <a href={excel} download>
+                    <button className="excel-upload-button">
+                      Download Sample
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
                     </button>
                   </a>
                 </div>

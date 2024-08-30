@@ -21,6 +21,7 @@
     padding-left: 10px;
     box-shadow: rgba(63, 70, 147, 0.2) 0px 2px 8px 0px;
     padding-right: 10px;
+<<<<<<< HEAD
 }
 .textAddHmApply{
     width: 50vh;
@@ -35,4 +36,6 @@
     .textAddHmApply{
         width: 34vh;
     }
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
 }

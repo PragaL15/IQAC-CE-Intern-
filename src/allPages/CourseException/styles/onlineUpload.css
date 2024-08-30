@@ -27,7 +27,11 @@
 .multipleBtn{
     padding: 7px;
     border: none;
+<<<<<<< HEAD
     background-color:  var(--secondaryBlue);
+=======
+    background-color:  var(--heading-crsExp);
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     font-family: 'Poppins', sans-serif;
     color: white;
     border-radius: 5px;
@@ -36,6 +40,7 @@
     margin-right: 60px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
+<<<<<<< HEAD
 .single-upload-button{
     border: 1px solid var(--navIconDefault);
     padding: 10px 15px 10px 15px;
@@ -46,6 +51,8 @@
     border: 1px solid var(--secondaryBlue);
     color: var(--secondaryBlue);
 }
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
 .singleTit{
     font-size: 16px;
     padding-left: 30px;
@@ -67,10 +74,19 @@
   }
 
 .singleMain{
+<<<<<<< HEAD
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
+=======
+    height: 500px; 
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
 }
 .DefaultUpload{
     margin: 10px;
@@ -100,7 +116,12 @@
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     border-radius: 10px;
     padding: 20px;
+<<<<<<< HEAD
     padding-bottom: 30px;
+=======
+    height: 40vh;
+    width: 70vh;
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     background-color: white;
 }
 .updBtnMain{
@@ -124,15 +145,22 @@
     padding-left: 8px;
     padding-right: 8px;
     border: none;
+<<<<<<< HEAD
     background-color:  var(--secondaryBlue);
+=======
+    background-color:  var(--heading-crsExp);
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     font-family: 'Poppins', sans-serif;
     color: white;
     border-radius: 5px;
     font-size: 12px;
     cursor: pointer;
+<<<<<<< HEAD
     justify-content: center;
     display: flex;
     gap: 5px;
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     margin-top: 10px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
@@ -185,7 +213,11 @@
     }
 }
 
+<<<<<<< HEAD
 @media (min-width: 1600px){
+=======
+@media (min-width: 1500px){
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     .uploadDiv{
         height: 34vh;
     }

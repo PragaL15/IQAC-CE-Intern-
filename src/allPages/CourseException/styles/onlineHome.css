@@ -4,6 +4,7 @@
     display: flex;
     /* justify-content: center; */
 }
+<<<<<<< HEAD
 .onlinehome{
     margin: 20px;
     background-color: var(--background);
@@ -15,6 +16,12 @@
     margin: 30px;
     margin-bottom: 20px;
     color: var(--primaryBlue );
+=======
+.titlehm{
+    margin: 30px;
+    margin-bottom: 20px;
+    color: var(--basicTextColor );
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
 }
 .upldBTN{
     display: flex;
@@ -34,9 +41,17 @@
 .CreateBtn{
     padding: 5px;
     border: none;
+<<<<<<< HEAD
     background-color:  var(--secondaryBlue);
+=======
+    background-color:  var(--basicTextColor);
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     color: var(--cardBackground);
     border-radius: 5px;
     font-size: 15px;
     cursor: pointer;
+<<<<<<< HEAD
+=======
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
 }

@@ -3,6 +3,7 @@
     justify-content: space-between;
     margin-bottom: 0;
 }
+<<<<<<< HEAD
 .tableDefault{
     margin: 20px;
     background-color: var(--background);
@@ -12,6 +13,10 @@
 }
 .notify{
     color: var(--secondaryBlue);
+=======
+.notify{
+    color: rgb(112, 112, 211);
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     cursor: pointer;
 }
 .subtit{
@@ -23,7 +28,11 @@
     cursor: pointer;
 }
 .iconfilter{
+<<<<<<< HEAD
     background-color: var(--secondaryBlue);
+=======
+    background-color: rgb(112, 112, 211);
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     color: #ecf5fa;
     border-radius: 5px;
     padding: 2px;
@@ -44,7 +53,10 @@
     margin: 30px;
     margin-bottom: 0;
     display: flex;
+<<<<<<< HEAD
     color: var(--primaryBlue);
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
 }
 .op1{
     cursor: pointer;
@@ -78,6 +90,7 @@
     background-color: transparent;
     cursor: pointer;
 }
+<<<<<<< HEAD
 
 .NotifyModal{
     display: flex;
@@ -94,3 +107,5 @@
 .menuItem{
     font-family: cursive;
 }
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98

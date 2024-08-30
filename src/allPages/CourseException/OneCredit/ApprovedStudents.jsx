@@ -3,7 +3,10 @@ import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import FacultyModal from "../stuffs/FacultyModal";
 import "../styles/courseApproval.css";
 import { DataGrid } from "@mui/x-data-grid";
+<<<<<<< HEAD
 import { useNavigate } from "react-router-dom";
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
 import { Box } from "@mui/material";
 import { apiBaseUrl } from "../../../api/api";
 import Modal from "@mui/material/Modal";
@@ -49,7 +52,10 @@ const style1 = {
 };
 
 const ApprovedStudents = () => {
+<<<<<<< HEAD
   const navigate = useNavigate();
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
   const [data, setData] = useState([]);
   const [selectedRowData, setSelectedRowData] = useState(null);
   const [name, setName] = useState("");
@@ -62,6 +68,7 @@ const ApprovedStudents = () => {
   const [userId, setUserId] = useState(null);
   // const [mentorCode,setmentorCode] = useState("22IT137");
 
+<<<<<<< HEAD
   const handleLogout = async () => {
     try {
       await axios.post(`${apiBaseUrl}/logout`, { withCredentials: true });
@@ -78,6 +85,8 @@ const ApprovedStudents = () => {
   };
 
 
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
   const fetchUserData = async () => {
     try {
       const response = await axios.get(`${apiLoginHost}/api/user-data`, {
@@ -117,7 +126,11 @@ const ApprovedStudents = () => {
             return;
         }
         // Fetch faculty approvals
+<<<<<<< HEAD
         const approvalResponse = await axios.get(url, { withCredentials: true });
+=======
+        const approvalResponse = await axios.get(url);
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
         if (approvalResponse.status === 200) {
           const approvalData = approvalResponse.data;
           setData(approvalData);
@@ -129,6 +142,7 @@ const ApprovedStudents = () => {
         console.error("Failed to fetch user data");
       }
     } catch (error) {
+<<<<<<< HEAD
       if (error.response && error.response.status === 401) {
         console.error("Unauthorized, logging out:", error);
         handleLogout(); // Call logout function
@@ -136,6 +150,9 @@ const ApprovedStudents = () => {
       else { 
       console.error("Error fetching user data:", error);
       }
+=======
+      console.error("Error fetching user data:", error);
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     }
   };
 
@@ -324,7 +341,11 @@ const ApprovedStudents = () => {
     try {
       const response = await axios.post(
         `${apiBaseUrl}/api/ce/oneCredit/RevokingOneCredit`,
+<<<<<<< HEAD
         { userId, id, student }, { withCredentials: true }
+=======
+        { userId, id, student }
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
       );
       console.log("Response :", response.data);
       if (response.status === 200) {
@@ -334,11 +355,14 @@ const ApprovedStudents = () => {
         setIsSuccess(true);
       }
     } catch (error) {
+<<<<<<< HEAD
       if (error.response && error.response.status === 401) {
         console.error("Unauthorized, logging out:", error);
         handleLogout(); // Call logout function
       }
       else { 
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
       console.log("Error in Revoking the status ", error);
       const errorMsg = error.response && error.response.data.error
       ? error.response.data.error
@@ -346,7 +370,10 @@ const ApprovedStudents = () => {
       setResponseMessage(errorMsg);
       setResponseModalOpen(true);
       setIsSuccess(false);
+<<<<<<< HEAD
       }
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     }
   };
 
@@ -356,7 +383,11 @@ const ApprovedStudents = () => {
   };
 
   return (
+<<<<<<< HEAD
     <div className="tableDefault">
+=======
+    <div className="pendingTable">
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
       <div className="titFac">
         <div className="ti">
           <h4 style={{ marginRight: "5px" }}>One Credit</h4>{" "}

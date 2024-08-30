@@ -6,7 +6,10 @@ import { Box } from "@mui/material";
 import Modal from "@mui/material/Modal";
 import { apiBaseUrl } from "../../../api/api";
 import Slide from '@mui/material/Slide';
+<<<<<<< HEAD
 import { useNavigate } from "react-router-dom";
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
 import DeleteIcon from "@mui/icons-material/Delete";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import InputAdornment from '@mui/material/InputAdornment';
@@ -70,7 +73,10 @@ const style2 = {
 };
 
 const ListOfCourses = () => {
+<<<<<<< HEAD
   const navigate = useNavigate();
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
   const [selectedRow, setSelectedRow] = useState(null);
   const [data, setData] = useState([]);
   const [name, setName] = useState("");
@@ -90,6 +96,7 @@ const ListOfCourses = () => {
   const isLargeScreen = useMediaQuery('(min-width: 1600px)');
   const style = getResponsiveStyle(isLargeScreen);
 
+<<<<<<< HEAD
   const handleLogout = async () => {
     try {
       await axios.post(`${apiBaseUrl}/logout`, { withCredentials: true });
@@ -105,11 +112,14 @@ const ListOfCourses = () => {
     }
   };
 
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
 
   useEffect(() => {
     const fetchPlatform = async () => {
       try {
         const type = await axios.get(
+<<<<<<< HEAD
           `${apiBaseUrl}/api/ce/oc/platform`, { withCredentials: true }
         );
         setPlatformData(type.data);
@@ -121,6 +131,13 @@ const ListOfCourses = () => {
         else { 
         console.error("Error fetching users:", error);
         }
+=======
+          `${apiBaseUrl}/api/ce/oc/platform`
+        );
+        setPlatformData(type.data);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
       }
     };
     fetchPlatform();
@@ -193,7 +210,11 @@ const ListOfCourses = () => {
           courseCredits,
           courseExepmtion,
           selectedCourseId,
+<<<<<<< HEAD
         }, { withCredentials: true }
+=======
+        }
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
       );
       console.log("Response:", response.data);
       if (response.status === 200) {
@@ -205,24 +226,34 @@ const ListOfCourses = () => {
         setIsSuccess(true);
       }
     } catch (error) {
+<<<<<<< HEAD
       if (error.response && error.response.status === 401) {
         console.error("Unauthorized, logging out:", error);
         handleLogout(); // Call logout function
       }
       else { 
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
       console.log("Error in Updating the Course", error);
       setSelectedRow(false);
       fetchData(name);
       setResponseMessage("Error in Updating the Course");
       setResponseModalOpen(true);
       setIsSuccess(false);
+<<<<<<< HEAD
       }
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     }
   };
 
   const handleDeleteSubmit = async () => {
     try{
+<<<<<<< HEAD
         const response = await axios.post(`${apiBaseUrl}/api/ce/oc/DeleteCourseList`,{selectedCourseId}, { withCredentials: true })
+=======
+        const response = await axios.post(`${apiBaseUrl}/api/ce/oc/DeleteCourseList`,{selectedCourseId})
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
         console.log("Response :",response.data);
         if(response.status===200){
             console.log("Course Deleted Successfully");
@@ -234,11 +265,14 @@ const ListOfCourses = () => {
         }
     }
     catch(error){
+<<<<<<< HEAD
       if (error.response && error.response.status === 401) {
         console.error("Unauthorized, logging out:", error);
         handleLogout(); // Call logout function
       }
       else  {
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
         console.log("Error in Adding the Course ", error);
         const errorMsg = error.response ? error.response.data.msg : "Error in Adding the Course";
         setResponseMessage(errorMsg);
@@ -246,14 +280,21 @@ const ListOfCourses = () => {
         fetchData(name);
         setResponseModalOpen(true);
         setIsSuccess(false);
+<<<<<<< HEAD
       }
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     }
   }
 
   const fetchData = async (name) => {
     try {
       const response = await fetch(
+<<<<<<< HEAD
         `${apiBaseUrl}/api/ce/oc/SearchCourseList?name=${name}`, { withCredentials: true }
+=======
+        `${apiBaseUrl}/api/ce/oc/SearchCourseList?name=${name}`
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
       );
       if (!response.ok) {
         throw new Error("Failed to fetch data");
@@ -261,6 +302,7 @@ const ListOfCourses = () => {
       const jsonData = await response.json();
       setData(jsonData);
     } catch (error) {
+<<<<<<< HEAD
       if (error.response && error.response.status === 401) {
         console.error("Unauthorized, logging out:", error);
         handleLogout(); // Call logout function
@@ -268,6 +310,9 @@ const ListOfCourses = () => {
       else { 
       console.error("Error fetching data:", error);
       }
+=======
+      console.error("Error fetching data:", error);
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     }
   };
 

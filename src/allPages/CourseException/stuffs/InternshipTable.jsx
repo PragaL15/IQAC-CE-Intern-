@@ -2,7 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import axios from 'axios';
 import { Box } from '@mui/material';
+<<<<<<< HEAD
 import { useNavigate } from "react-router-dom";
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
 import '../styles/table.css';
 import { apiBaseUrl } from "../../../api/api";
 import InternBasicModal from './InternBasicModal';
@@ -11,13 +14,17 @@ import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 
 const InternshipTable = ({ setFirstData }) => {
   const [data, setData] = useState([]);
+<<<<<<< HEAD
   const navigate = useNavigate();
+=======
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [student,setStudent] = useState("7376222AD156")
   const [selectedRowData,setSelectedRowData] = useState(null)
   const [approvalMembers,setApprovalMembers] = useState([])
 
+<<<<<<< HEAD
   const handleLogout = async () => {
     try {
       await axios.post(`${apiBaseUrl}/logout`, { withCredentials: true });
@@ -38,6 +45,13 @@ const InternshipTable = ({ setFirstData }) => {
       try {
         const response = await axios.get(`${apiBaseUrl}/api/ce/in/Registered?student=${student}`, { withCredentials: true });
         const response1 = await axios.get(`${apiBaseUrl}/api/ce/in/InternApprovalMembers`, { withCredentials: true });
+=======
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`${apiBaseUrl}/api/ce/in/Registered?student=${student}`);
+        const response1 = await axios.get(`${apiBaseUrl}/api/ce/in/InternApprovalMembers`);
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
         const jsonData = response1.data;
         const members = jsonData.map(item => item.member);
         members.push("Approved");
@@ -46,6 +60,7 @@ const InternshipTable = ({ setFirstData }) => {
         setLoading(false);
         setFirstData(false)
       } catch (error) {
+<<<<<<< HEAD
         if (error.response && error.response.status === 401) {
           console.error("Unauthorized, logging out:", error);
           handleLogout(); // Call logout function
@@ -55,6 +70,11 @@ const InternshipTable = ({ setFirstData }) => {
         setError(error.message || 'Failed to fetch data');
         setLoading(false)
       }
+=======
+        console.error('Error fetching data:', error);
+        setError(error.message || 'Failed to fetch data');
+        setLoading(false);
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
       }
     };
 

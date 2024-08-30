@@ -96,12 +96,16 @@ const Home = () => {
       setApprovedMinor(jsonData.approved_minor);
       console.log(jsonData);
     } catch (error) {
+<<<<<<< HEAD
       if (error.response && error.response.status === 401) {
         console.error("Unauthorized, logging out:", error);
         handleLogout(); // Call logout function
       }else{
       console.log("Error while fetching approved Students", error);
       }
+=======
+      console.log("Error while fetching approved Students", error);
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
     }
   };
 
@@ -113,7 +117,11 @@ const Home = () => {
           {courseData.map((course) => (
             <div
               key={course.id}
+<<<<<<< HEAD
               onClick={() => navigate(`/${course.id}`)}
+=======
+              onClick={() => navigate(`/${course.name}`)}
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
               style={{ cursor: "pointer" }}
             >
               <HomeCard
@@ -144,8 +152,12 @@ const Home = () => {
                   //     fontFamily:"cursive"
                   //   },
                   //   [`& .${gaugeClasses.valueArc}`]: {
+<<<<<<< HEAD
                   //     fill: 'linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 0%, rgba(0,212,255,1) 100%)',
                   //     fill:'rgb(2,0,36)'
+=======
+                  //     fill: '#0077b6',
+>>>>>>> 5ed2607c6f21812df50b4b3c80fcfd453e631a98
                   //   },
                   //   [`& .${gaugeClasses.referenceArc}`]: {
                   //     fill: theme.palette.text.disabled,
